@@ -1,0 +1,67 @@
+<html>
+<body>
+<pre>
+<h1>礦ision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: μVision V5.14.0.0
+Copyright (C) 2015 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: zhao zhao, zhao, LIC=6XJRA-1BB98-67LRS-LKJ1A-8IHFJ-P656T
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Professional  Version: 5.14.0.0
+Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.05 update 1 (build 106)
+Assembler:       Armasm.exe V5.05 update 1 (build 106)
+Linker/Locator:  ArmLink.exe V5.05 update 1 (build 106)
+Library Manager: ArmAr.exe V5.05 update 1 (build 106)
+Hex Converter:   FromElf.exe V5.05 update 1 (build 106)
+CPU DLL:         SARMCM3.DLL V5.14.0.0
+Dialog DLL:      DCM.DLL V1.13.1.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V2.0.14.0_KEIL
+Dialog DLL:      TCM.DLL V1.14.4.0
+ 
+<h2>Project:</h2>
+E:\STM32f103RCT6程序练习总汇\FLASH模拟EEPROM\OLED\MDK-ARM\OLED.uvprojx
+Project File Date:  03/06/2018
+
+<h2>Output:</h2>
+Build target 'OLED'
+compiling stmflash.c...
+..\..\STMFLASH\stmflash.c(22): error:  #20: identifier "vuint16_t" is undefined
+        return *(vuint16_t*)faddr; 
+..\..\STMFLASH\stmflash.c(22): error:  #29: expected an expression
+        return *(vuint16_t*)faddr; 
+..\..\STMFLASH\stmflash.c(22): error:  #65: expected a ";"
+        return *(vuint16_t*)faddr; 
+..\..\STMFLASH\stmflash.c(34): warning:  #223-D: function "FLASH_ProgramHalfWord" declared implicitly
+                FLASH_ProgramHalfWord(WriteAddr,pBuffer[i]);
+..\..\STMFLASH\stmflash.c(56): warning:  #223-D: function "FLASH_Unlock" declared implicitly
+        FLASH_Unlock();                                         //解锁
+..\..\STMFLASH\stmflash.c(71): warning:  #223-D: function "FLASH_ErasePage" declared implicitly
+                        FLASH_ErasePage(secpos*STM_SECTOR_SIZE+STM32_FLASH_BASE);//擦除这个扇区
+..\..\STMFLASH\stmflash.c(90): warning:  #223-D: function "FLASH_Lock" declared implicitly
+        FLASH_Lock();//上锁
+..\..\STMFLASH\stmflash.c: 4 warnings, 3 errors
+"OLED\OLED.axf" - 3 Error(s), 4 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.4.2.0.pack
+                ARM::CMSIS:CORE:3.40.0
+                CMSIS (Cortex Microcontroller Software Interface Standard)
+   * Component: CORE Version: 3.40.0
+
+<h2>Collection of Component include folders:</h2>
+  E:\STM32f103RCT6程序练习总汇\FLASH模拟EEPROM\OLED\MDK-ARM\RTE
+  C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include
+  C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:3.40.0
+      Source file:   CMSIS\UserCodeTemplates\ARM\ITM_Retarget.c
+Target not created.
+</pre>
+</body>
+</html>
