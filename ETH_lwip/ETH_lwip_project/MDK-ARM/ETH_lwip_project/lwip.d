@@ -56,11 +56,6 @@ eth_lwip_project\lwip.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/prot/e
 eth_lwip_project\lwip.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/prot/etharp.h
 eth_lwip_project\lwip.o: ../Middlewares/Third_Party/LwIP/src/include/netif/ethernet.h
 eth_lwip_project\lwip.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/dhcp.h
-eth_lwip_project\lwip.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/udp.h
-eth_lwip_project\lwip.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/ip.h
-eth_lwip_project\lwip.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/ip6.h
-eth_lwip_project\lwip.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/prot/ip.h
-eth_lwip_project\lwip.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/prot/udp.h
 eth_lwip_project\lwip.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/timeouts.h
 eth_lwip_project\lwip.o: ../Inc/ethernetif.h
 eth_lwip_project\lwip.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/init.h

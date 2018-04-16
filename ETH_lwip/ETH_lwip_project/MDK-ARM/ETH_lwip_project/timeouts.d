@@ -64,8 +64,6 @@ eth_lwip_project\timeouts.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/et
 eth_lwip_project\timeouts.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/prot/ethernet.h
 eth_lwip_project\timeouts.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/prot/etharp.h
 eth_lwip_project\timeouts.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/dhcp.h
-eth_lwip_project\timeouts.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/udp.h
-eth_lwip_project\timeouts.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/prot/udp.h
 eth_lwip_project\timeouts.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/autoip.h
 eth_lwip_project\timeouts.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/igmp.h
 eth_lwip_project\timeouts.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/dns.h

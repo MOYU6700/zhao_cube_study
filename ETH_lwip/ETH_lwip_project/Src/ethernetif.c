@@ -123,19 +123,19 @@ void HAL_ETH_MspInit(ETH_HandleTypeDef* ethHandle)
     PC1     ------> ETH_MDC
     PA1     ------> ETH_REF_CLK
     PA2     ------> ETH_MDIO
-    PA7     ------> ETH_CRS_DV
-    PC4     ------> ETH_RXD0
-    PC5     ------> ETH_RXD1
     PB11     ------> ETH_TX_EN
     PB12     ------> ETH_TXD0
-    PB13     ------> ETH_TXD1 
+    PB13     ------> ETH_TXD1
+    PD8     ------> ETH_CRS_DV
+    PD9     ------> ETH_RXD0
+    PD10     ------> ETH_RXD1 
     */
     GPIO_InitStruct.Pin = GPIO_PIN_1;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
     HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-    GPIO_InitStruct.Pin = GPIO_PIN_1|GPIO_PIN_7;
+    GPIO_InitStruct.Pin = GPIO_PIN_1;
     GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
@@ -145,15 +145,17 @@ void HAL_ETH_MspInit(ETH_HandleTypeDef* ethHandle)
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-    GPIO_InitStruct.Pin = GPIO_PIN_4|GPIO_PIN_5;
-    GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-
     GPIO_InitStruct.Pin = GPIO_PIN_11|GPIO_PIN_12|GPIO_PIN_13;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+    GPIO_InitStruct.Pin = GPIO_PIN_8|GPIO_PIN_9|GPIO_PIN_10;
+    GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+
+    __HAL_AFIO_REMAP_ETH_ENABLE();
 
     /* Peripheral interrupt init */
     HAL_NVIC_SetPriority(ETH_IRQn, 0, 0);
@@ -178,18 +180,20 @@ void HAL_ETH_MspDeInit(ETH_HandleTypeDef* ethHandle)
     PC1     ------> ETH_MDC
     PA1     ------> ETH_REF_CLK
     PA2     ------> ETH_MDIO
-    PA7     ------> ETH_CRS_DV
-    PC4     ------> ETH_RXD0
-    PC5     ------> ETH_RXD1
     PB11     ------> ETH_TX_EN
     PB12     ------> ETH_TXD0
-    PB13     ------> ETH_TXD1 
+    PB13     ------> ETH_TXD1
+    PD8     ------> ETH_CRS_DV
+    PD9     ------> ETH_RXD0
+    PD10     ------> ETH_RXD1 
     */
-    HAL_GPIO_DeInit(GPIOC, GPIO_PIN_1|GPIO_PIN_4|GPIO_PIN_5);
+    HAL_GPIO_DeInit(GPIOC, GPIO_PIN_1);
 
-    HAL_GPIO_DeInit(GPIOA, GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_7);
+    HAL_GPIO_DeInit(GPIOA, GPIO_PIN_1|GPIO_PIN_2);
 
     HAL_GPIO_DeInit(GPIOB, GPIO_PIN_11|GPIO_PIN_12|GPIO_PIN_13);
+
+    HAL_GPIO_DeInit(GPIOD, GPIO_PIN_8|GPIO_PIN_9|GPIO_PIN_10);
 
     /* Peripheral interrupt Deinit*/
     HAL_NVIC_DisableIRQ(ETH_IRQn);

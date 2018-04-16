@@ -54,11 +54,6 @@ eth_lwip_project\etharp.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/prot
 eth_lwip_project\etharp.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/prot/etharp.h
 eth_lwip_project\etharp.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/snmp.h
 eth_lwip_project\etharp.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/dhcp.h
-eth_lwip_project\etharp.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/udp.h
-eth_lwip_project\etharp.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/ip.h
-eth_lwip_project\etharp.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/ip6.h
-eth_lwip_project\etharp.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/prot/ip.h
-eth_lwip_project\etharp.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/prot/udp.h
 eth_lwip_project\etharp.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/autoip.h
 eth_lwip_project\etharp.o: ../Middlewares/Third_Party/LwIP/src/include/netif/ethernet.h
 eth_lwip_project\etharp.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h

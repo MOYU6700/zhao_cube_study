@@ -1,0 +1,66 @@
+3V-14V输入      2V-15V 输出   电平转化 4路
+http://www.deyisupport.com/question_answer/analog/data_converters/f/58/t/88506.aspx
+
+
+
+至于光耦的问题，应该不会影响速度的，毕竟还是有一些例如6N137这样的高速光耦。不过我现在也不怎么用光耦了，主要是太占PCB面积。如果你也有PCB面积的考虑，可以用ADI的ADM2483，所谓的“磁隔离”技术，实现了RS485收发以及信号隔离的集成，就是成本高了点，呵呵。
+
+https://wenku.baidu.com/view/e66c3bb59b89680202d82542.html
+EBU/LTC时间码格式网站
+
+https://max.book118.com/html/2014/1016/9885318.shtm
+关于气阀的论文网址
+
+http://www.openedv.com/posts/list/42807.htm
+W5500硬件TCP/IP解码芯片，简单操作网口
+
+http://www.stmcu.org/module/forum/thread-609819-2-1.html
+STM32 CUBE LWIP  配置
+
+http://blog.csdn.net/u010312937/article/details/53363831
+PID控制方式详细讲解
+
+http://blog.csdn.net/tianxuechao/article/details/51436000
+网口PCB布线
+
+http://blog.csdn.net/bonson2004/article/details/68942442
+CAN口 的使用方法心得
+
+http://blog.csdn.net/huan447882949/article/details/73478228
+CAN2的使用方法
+
+你买的资料:PID资料:链接:http://pan.baidu.com/s/1boXyOm7     密码: mohy
+送2个自己实测过源代码给您希望能喜欢 
+资料1、链接: http://pan.baidu.com/s/1qYGMZFm 密码: yf3h
+资料2、倒力摆程序:链接：http://pan.baidu.com/s/1hs1NQZE 密码：y6zg
+
+STM32F107VCT6开发板资料  百度网盘下载地址链接： http://pan.baidu.com/s/1kVztYnl  密码：82am 
+
+https://wenku.baidu.com/view/335346e8d4bbfd0a79563c1ec5da50e2524dd190.html
+CAN总线系列讲座第十讲——如何监测CAN网络节点的工作状态
+
+http://bbs.elecfans.com/jishu_571723_1_1.html
+[资料] 新手必看--单片机裸奔程序的框架！
+
+https://wenku.baidu.com/view/8fccd86cad02de80d4d840c7.html
+几种运算放大器(比较器)及经典电路的简单分析
+
+RS-485网络中，当所有的收发器都工作在接收模式时，总线处于空闲状态。此时总线上的差分电压VA-VB=0，接收器输出处于未定义状态，从而导致UART接收错误信息。除此之外，总线的断路、短路故障，都会造成UART上接收到错误信息。为了避免出现以上错误，在总线上放置上、下拉电阻。图6为总线偏置电路。电阻R1、R2的选择可根据下列计算方法得出，R1=R2=R，RT=120Ω（由于总线上终端和起始端各有1个120Ω终端电阻，所以RT0取值60Ω），VA-VB=Vcc*RT/（2R+RT0），应满足VA-VB>200mV，低压传输时，取Vcc=3.3V，那么R=465Ω。
+
+
+https://www.2cto.com/kf/201612/579706.html
+1. 简单的前后台顺序执行程序，这类写法是大多数人使用的方法，不需用思考程序的具体架构，直接通过执行顺序编写应用程序即可。
+2. 时间片轮询法，此方法是介于顺序执行与操作系统之间的一种方法。
+3. 操作系统，此法应该是应用程序编写的最高境界
+
+https://blog.csdn.net/xukao5671927/article/details/53306137
+ 如何使用STM32CubeMX配置ETH（RMII）
+
+https://www.cnblogs.com/wangguoning/p/6902455.html
+网络协议层的详细讲解
+
+http://www.cnblogs.com/vamei/p/6753531.html
+你好，这里是Vamei，一名编程爱好者。我在博客里写了Python/Linux/网络协议/算法/Java/数据科学
+
+http://blog.chinaunix.net/uid-26611973-id-3181142.html
+LWIP UDP 协议分析
