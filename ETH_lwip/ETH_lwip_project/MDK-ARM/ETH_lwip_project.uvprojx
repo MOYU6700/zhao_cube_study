@@ -365,7 +365,7 @@
               <MiscControls>--C99</MiscControls>
               <Define>USE_HAL_DRIVER,STM32F107xC</Define>
               <Undefine></Undefine>
-              <IncludePath>../Inc;   ../Middlewares/Third_Party/LwIP/src/include;   ../Middlewares/Third_Party/LwIP/system;   ../Drivers/STM32F1xx_HAL_Driver/Inc;   ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy;   ../Middlewares/Third_Party/LwIP/src/include/netif/ppp;   ../Drivers/CMSIS/Device/ST/STM32F1xx/Include;   ../Middlewares/Third_Party/LwIP/src/include/lwip;   ../Middlewares/Third_Party/LwIP/src/include/lwip/apps;   ../Middlewares/Third_Party/LwIP/src/include/lwip/priv;   ../Middlewares/Third_Party/LwIP/src/include/lwip/prot;   ../Middlewares/Third_Party/LwIP/src/include/netif;   ../Middlewares/Third_Party/LwIP/src/include/posix;   ../Middlewares/Third_Party/LwIP/src/include/posix/sys;   ../Middlewares/Third_Party/LwIP/system/arch;   ../Drivers/CMSIS/Include;   ..\user_flie</IncludePath>
+              <IncludePath>../Inc;    ../Middlewares/Third_Party/LwIP/src/include;    ../Middlewares/Third_Party/LwIP/system;    ../Drivers/STM32F1xx_HAL_Driver/Inc;    ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy;    ../Middlewares/Third_Party/LwIP/src/include/netif/ppp;    ../Drivers/CMSIS/Device/ST/STM32F1xx/Include;    ../Middlewares/Third_Party/LwIP/src/include/lwip;    ../Middlewares/Third_Party/LwIP/src/include/lwip/apps;    ../Middlewares/Third_Party/LwIP/src/include/lwip/priv;    ../Middlewares/Third_Party/LwIP/src/include/lwip/prot;    ../Middlewares/Third_Party/LwIP/src/include/netif;    ../Middlewares/Third_Party/LwIP/src/include/posix;    ../Middlewares/Third_Party/LwIP/src/include/posix/sys;    ../Middlewares/Third_Party/LwIP/system/arch;    ../Drivers/CMSIS/Include;    ..\user_flie</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -507,9 +507,19 @@
               <FilePath>../Src/stm32f1xx_it.c</FilePath>
             </File>
             <File>
+              <FileName>app_ethernet.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\user_flie\app_ethernet.c</FilePath>
+            </File>
+            <File>
               <FileName>udp_echoserver.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\user_flie\udp_echoserver.c</FilePath>
+            </File>
+            <File>
+              <FileName>user_io.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\user_flie\user_io.c</FilePath>
             </File>
           </Files>
         </Group>

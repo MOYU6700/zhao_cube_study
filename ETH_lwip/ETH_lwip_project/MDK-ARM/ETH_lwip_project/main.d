@@ -59,3 +59,4 @@ eth_lwip_project\main.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/dhcp.h
 eth_lwip_project\main.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/timeouts.h
 eth_lwip_project\main.o: ../Inc/ethernetif.h
 eth_lwip_project\main.o: ..\user_flie\udp_echoserver.h
+eth_lwip_project\main.o: ..\user_flie\app_ethernet.h
