@@ -55,6 +55,7 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
+//定义端口号//
 #define UDP_SERVER_PORT    7   /* define the UDP local connection port */
 #define UDP_CLIENT_PORT    7   /* define the UDP remote connection port */
 
@@ -63,6 +64,7 @@
 
 extern struct netif gnetif;; 
 /* Private function prototypes -----------------------------------------------*/
+//声明接收数据回调函数，在初始化函数中指定
 void udp_echoserver_receive_callback(void *arg, struct udp_pcb *upcb, struct pbuf *p, const ip_addr_t *addr, u16_t port);
 
 /* Private functions ---------------------------------------------------------*/
@@ -72,24 +74,25 @@ void udp_echoserver_receive_callback(void *arg, struct udp_pcb *upcb, struct pbu
   * @param  None
   * @retval None
   */
+//UDP服务器端初始化函数
 void udp_echoserver_init(void)
 {
    struct udp_pcb *upcb;
    err_t err;
    
    /* Create a new UDP control block  */
-   upcb = udp_new();
+   upcb = udp_new();  //创建一个新的UDP控制块
    
    if (upcb)
    {
      /* Bind the upcb to the UDP_PORT port */
      /* Using IP_ADDR_ANY allow the upcb to be used by any local interface */
-      err = udp_bind(upcb, IP_ADDR_ANY, UDP_SERVER_PORT);
+      err = udp_bind(upcb, IP_ADDR_ANY, UDP_SERVER_PORT);  //绑定本地IP地址及端口
       
       if(err == ERR_OK)
       {
         /* Set a receive callback for the upcb */
-        udp_recv(upcb, udp_echoserver_receive_callback, NULL);
+        udp_recv(upcb, udp_echoserver_receive_callback, NULL);  //注册接收数据回调函数
       }
    }
 }
@@ -103,6 +106,7 @@ void udp_echoserver_init(void)
   * @param port the remote port from which the packet was received
   * @retval None
   */
+//服务器端接收数据回调函数
 void udp_echoserver_receive_callback(void *arg, struct udp_pcb *upcb, struct pbuf *p, const ip_addr_t *addr, u16_t port)
 {
 
@@ -110,7 +114,7 @@ void udp_echoserver_receive_callback(void *arg, struct udp_pcb *upcb, struct pbu
   udp_connect(upcb, addr, UDP_CLIENT_PORT);
     
   /* Tell the client that we have accepted it */
-  udp_send(upcb, p);
+  udp_send(upcb, p);   //回显数据
 
   /* free the UDP connection, so we can accept new clients */
   udp_disconnect(upcb);
@@ -119,5 +123,7 @@ void udp_echoserver_receive_callback(void *arg, struct udp_pcb *upcb, struct pbu
   pbuf_free(p);
    
 }
+
+
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
