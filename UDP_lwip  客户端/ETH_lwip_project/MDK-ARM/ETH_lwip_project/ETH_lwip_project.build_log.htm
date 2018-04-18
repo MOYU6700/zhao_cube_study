@@ -1,0 +1,641 @@
+<html>
+<body>
+<pre>
+<h1>礦ision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: μVision V5.14.0.0
+Copyright (C) 2015 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: SHUQEE8006 SHUQEE8006, SHUQEE8006, LIC=BL263-ABBBB-349ST-R93YL-QB6KZ-QSEWQ
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Professional  Version: 5.14.0.0
+Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.05 update 1 (build 106)
+Assembler:       Armasm.exe V5.05 update 1 (build 106)
+Linker/Locator:  ArmLink.exe V5.05 update 1 (build 106)
+Library Manager: ArmAr.exe V5.05 update 1 (build 106)
+Hex Converter:   FromElf.exe V5.05 update 1 (build 106)
+CPU DLL:         SARMCM3.DLL V5.14.0.0
+Dialog DLL:      DCM.DLL V1.13.1.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V2.0.14.0_KEIL
+Dialog DLL:      TCM.DLL V1.14.4.0
+ 
+<h2>Project:</h2>
+C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\UDP_lwip  客户端\ETH_lwip_project\MDK-ARM\ETH_lwip_project.uvprojx
+Project File Date:  04/18/2018
+
+<h2>Output:</h2>
+Build target 'ETH_lwip_project'
+compiling lwip.c...
+compiling main.c...
+compiling ethernetif.c...
+../Src/ethernetif.c(518): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(NETIF_DEBUG, ("ethernetif_input: IP input error\n"));
+../Src/ethernetif.c: 0 warnings, 1 error
+compiling app_ethernet.c...
+compiling udp_echoclient.c...
+compiling ip4_frag.c...
+../Middlewares/Third_Party/LwIP/src/core/ipv4/ip4_frag.c(134): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(IP_REASS_DEBUG, ("ip_reass_tmr: timer dec %"U16_F"\n",(u16_t)r->timer));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/ip4_frag.c(140): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(IP_REASS_DEBUG, ("ip_reass_tmr: timer timed out\n"));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/ip4_frag.c(292): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(IP_REASS_DEBUG,("Failed to alloc reassdata struct\n"));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/ip4_frag.c(498): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(IP_REASS_DEBUG,("ip4_reass: IP options currently not supported!\n"));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/ip4_frag.c(515): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(IP_REASS_DEBUG,("ip4_reass: Overflow condition: pbufct=%d, clen=%d, MAX=%d\n",
+../Middlewares/Third_Party/LwIP/src/core/ipv4/ip4_frag.c(531): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(IP_REASS_DEBUG, ("ip4_reass: matching previous fragment ID=%"X16_F"\n",
+../Middlewares/Third_Party/LwIP/src/core/ipv4/ip4_frag.c(566): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(IP_REASS_DEBUG,
+../Middlewares/Third_Party/LwIP/src/core/ipv4/ip4_frag.c(629): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(IP_REASS_DEBUG,("ip_reass_pbufcount: %d out\n", ip_reass_pbufcount));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/ip4_frag.c(633): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(IP_REASS_DEBUG,("ip4_reass: nullreturn\n"));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/ip4_frag.c: 0 warnings, 9 errors
+compiling init.c...
+compiling netif.c...
+../Middlewares/Third_Party/LwIP/src/core/netif.c(326): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(NETIF_DEBUG, ("netif: added interface %c%c IP",
+../Middlewares/Third_Party/LwIP/src/core/netif.c(329): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(NETIF_DEBUG, (" addr "));
+../Middlewares/Third_Party/LwIP/src/core/netif.c(330): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    ip4_addr_debug_print(NETIF_DEBUG, ipaddr);
+../Middlewares/Third_Party/LwIP/src/core/netif.c(331): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(NETIF_DEBUG, (" netmask "));
+../Middlewares/Third_Party/LwIP/src/core/netif.c(332): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    ip4_addr_debug_print(NETIF_DEBUG, netmask);
+../Middlewares/Third_Party/LwIP/src/core/netif.c(333): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(NETIF_DEBUG, (" gw "));
+../Middlewares/Third_Party/LwIP/src/core/netif.c(334): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    ip4_addr_debug_print(NETIF_DEBUG, gw);
+../Middlewares/Third_Party/LwIP/src/core/netif.c(336): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(NETIF_DEBUG, ("\n"));
+../Middlewares/Third_Party/LwIP/src/core/netif.c(461): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF( NETIF_DEBUG, ("netif_remove: removed netif\n") );
+../Middlewares/Third_Party/LwIP/src/core/netif.c(487): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(NETIF_DEBUG, ("netif_find: found %c%c\n", name[0], name[1]));
+../Middlewares/Third_Party/LwIP/src/core/netif.c(491): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(NETIF_DEBUG, ("netif_find: didn't find %c%c\n", name[0], name[1]));
+../Middlewares/Third_Party/LwIP/src/core/netif.c(515): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(NETIF_DEBUG | LWIP_DBG_STATE, ("netif_set_ipaddr: netif address being changed\n"));
+../Middlewares/Third_Party/LwIP/src/core/netif.c(539): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(NETIF_DEBUG | LWIP_DBG_TRACE | LWIP_DBG_STATE, ("netif: IP address of interface %c%c set to %"U16_F".%"U16_F".%"U16_F".%"U16_F"\n",
+../Middlewares/Third_Party/LwIP/src/core/netif.c(561): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(NETIF_DEBUG | LWIP_DBG_TRACE | LWIP_DBG_STATE, ("netif: GW address of interface %c%c set to %"U16_F".%"U16_F".%"U16_F".%"U16_F"\n",
+../Middlewares/Third_Party/LwIP/src/core/netif.c(587): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(NETIF_DEBUG | LWIP_DBG_TRACE | LWIP_DBG_STATE, ("netif: netmask of interface %c%c set to %"U16_F".%"U16_F".%"U16_F".%"U16_F"\n",
+../Middlewares/Third_Party/LwIP/src/core/netif.c(614): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(NETIF_DEBUG, ("netif: setting default interface %c%c\n",
+../Middlewares/Third_Party/LwIP/src/core/netif.c: 0 warnings, 16 errors
+compiling icmp.c...
+../Middlewares/Third_Party/LwIP/src/core/ipv4/icmp.c(93): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(ICMP_DEBUG, ("icmp_input: short IP header (%"S16_F" bytes) received\n", hlen));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/icmp.c(97): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(ICMP_DEBUG, ("icmp_input: short ICMP (%"U16_F" bytes) received\n", p->tot_len));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/icmp.c(120): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(ICMP_DEBUG, ("icmp_input: Not echoing to multicast pings\n"));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/icmp.c(130): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(ICMP_DEBUG, ("icmp_input: Not echoing to broadcast pings\n"));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/icmp.c(134): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(ICMP_DEBUG, ("icmp_input: ping\n"));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/icmp.c(136): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(ICMP_DEBUG, ("icmp_input: bad ICMP echo received\n"));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/icmp.c(159): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+          LWIP_DEBUGF(ICMP_DEBUG, ("icmp_input: allocating new pbuf failed\n"));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/icmp.c(163): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+          LWIP_DEBUGF(ICMP_DEBUG | LWIP_DBG_LEVEL_SERIOUS, ("first pbuf cannot hold the ICMP header"));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/icmp.c(177): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+          LWIP_DEBUGF(ICMP_DEBUG | LWIP_DBG_LEVEL_SERIOUS, ("icmp_input: copying to new pbuf failed"));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/icmp.c(198): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(ICMP_DEBUG | LWIP_DBG_LEVEL_SERIOUS, ("Can't move over header in packet"));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/icmp.c(242): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+          LWIP_DEBUGF(ICMP_DEBUG, ("icmp_input: ip_output_if returned an error: %s\n", lwip_strerr(ret)));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/icmp.c(266): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(ICMP_DEBUG, ("icmp_input: ICMP type %"S16_F" code %"S16_F" not supported.\n",
+../Middlewares/Third_Party/LwIP/src/core/ipv4/icmp.c(345): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(ICMP_DEBUG, ("icmp_time_exceeded: failed to allocate pbuf for ICMP packet.\n"));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/icmp.c(353): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(ICMP_DEBUG, ("icmp_time_exceeded from "));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/icmp.c(354): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    ip4_addr_debug_print_val(ICMP_DEBUG, iphdr->src);
+../Middlewares/Third_Party/LwIP/src/core/ipv4/icmp.c(355): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(ICMP_DEBUG, (" to "));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/icmp.c(356): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    ip4_addr_debug_print_val(ICMP_DEBUG, iphdr->dest);
+../Middlewares/Third_Party/LwIP/src/core/ipv4/icmp.c(357): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(ICMP_DEBUG, ("\n"));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/icmp.c: 0 warnings, 18 errors
+compiling memp.c...
+../Middlewares/Third_Party/LwIP/src/core/memp.c(337): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(MEMP_DEBUG | LWIP_DBG_LEVEL_SERIOUS, ("memp_malloc: out of memory in pool %s\n", desc->desc));
+../Middlewares/Third_Party/LwIP/src/core/memp.c: 0 warnings, 1 error
+compiling stats.c...
+compiling tcp_out.c...
+../Middlewares/Third_Party/LwIP/src/core/tcp_out.c(179): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(TCP_OUTPUT_DEBUG | LWIP_DBG_LEVEL_SERIOUS, ("tcp_create_segment: no memory.\n"));
+../Middlewares/Third_Party/LwIP/src/core/tcp_out.c(201): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(TCP_OUTPUT_DEBUG | LWIP_DBG_LEVEL_SERIOUS, ("tcp_create_segment: no room for TCP header in pbuf.\n"));
+../Middlewares/Third_Party/LwIP/src/core/tcp_out.c(314): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(TCP_OUTPUT_DEBUG | LWIP_DBG_STATE | LWIP_DBG_LEVEL_SEVERE, ("tcp_write() called in invalid state\n"));
+../Middlewares/Third_Party/LwIP/src/core/tcp_out.c(322): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(TCP_OUTPUT_DEBUG | LWIP_DBG_LEVEL_SEVERE, ("tcp_write: too much data (len=%"U16_F" > snd_buf=%"TCPWNDSIZE_F")\n",
+../Middlewares/Third_Party/LwIP/src/core/tcp_out.c(328): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(TCP_QLEN_DEBUG, ("tcp_write: queuelen: %"TCPWNDSIZE_F"\n", (tcpwnd_size_t)pcb->snd_queuelen));
+../Middlewares/Third_Party/LwIP/src/core/tcp_out.c(334): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(TCP_OUTPUT_DEBUG | LWIP_DBG_LEVEL_SEVERE, ("tcp_write: too long queue %"U16_F" (max %"U16_F")\n",
+../Middlewares/Third_Party/LwIP/src/core/tcp_out.c(395): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(TCP_OUTPUT_DEBUG, ("tcp_write(pcb=%p, data=%p, len=%"U16_F", apiflags=%"U16_F")\n",
+../Middlewares/Third_Party/LwIP/src/core/tcp_out.c(497): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+            LWIP_DEBUGF(TCP_OUTPUT_DEBUG | LWIP_DBG_LEVEL_SERIOUS,
+../Middlewares/Third_Party/LwIP/src/core/tcp_out.c(512): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+            LWIP_DEBUGF(TCP_OUTPUT_DEBUG | LWIP_DBG_LEVEL_SERIOUS,
+../Middlewares/Third_Party/LwIP/src/core/tcp_out.c(556): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+          LWIP_DEBUGF(TCP_OUTPUT_DEBUG | LWIP_DBG_LEVEL_SERIOUS, ("tcp_write : could not allocate memory for pbuf copy size %"U16_F"\n", seglen));
+../Middlewares/Third_Party/LwIP/src/core/tcp_out.c(573): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+          LWIP_DEBUGF(TCP_OUTPUT_DEBUG | LWIP_DBG_LEVEL_SERIOUS, ("tcp_write: could not allocate memory for zero-copy pbuf\n"));
+../Middlewares/Third_Party/LwIP/src/core/tcp_out.c(592): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+          LWIP_DEBUGF(TCP_OUTPUT_DEBUG | LWIP_DBG_LEVEL_SERIOUS, ("tcp_write: could not allocate memory for header pbuf\n"));
+../Middlewares/Third_Party/LwIP/src/core/tcp_out.c(605): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(TCP_OUTPUT_DEBUG | LWIP_DBG_LEVEL_SERIOUS, ("tcp_write: queue too long %"U16_F" (%d)\n",
+../Middlewares/Third_Party/LwIP/src/core/tcp_out.c(634): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(TCP_OUTPUT_DEBUG | LWIP_DBG_TRACE, ("tcp_write: queueing %"U32_F":%"U32_F"\n",
+../Middlewares/Third_Party/LwIP/src/core/tcp_out.c(709): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(TCP_QLEN_DEBUG, ("tcp_write: %"S16_F" (after enqueued)\n",
+../Middlewares/Third_Party/LwIP/src/core/tcp_out.c(736): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(TCP_QLEN_DEBUG | LWIP_DBG_STATE, ("tcp_write: %"S16_F" (with mem err)\n", pcb->snd_queuelen));
+../Middlewares/Third_Party/LwIP/src/core/tcp_out.c(756): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(TCP_QLEN_DEBUG, ("tcp_enqueue_flags: queuelen: %"U16_F"\n", (u16_t)pcb->snd_queuelen));
+../Middlewares/Third_Party/LwIP/src/core/tcp_out.c(764): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(TCP_OUTPUT_DEBUG | LWIP_DBG_LEVEL_SEVERE, ("tcp_enqueue_flags: too long queue %"U16_F" (max %"U16_F")\n",
+../Middlewares/Third_Party/LwIP/src/core/tcp_out.c(808): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(TCP_OUTPUT_DEBUG | LWIP_DBG_TRACE,
+../Middlewares/Third_Party/LwIP/src/core/tcp_out.c(838): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(TCP_QLEN_DEBUG, ("tcp_enqueue_flags: %"S16_F" (after enqueued)\n", pcb->snd_queuelen));
+../Middlewares/Third_Party/LwIP/src/core/tcp_out.c(902): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(TCP_OUTPUT_DEBUG, ("tcp_output: (ACK) could not allocate pbuf\n"));
+../Middlewares/Third_Party/LwIP/src/core/tcp_out.c(908): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(TCP_OUTPUT_DEBUG,
+../Middlewares/Third_Party/LwIP/src/core/tcp_out.c(1204): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(TCP_RTO_DEBUG, ("tcp_output_segment: rtseq %"U32_F"\n", pcb->rtseq));
+../Middlewares/Third_Party/LwIP/src/core/tcp_out.c(1206): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(TCP_OUTPUT_DEBUG, ("tcp_output_segment: %"U32_F":%"U32_F"\n",
+../Middlewares/Third_Party/LwIP/src/core/tcp_out.c(1298): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(TCP_DEBUG, ("tcp_rst: could not allocate memory for pbuf\n"));
+../Middlewares/Third_Party/LwIP/src/core/tcp_out.c(1333): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(TCP_RST_DEBUG, ("tcp_rst: seqno %"U32_F" ackno %"U32_F".\n", seqno, ackno));
+../Middlewares/Third_Party/LwIP/src/core/tcp_out.c(1435): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(TCP_FR_DEBUG,
+../Middlewares/Third_Party/LwIP/src/core/tcp_out.c(1452): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(TCP_FR_DEBUG,
+../Middlewares/Third_Party/LwIP/src/core/tcp_out.c(1483): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(TCP_DEBUG, ("tcp_keepalive: sending KEEPALIVE probe to "));
+../Middlewares/Third_Party/LwIP/src/core/tcp_out.c(1484): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    ip_addr_debug_print(TCP_DEBUG, &pcb->remote_ip);
+../Middlewares/Third_Party/LwIP/src/core/tcp_out.c: 0 warnings, 30 errors
+compiling eui64.c...
+compiling def.c...
+compiling ip6_frag.c...
+compiling tcpip.c...
+compiling chap-md5.c...
+compiling ecp.c...
+compiling igmp.c...
+compiling pppcrypt.c...
+compiling fsm.c...
+compiling mem.c...
+../Middlewares/Third_Party/LwIP/src/core/mem.c(421): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(MEM_DEBUG | LWIP_DBG_TRACE | LWIP_DBG_LEVEL_SERIOUS, ("mem_free(p == NULL) was called.\n"));
+../Middlewares/Third_Party/LwIP/src/core/mem.c(431): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(MEM_DEBUG | LWIP_DBG_LEVEL_SEVERE, ("mem_free: illegal memory\n"));
+../Middlewares/Third_Party/LwIP/src/core/mem.c(500): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(MEM_DEBUG | LWIP_DBG_LEVEL_SEVERE, ("mem_trim: illegal memory\n"));
+../Middlewares/Third_Party/LwIP/src/core/mem.c(733): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(MEM_DEBUG | LWIP_DBG_LEVEL_SERIOUS, ("mem_malloc: could not allocate %"S16_F" bytes\n", (s16_t)size));
+../Middlewares/Third_Party/LwIP/src/core/mem.c: 0 warnings, 4 errors
+compiling raw.c...
+compiling dhcp.c...
+compiling ipv6cp.c...
+compiling pppos.c...
+compiling ethip6.c...
+compiling ppp.c...
+compiling vj.c...
+compiling pbuf.c...
+../Middlewares/Third_Party/LwIP/src/core/pbuf.c(173): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(PBUF_DEBUG | LWIP_DBG_TRACE, ("pbuf_free_ooseq: freeing out-of-sequence pbufs\n"));
+../Middlewares/Third_Party/LwIP/src/core/pbuf.c(253): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(PBUF_DEBUG | LWIP_DBG_TRACE, ("pbuf_alloc(length=%"U16_F")\n", length));
+../Middlewares/Third_Party/LwIP/src/core/pbuf.c(286): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(PBUF_DEBUG | LWIP_DBG_TRACE, ("pbuf_alloc: allocated pbuf %p\n", (void *)p));
+../Middlewares/Third_Party/LwIP/src/core/pbuf.c(374): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(PBUF_DEBUG | LWIP_DBG_LEVEL_SERIOUS,
+../Middlewares/Third_Party/LwIP/src/core/pbuf.c(393): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(PBUF_DEBUG | LWIP_DBG_TRACE, ("pbuf_alloc(length=%"U16_F") == %p\n", length, (void *)p));
+../Middlewares/Third_Party/LwIP/src/core/pbuf.c(419): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(PBUF_DEBUG | LWIP_DBG_TRACE, ("pbuf_alloced_custom(length=%"U16_F")\n", length));
+../Middlewares/Third_Party/LwIP/src/core/pbuf.c(448): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(PBUF_DEBUG | LWIP_DBG_LEVEL_WARNING, ("pbuf_alloced_custom(length=%"U16_F") buffer too short\n", length));
+../Middlewares/Third_Party/LwIP/src/core/pbuf.c(598): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF( PBUF_DEBUG | LWIP_DBG_TRACE,
+../Middlewares/Third_Party/LwIP/src/core/pbuf.c(628): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(PBUF_DEBUG | LWIP_DBG_TRACE, ("pbuf_header: old %p new %p (%"S16_F")\n",
+../Middlewares/Third_Party/LwIP/src/core/pbuf.c(714): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(PBUF_DEBUG | LWIP_DBG_LEVEL_SERIOUS,
+../Middlewares/Third_Party/LwIP/src/core/pbuf.c(718): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(PBUF_DEBUG | LWIP_DBG_TRACE, ("pbuf_free(%p)\n", (void *)p));
+../Middlewares/Third_Party/LwIP/src/core/pbuf.c(745): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF( PBUF_DEBUG | LWIP_DBG_TRACE, ("pbuf_free: deallocating %p\n", (void *)p));
+../Middlewares/Third_Party/LwIP/src/core/pbuf.c(773): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF( PBUF_DEBUG | LWIP_DBG_TRACE, ("pbuf_free: %p has ref %"U16_F", ending here.\n", (void *)p, ref));
+../Middlewares/Third_Party/LwIP/src/core/pbuf.c(876): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(PBUF_DEBUG | LWIP_DBG_TRACE, ("pbuf_chain: %p references %p\n", (void *)h, (void *)t));
+../Middlewares/Third_Party/LwIP/src/core/pbuf.c(905): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(PBUF_DEBUG | LWIP_DBG_TRACE, ("pbuf_dechain: unreferencing %p\n", (void *)q));
+../Middlewares/Third_Party/LwIP/src/core/pbuf.c(908): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(PBUF_DEBUG | LWIP_DBG_TRACE,
+../Middlewares/Third_Party/LwIP/src/core/pbuf.c(941): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(PBUF_DEBUG | LWIP_DBG_TRACE, ("pbuf_copy(%p, %p)\n",
+../Middlewares/Third_Party/LwIP/src/core/pbuf.c(987): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(PBUF_DEBUG | LWIP_DBG_TRACE, ("pbuf_copy: end of chain reached.\n"));
+../Middlewares/Third_Party/LwIP/src/core/pbuf.c: 0 warnings, 18 errors
+compiling nd6.c...
+compiling inet6.c...
+compiling ip6.c...
+compiling eap.c...
+compiling api_lib.c...
+compiling upap.c...
+compiling utils.c...
+compiling sys.c...
+compiling multilink.c...
+compiling pppoe.c...
+compiling udp.c...
+../Middlewares/Third_Party/LwIP/src/core/udp.c(228): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(UDP_DEBUG,
+../Middlewares/Third_Party/LwIP/src/core/udp.c(242): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(UDP_DEBUG, ("udp_input: received datagram of length %"U16_F"\n", p->tot_len));
+../Middlewares/Third_Party/LwIP/src/core/udp.c(251): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(UDP_DEBUG, ("udp ("));
+../Middlewares/Third_Party/LwIP/src/core/udp.c(252): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    ip_addr_debug_print(UDP_DEBUG, ip_current_dest_addr());
+../Middlewares/Third_Party/LwIP/src/core/udp.c(253): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(UDP_DEBUG, (", %"U16_F") <-- (", lwip_ntohs(udphdr->dest)));
+../Middlewares/Third_Party/LwIP/src/core/udp.c(254): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    ip_addr_debug_print(UDP_DEBUG, ip_current_src_addr());
+../Middlewares/Third_Party/LwIP/src/core/udp.c(255): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(UDP_DEBUG, (", %"U16_F")\n", lwip_ntohs(udphdr->src)));
+../Middlewares/Third_Party/LwIP/src/core/udp.c(266): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(UDP_DEBUG, ("pcb ("));
+../Middlewares/Third_Party/LwIP/src/core/udp.c(267): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      ip_addr_debug_print(UDP_DEBUG, &pcb->local_ip);
+../Middlewares/Third_Party/LwIP/src/core/udp.c(268): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(UDP_DEBUG, (", %"U16_F") <-- (", pcb->local_port));
+../Middlewares/Third_Party/LwIP/src/core/udp.c(269): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      ip_addr_debug_print(UDP_DEBUG, &pcb->remote_ip);
+../Middlewares/Third_Party/LwIP/src/core/udp.c(270): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(UDP_DEBUG, (", %"U16_F")\n", pcb->remote_port));
+../Middlewares/Third_Party/LwIP/src/core/udp.c(328): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(UDP_DEBUG | LWIP_DBG_TRACE, ("udp_input: calculating checksum\n"));
+../Middlewares/Third_Party/LwIP/src/core/udp.c(425): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(UDP_DEBUG | LWIP_DBG_TRACE, ("udp_input: not for us.\n"));
+../Middlewares/Third_Party/LwIP/src/core/udp.c(548): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(UDP_DEBUG | LWIP_DBG_TRACE, ("udp_send\n"));
+../Middlewares/Third_Party/LwIP/src/core/udp.c(578): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(UDP_DEBUG | LWIP_DBG_LEVEL_SERIOUS, ("udp_send: No route to "));
+../Middlewares/Third_Party/LwIP/src/core/udp.c(579): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      ip_addr_debug_print(UDP_DEBUG | LWIP_DBG_LEVEL_SERIOUS, dst_ip);
+../Middlewares/Third_Party/LwIP/src/core/udp.c(580): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(UDP_DEBUG, ("\n"));
+../Middlewares/Third_Party/LwIP/src/core/udp.c(721): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(UDP_DEBUG | LWIP_DBG_TRACE, ("udp_send: not yet bound to a port, binding now\n"));
+../Middlewares/Third_Party/LwIP/src/core/udp.c(724): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(UDP_DEBUG | LWIP_DBG_TRACE | LWIP_DBG_LEVEL_SERIOUS, ("udp_send: forced port bind failed\n"));
+../Middlewares/Third_Party/LwIP/src/core/udp.c(735): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(UDP_DEBUG | LWIP_DBG_TRACE | LWIP_DBG_LEVEL_SERIOUS, ("udp_send: could not allocate header\n"));
+../Middlewares/Third_Party/LwIP/src/core/udp.c(743): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(UDP_DEBUG,
+../Middlewares/Third_Party/LwIP/src/core/udp.c(749): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(UDP_DEBUG, ("udp_send: added header in given pbuf %p\n", (void *)p));
+../Middlewares/Third_Party/LwIP/src/core/udp.c(767): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(UDP_DEBUG, ("udp_send: sending datagram of length %"U16_F"\n", q->tot_len));
+../Middlewares/Third_Party/LwIP/src/core/udp.c(819): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(UDP_DEBUG, ("udp_send: UDP packet length %"U16_F"\n", q->tot_len));
+../Middlewares/Third_Party/LwIP/src/core/udp.c(859): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(UDP_DEBUG, ("udp_send: UDP checksum 0x%04"X16_F"\n", udphdr->chksum));
+../Middlewares/Third_Party/LwIP/src/core/udp.c(860): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(UDP_DEBUG, ("udp_send: ip_output_if (,,,,0x%02"X16_F",)\n", (u16_t)ip_proto));
+../Middlewares/Third_Party/LwIP/src/core/udp.c(919): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(UDP_DEBUG | LWIP_DBG_TRACE, ("udp_bind(ipaddr = "));
+../Middlewares/Third_Party/LwIP/src/core/udp.c(920): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    ip_addr_debug_print(UDP_DEBUG | LWIP_DBG_TRACE, ipaddr);
+../Middlewares/Third_Party/LwIP/src/core/udp.c(921): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(UDP_DEBUG | LWIP_DBG_TRACE, (", port = %"U16_F")\n", port));
+../Middlewares/Third_Party/LwIP/src/core/udp.c: 0 warnings, 30 errors
+compiling slipif.c...
+../Middlewares/Third_Party/LwIP/src/netif/slipif.c(127): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(SLIP_DEBUG, ("slipif_output(%"U16_F"): sending %"U16_F" bytes\n", (u16_t)netif->num, p->tot_len));
+../Middlewares/Third_Party/LwIP/src/netif/slipif.c(228): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+          LWIP_DEBUGF(SLIP_DEBUG, ("slipif: Got packet (%"U16_F" bytes)\n", priv->recved));
+../Middlewares/Third_Party/LwIP/src/netif/slipif.c(264): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(SLIP_DEBUG, ("slipif_input: alloc\n"));
+../Middlewares/Third_Party/LwIP/src/netif/slipif.c(269): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(SLIP_DEBUG, ("slipif_input: no new pbuf! (DROP)\n"));
+../Middlewares/Third_Party/LwIP/src/netif/slipif.c(366): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(SLIP_DEBUG, ("slipif_init: netif->num=%"U16_F"\n", (u16_t)netif->num));
+../Middlewares/Third_Party/LwIP/src/netif/slipif.c: 0 warnings, 5 errors
+compiling mppe.c...
+compiling timeouts.c...
+compiling mld6.c...
+compiling tcp.c...
+../Middlewares/Third_Party/LwIP/src/core/tcp.c(381): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(TCP_DEBUG, ("tcp_close: closing in "));
+../Middlewares/Third_Party/LwIP/src/core/tcp.c(499): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(TCP_RST_DEBUG, ("tcp_abandon: sending RST\n"));
+../Middlewares/Third_Party/LwIP/src/core/tcp.c(607): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(TCP_DEBUG, ("tcp_bind: bind to port %"U16_F"\n", port));
+../Middlewares/Third_Party/LwIP/src/core/tcp.c(773): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(TCP_DEBUG, ("tcp_recved: received %"U16_F" bytes, wnd %"TCPWNDSIZE_F" (%"TCPWNDSIZE_F").\n",
+../Middlewares/Third_Party/LwIP/src/core/tcp.c(835): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(TCP_DEBUG, ("tcp_connect to port %"U16_F"\n", port));
+../Middlewares/Third_Party/LwIP/src/core/tcp.c(949): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(TCP_DEBUG, ("tcp_slowtmr: no active pcbs\n"));
+../Middlewares/Third_Party/LwIP/src/core/tcp.c(952): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(TCP_DEBUG, ("tcp_slowtmr: processing active pcb\n"));
+../Middlewares/Third_Party/LwIP/src/core/tcp.c(968): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(TCP_DEBUG, ("tcp_slowtmr: max SYN retries reached\n"));
+../Middlewares/Third_Party/LwIP/src/core/tcp.c(972): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(TCP_DEBUG, ("tcp_slowtmr: max DATA retries reached\n"));
+../Middlewares/Third_Party/LwIP/src/core/tcp.c(997): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+            LWIP_DEBUGF(TCP_RTO_DEBUG, ("tcp_slowtmr: rtime %"S16_F
+../Middlewares/Third_Party/LwIP/src/core/tcp.c(1017): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+            LWIP_DEBUGF(TCP_CWND_DEBUG, ("tcp_slowtmr: cwnd %"TCPWNDSIZE_F
+../Middlewares/Third_Party/LwIP/src/core/tcp.c(1036): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+            LWIP_DEBUGF(TCP_DEBUG, ("tcp_slowtmr: removing pcb stuck in FIN-WAIT-2\n"));
+../Middlewares/Third_Party/LwIP/src/core/tcp.c(1048): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+          LWIP_DEBUGF(TCP_DEBUG, ("tcp_slowtmr: KEEPALIVE timeout. Aborting connection to "));
+../Middlewares/Third_Party/LwIP/src/core/tcp.c(1049): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+          ip_addr_debug_print(TCP_DEBUG, &pcb->remote_ip);
+../Middlewares/Third_Party/LwIP/src/core/tcp.c(1050): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+          LWIP_DEBUGF(TCP_DEBUG, ("\n"));
+../Middlewares/Third_Party/LwIP/src/core/tcp.c(1073): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(TCP_CWND_DEBUG, ("tcp_slowtmr: dropping OOSEQ queued data\n"));
+../Middlewares/Third_Party/LwIP/src/core/tcp.c(1082): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+          LWIP_DEBUGF(TCP_DEBUG, ("tcp_slowtmr: removing pcb stuck in SYN-RCVD\n"));
+../Middlewares/Third_Party/LwIP/src/core/tcp.c(1090): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+          LWIP_DEBUGF(TCP_DEBUG, ("tcp_slowtmr: removing pcb stuck in LAST-ACK\n"));
+../Middlewares/Third_Party/LwIP/src/core/tcp.c(1136): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+          LWIP_DEBUGF(TCP_DEBUG, ("tcp_slowtmr: polling application\n"));
+../Middlewares/Third_Party/LwIP/src/core/tcp.c(1208): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+          LWIP_DEBUGF(TCP_DEBUG, ("tcp_fasttmr: delayed ACK\n"));
+../Middlewares/Third_Party/LwIP/src/core/tcp.c(1266): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(TCP_INPUT_DEBUG, ("tcp_input: notify kept packet\n"));
+../Middlewares/Third_Party/LwIP/src/core/tcp.c(1289): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(TCP_INPUT_DEBUG, ("tcp_input: drop incoming packets, because pcb is \"full\"\n"));
+../Middlewares/Third_Party/LwIP/src/core/tcp.c(1420): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(TCP_DEBUG, ("tcp_kill_prio: killing oldest PCB %p (%"S32_F")\n",
+../Middlewares/Third_Party/LwIP/src/core/tcp.c(1451): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(TCP_DEBUG, ("tcp_kill_closing: killing oldest %s PCB %p (%"S32_F")\n",
+../Middlewares/Third_Party/LwIP/src/core/tcp.c(1478): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(TCP_DEBUG, ("tcp_kill_timewait: killing oldest TIME-WAIT PCB %p (%"S32_F")\n",
+../Middlewares/Third_Party/LwIP/src/core/tcp.c(1499): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(TCP_DEBUG, ("tcp_alloc: killing off oldest TIME-WAIT connection\n"));
+../Middlewares/Third_Party/LwIP/src/core/tcp.c(1505): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(TCP_DEBUG, ("tcp_alloc: killing off oldest LAST-ACK connection\n"));
+../Middlewares/Third_Party/LwIP/src/core/tcp.c(1511): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+          LWIP_DEBUGF(TCP_DEBUG, ("tcp_alloc: killing off oldest CLOSING connection\n"));
+../Middlewares/Third_Party/LwIP/src/core/tcp.c(1517): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+            LWIP_DEBUGF(TCP_DEBUG, ("tcp_alloc: killing connection with prio lower than %d\n", prio));
+../Middlewares/Third_Party/LwIP/src/core/tcp.c(1751): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(TCP_DEBUG, ("tcp_pcb_purge\n"));
+../Middlewares/Third_Party/LwIP/src/core/tcp.c: 0 warnings, 30 errors
+compiling netifapi.c...
+compiling ip6_addr.c...
+compiling lowpan6.c...
+compiling sockets.c...
+compiling chap-new.c...
+compiling pppol2tp.c...
+compiling ip4_addr.c...
+compiling ipcp.c...
+compiling lcp.c...
+compiling pppapi.c...
+compiling ccp.c...
+compiling netdb.c...
+compiling tcp_in.c...
+../Middlewares/Third_Party/LwIP/src/core/tcp_in.c(131): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(TCP_INPUT_DEBUG, ("tcp_input: short packet (%"U16_F" bytes) discarded\n", p->tot_len));
+../Middlewares/Third_Party/LwIP/src/core/tcp_in.c(161): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(TCP_INPUT_DEBUG, ("tcp_input: invalid header length (%"U16_F")\n", (u16_t)hdrlen_bytes));
+../Middlewares/Third_Party/LwIP/src/core/tcp_in.c(194): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(TCP_INPUT_DEBUG, ("tcp_input: options overflow second pbuf (%"U16_F" bytes)\n", p->next->len));
+../Middlewares/Third_Party/LwIP/src/core/tcp_in.c(262): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+          LWIP_DEBUGF(TCP_INPUT_DEBUG, ("tcp_input: packed for TIME_WAITing connection.\n"));
+../Middlewares/Third_Party/LwIP/src/core/tcp_in.c(321): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(TCP_INPUT_DEBUG, ("tcp_input: packed for LISTENing connection.\n"));
+../Middlewares/Third_Party/LwIP/src/core/tcp_in.c(458): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+              LWIP_DEBUGF(TCP_INPUT_DEBUG, ("tcp_input: keep incoming packet, because pcb is \"full\"\n"));
+../Middlewares/Third_Party/LwIP/src/core/tcp_in.c(513): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(TCP_RST_DEBUG, ("tcp_input: no PCB match found, resetting.\n"));
+../Middlewares/Third_Party/LwIP/src/core/tcp_in.c(557): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(TCP_RST_DEBUG, ("tcp_listen_input: ACK in LISTEN, sending reset\n"));
+../Middlewares/Third_Party/LwIP/src/core/tcp_in.c(561): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(TCP_DEBUG, ("TCP connection request %"U16_F" -> %"U16_F".\n", tcphdr->src, tcphdr->dest));
+../Middlewares/Third_Party/LwIP/src/core/tcp_in.c(574): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(TCP_DEBUG, ("tcp_listen_input: could not allocate PCB\n"));
+../Middlewares/Third_Party/LwIP/src/core/tcp_in.c(715): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(TCP_INPUT_DEBUG, ("tcp_process: Connection RESET\n"));
+../Middlewares/Third_Party/LwIP/src/core/tcp_in.c(721): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(TCP_INPUT_DEBUG, ("tcp_process: unacceptable reset seqno %"U32_F" rcv_nxt %"U32_F"\n",
+../Middlewares/Third_Party/LwIP/src/core/tcp_in.c(723): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(TCP_DEBUG, ("tcp_process: unacceptable reset seqno %"U32_F" rcv_nxt %"U32_F"\n",
+../Middlewares/Third_Party/LwIP/src/core/tcp_in.c(746): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(TCP_INPUT_DEBUG, ("SYN-SENT: ackno %"U32_F" pcb->snd_nxt %"U32_F" unacked %"U32_F"\n", ackno,
+../Middlewares/Third_Party/LwIP/src/core/tcp_in.c(767): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(TCP_CWND_DEBUG, ("tcp_process (SENT): cwnd %"TCPWNDSIZE_F
+../Middlewares/Third_Party/LwIP/src/core/tcp_in.c(772): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(TCP_QLEN_DEBUG, ("tcp_process: SYN-SENT --queuelen %"TCPWNDSIZE_F"\n", (tcpwnd_size_t)pcb->snd_queuelen));
+../Middlewares/Third_Party/LwIP/src/core/tcp_in.c(818): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+          LWIP_DEBUGF(TCP_DEBUG, ("TCP connection established %"U16_F" -> %"U16_F".\n", inseg.tcphdr->src, inseg.tcphdr->dest));
+../Middlewares/Third_Party/LwIP/src/core/tcp_in.c(856): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+          LWIP_DEBUGF(TCP_CWND_DEBUG, ("tcp_process (SYN_RCVD): cwnd %"TCPWNDSIZE_F
+../Middlewares/Third_Party/LwIP/src/core/tcp_in.c(888): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+          LWIP_DEBUGF(TCP_DEBUG,
+../Middlewares/Third_Party/LwIP/src/core/tcp_in.c(907): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(TCP_DEBUG, ("TCP connection closed: FIN_WAIT_2 %"U16_F" -> %"U16_F".\n", inseg.tcphdr->src, inseg.tcphdr->dest));
+../Middlewares/Third_Party/LwIP/src/core/tcp_in.c(918): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(TCP_DEBUG, ("TCP connection closed: CLOSING %"U16_F" -> %"U16_F".\n", inseg.tcphdr->src, inseg.tcphdr->dest));
+../Middlewares/Third_Party/LwIP/src/core/tcp_in.c(928): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(TCP_DEBUG, ("TCP connection closed: LAST_ACK %"U16_F" -> %"U16_F".\n", inseg.tcphdr->src, inseg.tcphdr->dest));
+../Middlewares/Third_Party/LwIP/src/core/tcp_in.c(1035): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(TCP_WND_DEBUG, ("tcp_receive: window update %"TCPWNDSIZE_F"\n", pcb->snd_wnd));
+../Middlewares/Third_Party/LwIP/src/core/tcp_in.c(1128): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+            LWIP_DEBUGF(TCP_CWND_DEBUG, ("tcp_receive: slow start cwnd %"TCPWNDSIZE_F"\n", pcb->cwnd));
+../Middlewares/Third_Party/LwIP/src/core/tcp_in.c(1134): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+            LWIP_DEBUGF(TCP_CWND_DEBUG, ("tcp_receive: congestion avoidance cwnd %"TCPWNDSIZE_F"\n", pcb->cwnd));
+../Middlewares/Third_Party/LwIP/src/core/tcp_in.c(1137): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(TCP_INPUT_DEBUG, ("tcp_receive: ACK for %"U32_F", unacked->seqno %"U32_F":%"U32_F"\n",
+../Middlewares/Third_Party/LwIP/src/core/tcp_in.c(1149): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+          LWIP_DEBUGF(TCP_INPUT_DEBUG, ("tcp_receive: removing %"U32_F":%"U32_F" from pcb->unacked\n",
+../Middlewares/Third_Party/LwIP/src/core/tcp_in.c(1157): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+          LWIP_DEBUGF(TCP_QLEN_DEBUG, ("tcp_receive: queuelen %"TCPWNDSIZE_F" ... ", (tcpwnd_size_t)pcb->snd_queuelen));
+../Middlewares/Third_Party/LwIP/src/core/tcp_in.c(1164): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+          LWIP_DEBUGF(TCP_QLEN_DEBUG, ("%"TCPWNDSIZE_F" (after freeing unacked)\n", (tcpwnd_size_t)pcb->snd_queuelen));
+../Middlewares/Third_Party/LwIP/src/core/tcp_in.c(1201): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(TCP_INPUT_DEBUG, ("tcp_receive: removing %"U32_F":%"U32_F" from pcb->unsent\n",
+../Middlewares/Third_Party/LwIP/src/core/tcp_in.c: 0 warnings, 30 errors
+compiling demand.c...
+compiling chap_ms.c...
+compiling ip.c...
+compiling etharp.c...
+../Middlewares/Third_Party/LwIP/src/core/ipv4/etharp.c(169): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(ETHARP_DEBUG, ("etharp_free_entry: freeing entry %"U16_F", packet queue %p.\n", (u16_t)i, (void *)(arp_table[i].q)));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/etharp.c(195): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(ETHARP_DEBUG, ("etharp_timer\n"));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/etharp.c(209): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+          LWIP_DEBUGF(ETHARP_DEBUG, ("etharp_timer: expired %s entry %"U16_F".\n",
+../Middlewares/Third_Party/LwIP/src/core/ipv4/etharp.c(281): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(ETHARP_DEBUG, ("etharp_find_entry: found empty entry %"U16_F"\n", (u16_t)i));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/etharp.c(293): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+          LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("etharp_find_entry: found matching entry %"U16_F"\n", (u16_t)i));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/etharp.c(335): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("etharp_find_entry: no empty entry found and not allowed to recycle\n"));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/etharp.c(351): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("etharp_find_entry: selecting empty entry %"U16_F"\n", (u16_t)i));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/etharp.c(357): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("etharp_find_entry: selecting oldest stable entry %"U16_F"\n", (u16_t)i));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/etharp.c(364): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("etharp_find_entry: selecting oldest pending entry %"U16_F" (without queue)\n", (u16_t)i));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/etharp.c(369): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("etharp_find_entry: selecting oldest pending entry %"U16_F", freeing packet queue %p\n", (u16_t)i, (void *)(arp_table[i].q)));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/etharp.c(372): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("etharp_find_entry: no empty or recyclable entries found\n"));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/etharp.c(420): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("etharp_update_arp_entry: %"U16_F".%"U16_F".%"U16_F".%"U16_F" - %02"X16_F":%02"X16_F":%02"X16_F":%02"X16_F":%02"X16_F":%02"X16_F"\n",
+../Middlewares/Third_Party/LwIP/src/core/ipv4/etharp.c(428): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("etharp_update_arp_entry: will not add non-unicast IP address to ARP cache\n"));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/etharp.c(457): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("etharp_update_arp_entry: updating stable entry %"S16_F"\n", (s16_t)i));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/etharp.c(649): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE | LWIP_DBG_LEVEL_WARNING,
+../Middlewares/Third_Party/LwIP/src/core/ipv4/etharp.c(695): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF (ETHARP_DEBUG | LWIP_DBG_TRACE, ("etharp_input: incoming ARP request\n"));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/etharp.c(699): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("etharp_input: replying to ARP request for our IP address\n"));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/etharp.c(733): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("etharp_input: we are unconfigured, ARP request ignored.\n"));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/etharp.c(737): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("etharp_input: ARP request was not for us.\n"));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/etharp.c(742): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("etharp_input: incoming ARP reply\n"));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/etharp.c(752): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("etharp_input: ARP unknown opcode type %"S16_F"\n", lwip_htons(hdr->opcode)));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/etharp.c(959): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("etharp_query: will not add non-unicast IP address to ARP cache\n"));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/etharp.c(968): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("etharp_query: could not create ARP entry\n"));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/etharp.c(970): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("etharp_query: packet dropped\n"));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/etharp.c(1088): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+          LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("etharp_query: dropped previously queued packet %p for ARP entry %"S16_F"\n", (void *)q, (s16_t)i));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/etharp.c(1093): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("etharp_query: queued packet %p on ARP entry %"S16_F"\n", (void *)q, (s16_t)i));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/etharp.c(1097): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("etharp_query: could not queue a copy of PBUF_REF packet %p (out of memory)\n", (void *)q));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/etharp.c(1136): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE | LWIP_DBG_LEVEL_SERIOUS,
+../Middlewares/Third_Party/LwIP/src/core/ipv4/etharp.c(1145): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("etharp_raw: sending raw ARP packet.\n"));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/etharp.c(1219): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("etharp_request: sending ARP request.\n"));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/etharp.c: 0 warnings, 30 errors
+compiling auth.c...
+compiling icmp6.c...
+compiling netbuf.c...
+compiling err.c...
+compiling magic.c...
+compiling dns.c...
+compiling ethernet.c...
+../Middlewares/Third_Party/LwIP/src/netif/ethernet.c(95): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE,
+../Middlewares/Third_Party/LwIP/src/netif/ethernet.c(169): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+          LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE | LWIP_DBG_LEVEL_WARNING,
+../Middlewares/Third_Party/LwIP/src/netif/ethernet.c(172): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+          LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("Can't move over header in packet"));
+../Middlewares/Third_Party/LwIP/src/netif/ethernet.c(186): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+          LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE | LWIP_DBG_LEVEL_WARNING,
+../Middlewares/Third_Party/LwIP/src/netif/ethernet.c(189): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+          LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("Can't move over header in packet"));
+../Middlewares/Third_Party/LwIP/src/netif/ethernet.c(297): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE,
+../Middlewares/Third_Party/LwIP/src/netif/ethernet.c(304): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE | LWIP_DBG_LEVEL_SERIOUS,
+../Middlewares/Third_Party/LwIP/src/netif/ethernet.c: 0 warnings, 7 errors
+compiling ip4.c...
+../Middlewares/Third_Party/LwIP/src/core/ipv4/ip4.c(209): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(IP_DEBUG | LWIP_DBG_LEVEL_SERIOUS, ("ip4_route: No route to %"U16_F".%"U16_F".%"U16_F".%"U16_F"\n",
+../Middlewares/Third_Party/LwIP/src/core/ipv4/ip4.c(386): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(IP_DEBUG | LWIP_DBG_LEVEL_WARNING, ("IP packet dropped due to bad version number %"U16_F"\n", (u16_t)IPH_V(iphdr)));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/ip4.c(417): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(IP_DEBUG | LWIP_DBG_LEVEL_SERIOUS,
+../Middlewares/Third_Party/LwIP/src/core/ipv4/ip4.c(421): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(IP_DEBUG | LWIP_DBG_LEVEL_SERIOUS,
+../Middlewares/Third_Party/LwIP/src/core/ipv4/ip4.c(426): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(IP_DEBUG | LWIP_DBG_LEVEL_SERIOUS,
+../Middlewares/Third_Party/LwIP/src/core/ipv4/ip4.c(488): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(IP_DEBUG, ("ip_input: iphdr->dest 0x%"X32_F" netif->ip_addr 0x%"X32_F" (0x%"X32_F", 0x%"X32_F", 0x%"X32_F")\n",
+../Middlewares/Third_Party/LwIP/src/core/ipv4/ip4.c(504): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+            LWIP_DEBUGF(IP_DEBUG, ("ip4_input: packet accepted on interface %c%c\n",
+../Middlewares/Third_Party/LwIP/src/core/ipv4/ip4.c(570): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(IP_DEBUG | LWIP_DBG_TRACE | LWIP_DBG_LEVEL_WARNING, ("ip4_input: packet source is not valid.\n"));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/ip4.c(583): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(IP_DEBUG | LWIP_DBG_TRACE, ("ip4_input: packet not for us.\n"));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/ip4.c(601): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(IP_DEBUG, ("IP packet is a fragment (id=0x%04"X16_F" tot_len=%"U16_F" len=%"U16_F" MF=%"U16_F" offset=%"U16_F"), calling ip4_reass()\n",
+../Middlewares/Third_Party/LwIP/src/core/ipv4/ip4.c(641): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(IP_DEBUG, ("ip4_input: \n"));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/ip4.c(643): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(IP_DEBUG, ("ip4_input: p->len %"U16_F" p->tot_len %"U16_F"\n", p->len, p->tot_len));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/ip4.c(696): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(IP_DEBUG | LWIP_DBG_LEVEL_SERIOUS, ("Unsupported transport protocol %"U16_F"\n", (u16_t)IPH_PROTO(iphdr)));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/ip4.c(842): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+        LWIP_DEBUGF(IP_DEBUG | LWIP_DBG_LEVEL_SERIOUS, ("ip4_output: not enough room for IP header in pbuf\n"));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/ip4.c(920): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(IP_DEBUG, ("ip4_output_if: %c%c%"U16_F"\n", netif->name[0], netif->name[1], (u16_t)netif->num));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/ip4.c(946): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(IP_DEBUG, ("ip4_output_if: call netif->output()\n"));
+../Middlewares/Third_Party/LwIP/src/core/ipv4/ip4.c(976): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(IP_DEBUG, ("ip4_output: No route to %"U16_F".%"U16_F".%"U16_F".%"U16_F"\n",
+../Middlewares/Third_Party/LwIP/src/core/ipv4/ip4.c: 0 warnings, 17 errors
+compiling autoip.c...
+compiling dhcp6.c...
+compiling api_msg.c...
+compiling inet_chksum.c...
+../Middlewares/Third_Party/LwIP/src/core/inet_chksum.c(268): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(INET_DEBUG, ("inet_chksum_pseudo(): checksumming pbuf %p (has next %p) \n",
+../Middlewares/Third_Party/LwIP/src/core/inet_chksum.c(293): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(INET_DEBUG, ("inet_chksum_pseudo(): pbuf chain lwip_chksum()=%"X32_F"\n", acc));
+../Middlewares/Third_Party/LwIP/src/core/inet_chksum.c(409): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+      LWIP_DEBUGF(INET_DEBUG, ("inet_chksum_pseudo(): checksumming pbuf %p (has next %p) \n",
+../Middlewares/Third_Party/LwIP/src/core/inet_chksum.c(439): error:  #20: identifier "LWIP_DBG_OFF" is undefined
+    LWIP_DEBUGF(INET_DEBUG, ("inet_chksum_pseudo(): pbuf chain lwip_chksum()=%"X32_F"\n", acc));
+../Middlewares/Third_Party/LwIP/src/core/inet_chksum.c: 0 warnings, 4 errors
+"ETH_lwip_project\ETH_lwip_project.axf" - 250 Error(s), 0 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.5.1.0.pack
+                ARM::CMSIS:CORE:5.0.2
+                CMSIS (Cortex Microcontroller Software Interface Standard)
+   * Component: CORE Version: 5.0.2
+
+<h2>Collection of Component include folders:</h2>
+  C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\UDP_lwip  客户端\ETH_lwip_project\MDK-ARM\RTE
+  C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.1.0\CMSIS\Include
+  C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:5.0.2
+Target not created.
+</pre>
+</body>
+</html>
