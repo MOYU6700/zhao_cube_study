@@ -81,3 +81,5 @@ void User_notification(struct netif *netif)
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+/**LWIP 中实现了接收一个数据包和发送一个数据包函数的框架，这两个函数分别是
+low_level_input 和 low_level_output，用户需要使用实际网卡驱动程序完成这两个函数**/

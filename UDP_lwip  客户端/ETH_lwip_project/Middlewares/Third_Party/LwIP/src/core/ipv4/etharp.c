@@ -71,11 +71,20 @@
  *  run out instantly if the timeout occurs directly after a request.
  */
 #define ARP_MAXPENDING 5
-
+/*初始化缓存表中的各个缓存表项都处于初始状态，没有记录任何信息，此时每个表项都处于
+ETHARP_STATE_EMPTY 状态， ETHARP_STATE_PENDING 状态表示该表项处于不稳定状
+态，很可能的情况是，该表项只记录到了 IP 地址，但是还为记录到对应该 IP 地址的 MAC
+地址，此时就该表项就处于 ETHARP_STATE_PENDING 状态。在该状态下， LWIP 内核会
+发出一个广播 ARP 请求到数据链路上，以让对应 IP 地址的主机回应其 MAC 地址，当源主
+机接收到 MAC 地址时，它就更新对应的 ARP 表项。当 ARP 表项得到更新后，它就完全记
+录了一对 IP 地址和 MAC 地址，此时该表项就处于 ETHARP_STATE_STABLE 状态。注意
+当某表项处在 PENDING 状态时，要发往该表项中 IP 地址处的数据包会被连接在表项对应
+的数据包缓冲队列上，当等到该表项稳定后，这些数据包才会被发送出去。这就是为什么每
+个表项需要有数据包缓冲队列指针了*/
 /** ARP states */
 enum etharp_state {
   ETHARP_STATE_EMPTY = 0,
-  ETHARP_STATE_PENDING,
+  ETHARP_STATE_PENDING,			//表示该表项处于不稳定状态
   ETHARP_STATE_STABLE,
   ETHARP_STATE_STABLE_REREQUESTING_1,
   ETHARP_STATE_STABLE_REREQUESTING_2
@@ -87,16 +96,16 @@ enum etharp_state {
 struct etharp_entry {
 #if ARP_QUEUEING
   /** Pointer to queue of pending outgoing packets on this ARP entry. */
-  struct etharp_q_entry *q;
+  struct etharp_q_entry *q;		// 数据包缓冲队列指针
 #else /* ARP_QUEUEING */
   /** Pointer to a single pending outgoing packet on this ARP entry. */
   struct pbuf *q;
 #endif /* ARP_QUEUEING */
-  ip4_addr_t ipaddr;
-  struct netif *netif;
-  struct eth_addr ethaddr;
-  u16_t ctime;
-  u8_t state;
+  ip4_addr_t ipaddr;		// 目标 IP 地址
+  struct netif *netif;		// 相应网络接口信息
+  struct eth_addr ethaddr;		// MAC 地址
+  u16_t ctime;		// 描述该 entry 的时间信息（设置生存时间）
+  u8_t state;		// 描述该 entry 的状态
 };
 
 static struct etharp_entry arp_table[ARP_TABLE_SIZE];
@@ -245,6 +254,7 @@ etharp_tmr(void)
  *
  * @return The ARP entry index that matched or is created, ERR_MEM if no
  * entry is found or could be recycled.
+ 该函数最重要的输入是一个 IP 地址，返回值是该 IP 地址对应的 ARP 缓存表项索引。
  */
 static s8_t
 etharp_find_entry(const ip4_addr_t *ipaddr, u8_t flags, struct netif* netif)
@@ -409,7 +419,8 @@ etharp_find_entry(const ip4_addr_t *ipaddr, u8_t flags, struct netif* netif)
  * - ERR_OK Successfully updated ARP cache.
  * - ERR_MEM If we could not add a new ARP entry when ETHARP_FLAG_TRY_HARD was set.
  * - ERR_ARG Non-unicast address given, those will not appear in ARP cache.
- *
+ *该函数用于更新 ARP 缓存表中的表项或者在
+ *缓存表中插入一个新的表项,该函数会在收到一个 IP 数据包或 ARP 数据包后被调用
  * @see pbuf_free()
  */
 static err_t
@@ -942,7 +953,8 @@ etharp_output(struct netif *netif, struct pbuf *q, const ip4_addr_t *ipaddr)
  * - ERR_MEM Could not queue packet due to memory shortage.
  * - ERR_RTE No route to destination (no gateway to external networks).
  * - ERR_ARG Non-unicast address given, those will not appear in ARP cache.
- *
+ *该函数的功能是向给定的 IP 地址发送
+ *一个数据包或者发送一个 ARP 请求，当然情况远不如此简单。
  */
 err_t
 etharp_query(struct netif *netif, const ip4_addr_t *ipaddr, struct pbuf *q)

@@ -217,7 +217,7 @@ void HAL_ETH_MspDeInit(ETH_HandleTypeDef* ethHandle)
  *
  * @param netif the already initialized lwip network interface structure
  *        for this ethernetif
- */
+ *///底层硬件初始化函数
 static void low_level_init(struct netif *netif)
 { 
   uint32_t regvalue = 0;
@@ -496,7 +496,9 @@ static struct pbuf * low_level_input(struct netif *netif)
  * should handle the actual reception of bytes from the network
  * interface. Then the type of the received packet is determined and
  * the appropriate input function is called.
- *
+ *LWIP 利用 netif.input 指向的函数接收以太网数据包，通常这个函数是 ethernet_input。
+ *注意，这里并不是说 ethernet_input 直接与底层硬件交互接收数据包，而是更底层的函数接
+ *收到数据包后将数据包递交给 ethernet_input， ethernet_input 再对其进行处理。
  * @param netif the lwip network interface structure for this ethernetif
  */
 void ethernetif_input(struct netif *netif)
@@ -505,15 +507,15 @@ void ethernetif_input(struct netif *netif)
   struct pbuf *p;
 
   /* move received packet into a new pbuf */
-  p = low_level_input(netif);
+  p = low_level_input(netif);			// 接收一个数据包
     
   /* no packet could be read, silently ignore this */
-  if (p == NULL) return;
+  if (p == NULL) return;			// 如果数据包为空，则循环结束，启动下次接收过程
     
   /* entry point to the LwIP stack */
-  err = netif->input(p, netif);
+  err = netif->input(p, netif);			// 将数据包发送到上层应用函数
     
-  if (err != ERR_OK)
+  if (err != ERR_OK)				
   {
     LWIP_DEBUGF(NETIF_DEBUG, ("ethernetif_input: IP input error\n"));
     pbuf_free(p);
@@ -563,8 +565,8 @@ err_t ethernetif_init(struct netif *netif)
   netif->hostname = "lwip";
 #endif /* LWIP_NETIF_HOSTNAME */
 
-  netif->name[0] = IFNAME0;
-  netif->name[1] = IFNAME1;
+  netif->name[0] = IFNAME0;			//初始化变量 enc28j60 的 name 字段
+  netif->name[1] = IFNAME1;			// IFNAME 在文件外定义的，这里不必关心它的具体值
   /* We directly use etharp_output() here to save a function call.
    * You can instead declare your own function an call etharp_output()
    * from it if you have to do some checks before sending (e.g. if link
@@ -573,7 +575,7 @@ err_t ethernetif_init(struct netif *netif)
 #if LWIP_IPV4
 #if LWIP_ARP || LWIP_ETHERNET
 #if LWIP_ARP
-  netif->output = etharp_output;
+  netif->output = etharp_output;			//IP 层发送数据包函数
 #else
   /* The user should write ist own code in low_level_output_arp_off function */
   netif->output = low_level_output_arp_off;
@@ -585,10 +587,10 @@ err_t ethernetif_init(struct netif *netif)
   netif->output_ip6 = ethip6_output;
 #endif /* LWIP_IPV6 */
 
-  netif->linkoutput = low_level_output;
+  netif->linkoutput = low_level_output;			// //ARP 模块发送数据包函数
 
   /* initialize the hardware */
-  low_level_init(netif);
+  low_level_init(netif);			//底层硬件初始化函数
 
   return ERR_OK;
 }
