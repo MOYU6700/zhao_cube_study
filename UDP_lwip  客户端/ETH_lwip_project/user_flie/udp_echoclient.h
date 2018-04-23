@@ -50,12 +50,13 @@
 #define __UDP_ECHOCLIENT_H__
 
 /* Includes ------------------------------------------------------------------*/
+#include "stm32f1xx_hal.h"
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 void udp_echoclient_connect(void);
-void udp_echoclient_send(void);
+void udp_echoclient_send(uint8_t *data,uint16_t len); 
 
 #endif /* __UDP_ECHOCLIENT_H__ */
 

@@ -222,14 +222,13 @@ u8_t netif_alloc_client_data_id(void);
 /** Generic data structure used for all lwIP network interfaces.
  *  The following fields should be filled in by the initialization
  *  function for the device driver: hwaddr_len, hwaddr[], mtu, flags */
-/*在 LWIP 中，是通过一个叫做 netif 的网络结构体来描述一个硬件网络接口的*/
 struct netif {
   /** pointer to next in linked list */
-  struct netif *next;   // 指向下一个 netif 结构的指针
+  struct netif *next;
 
 #if LWIP_IPV4
   /** IP address configuration in network byte order */
-  ip_addr_t ip_addr;		// IP 地址相关配置
+  ip_addr_t ip_addr;
   ip_addr_t netmask;
   ip_addr_t gw;
 #endif /* LWIP_IPV4 */
@@ -242,18 +241,18 @@ struct netif {
 #endif /* LWIP_IPV6 */
   /** This function is called by the network device driver
    *  to pass a packet up the TCP/IP stack. */
-  netif_input_fn input;      //调用这个函数可以从网卡上取得一个数据包
+  netif_input_fn input;
 #if LWIP_IPV4
   /** This function is called by the IP module when it wants
    *  to send a packet on the interface. This function typically
    *  first resolves the hardware address, then sends the packet.
    *  For ethernet physical layer, this is usually etharp_output() */
-  netif_output_fn output;		// IP 层调用这个函数可以向网卡发送 一个数据包
+  netif_output_fn output;
 #endif /* LWIP_IPV4 */
   /** This function is called by ethernet_output() when it wants
    *  to send a packet on the interface. This function outputs
    *  the pbuf as-is on the link medium. */
-  netif_linkoutput_fn linkoutput;			// ARP 模块调用这个函数向网卡发送一个数据包
+  netif_linkoutput_fn linkoutput;
 #if LWIP_IPV6
   /** This function is called by the IPv6 module when it wants
    *  to send a packet on the interface. This function typically
@@ -264,7 +263,7 @@ struct netif {
 #if LWIP_NETIF_STATUS_CALLBACK
   /** This function is called when the netif state is set to up or down
    */
-  netif_status_callback_fn status_callback;			
+  netif_status_callback_fn status_callback;
 #endif /* LWIP_NETIF_STATUS_CALLBACK */
 #if LWIP_NETIF_LINK_CALLBACK
   /** This function is called when the netif link is set to up or down
@@ -277,7 +276,7 @@ struct netif {
 #endif /* LWIP_NETIF_REMOVE_CALLBACK */
   /** This field can be set by the device driver and could point
    *  to state information for the device. */
-  void *state;		// 用户可以独立发挥该指针，用于指向用户关心的网卡信息
+  void *state;
 #ifdef netif_get_client_data
   void* client_data[LWIP_NETIF_CLIENT_DATA_INDEX_MAX + LWIP_NUM_NETIF_CLIENT_DATA];
 #endif
@@ -297,17 +296,17 @@ struct netif {
   u16_t chksum_flags;
 #endif /* LWIP_CHECKSUM_CTRL_PER_NETIF*/
   /** maximum transfer unit (in bytes) */
-  u16_t mtu;					// 一次可以传送的最大字节数，对于以太网一般设为 1500
+  u16_t mtu;
   /** number of bytes used in hwaddr */
-  u8_t hwaddr_len;				 // 硬件地址长度，对于以太网就是 MAC 地址长度，为 6 各字节
+  u8_t hwaddr_len;
   /** link level hardware address of this interface */
-  u8_t hwaddr[NETIF_MAX_HWADDR_LEN];		//MAC 地址
+  u8_t hwaddr[NETIF_MAX_HWADDR_LEN];
   /** flags (@see @ref netif_flags) */
-  u8_t flags;			// 网卡状态信息标志位
+  u8_t flags;
   /** descriptive abbreviation */
-  char name[2];			// 网络接口使用的设备驱动类型的种类
+  char name[2];
   /** number of this interface */
-  u8_t num;				// 用来标示使用同种驱动类型的不同网络接口
+  u8_t num;
 #if MIB2_STATS
   /** link type (from "snmp_ifType" enum from snmp_mib2.h) */
   u8_t link_type;

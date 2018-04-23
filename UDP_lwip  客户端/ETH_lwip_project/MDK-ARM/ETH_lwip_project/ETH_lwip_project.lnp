@@ -22,6 +22,7 @@
 "eth_lwip_project\user_io.o"
 "eth_lwip_project\udp_echoclient.o"
 "eth_lwip_project\user_uart.o"
+"eth_lwip_project\user_timer.o"
 "eth_lwip_project\ip4_frag.o"
 "eth_lwip_project\init.o"
 "eth_lwip_project\netif.o"

@@ -40,9 +40,6 @@
 #include "lwip/arch.h"
 #include "lwip/opt.h"
 
-///↓↓↓↓↓↓↓开启了串口调试↓↓↓↓↓↓↓↓↓↓///
-#define LWIP_DEBUG
-///↑↑↑↑↑↑↑开启了串口调试↑↑↑↑↑↑↑↑↑↑///
 /** lower two bits indicate debug level
  * - 0 all
  * - 1 warning

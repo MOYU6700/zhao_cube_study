@@ -76,7 +76,8 @@ void User_notification(struct netif *netif)
   {     
     /* Turn On LED 2 to indicate ETH and LwIP init error */
 //    BSP_LED_On(LED2);
-		LED2_ON();
+//		LED2_ON();
+		 LED1_OFF();
   } 
 }
 

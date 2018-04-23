@@ -27,6 +27,8 @@ eth_lwip_project\chap-md5.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_c
 eth_lwip_project\chap-md5.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h
 eth_lwip_project\chap-md5.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h
 eth_lwip_project\chap-md5.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
+eth_lwip_project\chap-md5.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h
+eth_lwip_project\chap-md5.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h
 eth_lwip_project\chap-md5.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
 eth_lwip_project\chap-md5.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/debug.h
 eth_lwip_project\chap-md5.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/arch.h

@@ -264,7 +264,7 @@ netif_add(struct netif *netif,
   netif->output_ip6 = netif_null_output_ip6;
 #endif /* LWIP_IPV6 */
   NETIF_SET_CHECKSUM_CTRL(netif, NETIF_CHECKSUM_ENABLE_ALL);
-  netif->flags = 0;     	//该网卡不允许任何功能使能
+  netif->flags = 0;
 #ifdef netif_get_client_data
   memset(netif->client_data, 0, sizeof(netif->client_data));
 #endif /* LWIP_NUM_NETIF_CLIENT_DATA */
@@ -276,7 +276,7 @@ netif_add(struct netif *netif,
   netif->rs_count = LWIP_ND6_MAX_MULTICAST_SOLICIT;
 #endif /* LWIP_IPV6_SEND_ROUTER_SOLICIT */
 #if LWIP_NETIF_STATUS_CALLBACK
-  netif->status_callback = NULL;				
+  netif->status_callback = NULL;
 #endif /* LWIP_NETIF_STATUS_CALLBACK */
 #if LWIP_NETIF_LINK_CALLBACK
   netif->link_callback = NULL;
@@ -293,9 +293,9 @@ netif_add(struct netif *netif,
 #endif /* ENABLE_LOOPBACK */
 
   /* remember netif specific state information data */
-  netif->state = state;							//指向用户关心的信息，这里为 NULL
-  netif->num = netif_num++;					//设置 num 字段
-  netif->input = input;							//如前所诉， input 函数被赋值
+  netif->state = state;
+  netif->num = netif_num++;
+  netif->input = input;
 
   NETIF_SET_HWADDRHINT(netif, NULL);
 #if ENABLE_LOOPBACK && LWIP_LOOPBACK_MAX_PBUFS
@@ -303,18 +303,17 @@ netif_add(struct netif *netif,
 #endif /* ENABLE_LOOPBACK && LWIP_LOOPBACK_MAX_PBUFS */
 
 #if LWIP_IPV4
-  netif_set_addr(netif, ipaddr, netmask, gw);				//设置变量 enc28j60 网卡 的三个地址
+  netif_set_addr(netif, ipaddr, netmask, gw);
 #endif /* LWIP_IPV4 */
 
   /* call user specified initialization function for netif */
-	//用户自己的底层接口初始化函数
   if (init(netif) != ERR_OK) {
     return NULL;
   }
 
   /* add this netif to the list */
-  netif->next = netif_list;			//将初始化后的节点插入链表 netif_list
-  netif_list = netif;						// netif_list 指向链表头
+  netif->next = netif_list;
+  netif_list = netif;
   mib2_netif_added(netif);
 
 #if LWIP_IGMP

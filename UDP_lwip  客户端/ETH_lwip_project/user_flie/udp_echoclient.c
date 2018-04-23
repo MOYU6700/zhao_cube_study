@@ -59,9 +59,11 @@
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
+uint8_t udp_setbuff[100]="The UDP test is going on the road!";
 /* Private function prototypes -----------------------------------------------*/
 //接收数据回调函数声明
 void udp_receive_callback(void *arg, struct udp_pcb *upcb, struct pbuf *p, const ip_addr_t *addr, u16_t port);
+void udp_echoclient_send(uint8_t *data,uint16_t len);
 
 u8_t   data[100];  //数据buffer初始化
 __IO uint32_t message_count = 0;
@@ -80,28 +82,29 @@ struct udp_pcb *upcb_server;   //定义服务器的初始化模块；
 void udp_echoclient_connect(void)
 {
   ip_addr_t DestIPaddr;
+	ip_addr_t SourIPaddr;
   err_t err;
   /******************客户端的连接**************************/
   /* Create a new UDP control block  */
-  upcb_client = udp_new();
-  
-  if (upcb_client!=NULL)
-  {
-    /*assign destination IP address */
-    IP4_ADDR( &DestIPaddr, DEST_IP_ADDR0, DEST_IP_ADDR1, DEST_IP_ADDR2, DEST_IP_ADDR3 );   //设置服务器端的IP地址
-		
-    udp_bind(upcb_client,IP_ADDR_ANY,UDP_CLIENT_PORT);        //客户端端口的绑定；
-		
-    /* configure destination IP address and port */
-		
-    err= udp_connect(upcb_client, &DestIPaddr, UDP_REMOTE_PORT);   //服务器端地址、端口配置；
-    
-    if (err == ERR_OK)
-    {
-      /* Set a receive callback for the upcb */
-      udp_recv(upcb_client, udp_receive_callback, NULL);      //注册回调函数
-    }   
-  }
+//  upcb_client = udp_new();
+//  
+//  if (upcb_client!=NULL)
+//  {
+//    /*assign destination IP address */
+//    IP4_ADDR( &DestIPaddr, DEST_IP_ADDR0, DEST_IP_ADDR1, DEST_IP_ADDR2, DEST_IP_ADDR3 );   //设置服务器端的IP地址
+//		
+//    udp_bind(upcb_client,IP_ADDR_ANY,UDP_CLIENT_PORT);        //客户端端口的绑定；
+//		
+//    /* configure destination IP address and port */
+//		
+//    err= udp_connect(upcb_client, &DestIPaddr, UDP_REMOTE_PORT);   //服务器端地址、端口配置；
+//    
+//    if (err == ERR_OK)
+//    {
+//      /* Set a receive callback for the upcb */
+//      udp_recv(upcb_client, udp_receive_callback, NULL);      //注册回调函数
+//    }   
+//  }
 	
 	 /******************服务器的连接**************************/
 	/* Create a new UDP control block  */
@@ -110,8 +113,7 @@ void udp_echoclient_connect(void)
   if (upcb_server!=NULL)
   {   
     /* configure destination IP address and port */
-    err= udp_connect(upcb_server, &DestIPaddr, UDP_SERVER_PORT);   
-    
+    err= udp_bind(upcb_server,IP_ADDR_ANY,UDP_SERVER_PORT);        //客户端端口的绑定；   
     if (err == ERR_OK)
     {
       /* Set a receive callback for the upcb */
@@ -130,28 +132,26 @@ void udp_echoclient_connect(void)
   * @param port the remote port from which the packet was received
   * @retval None
   */
-//客户端数据发送函数
-void udp_echoclient_send(void)
+//客户端数据发送函数(个人改动)
+void udp_echoclient_send(uint8_t *data,uint16_t len)
 {
   struct pbuf *p;
-  
-  sprintf((char*)data, "sending udp client message %d", (int)message_count);
-  
   /* allocate pbuf from pool*/
-  p = pbuf_alloc(PBUF_TRANSPORT,strlen((char*)data), PBUF_POOL);
+  p = pbuf_alloc(PBUF_TRANSPORT,len, PBUF_POOL);
   
   if (p != NULL)
   {
     /* copy data to pbuf */
-    pbuf_take(p, (char*)data, strlen((char*)data));
-    
+    pbuf_take(p, data, len);
+		
     /* send udp data */
-    udp_send(upcb_client, p);      //发送数据
+    udp_send(upcb_server, p);      //发送数据
     
     /* free pbuf */
     pbuf_free(p);
   }
 }
+
 
 /**
   * @brief This function is called when an UDP datagrm has been received on the port UDP_PORT.
@@ -166,19 +166,20 @@ void udp_echoclient_send(void)
 void udp_receive_callback(void *arg, struct udp_pcb *upcb, struct pbuf *p, const ip_addr_t *addr, u16_t port)
 {
 
-  /*increment message count */
-  message_count++;
-/* Connect to the remote client */
-  udp_connect(upcb, addr, UDP_CLIENT_PORT);
-    
-  /* Tell the client that we have accepted it */
-  udp_send(upcb, p);
-
-  /* free the UDP connection, so we can accept new clients */
-  udp_disconnect(upcb);
-	
-  /* Free receive pbuf */
-  pbuf_free(p);
+//  /*increment message count */
+//  message_count++;
+///* Connect to the remote client */
+//  udp_connect(upcb, addr, UDP_REMOTE_PORT);
+//    
+//  /* Tell the client that we have accepted it */
+//  udp_send(upcb, p);
+//	
+//  /* free the UDP connection, so we can accept new clients */
+//  udp_disconnect(upcb);
+//	
+//  /* Free receive pbuf */
+//  pbuf_free(p);	
+	udp_echoclient_send(udp_setbuff,100); 
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
