@@ -54,23 +54,45 @@
 #include <stdio.h>
 
 #include "app_ethernet.h"
+#include "user_io.h"
 /* Private typedef -----------------------------------------------------------*/
 
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-uint8_t udp_setbuff[100]="The UDP test is going on the road!";
+//uint8_t udp_setbuff[100]="The UDP test is going on the road!";
 /* Private function prototypes -----------------------------------------------*/
 //接收数据回调函数声明
 void udp_receive_callback(void *arg, struct udp_pcb *upcb, struct pbuf *p, const ip_addr_t *addr, u16_t port);
-void udp_echoclient_send(uint8_t *data,uint16_t len);
+void udp_client_send(uint8_t *data,uint16_t len);
 
+uint8_t i;
+uint8_t iptxt[20];
 u8_t   data[100];  //数据buffer初始化
 __IO uint32_t message_count = 0;
 struct udp_pcb *upcb_client;   //定义客户端的初始化模块；
 struct udp_pcb *upcb_server;   //定义服务器的初始化模块；
 
 /* Private functions ---------------------------------------------------------*/
+/****************	服务端回调函数***********************/
+void udp_server_receive_callback(void *arg, struct udp_pcb *upcb, struct pbuf *p, const ip_addr_t *addr, u16_t port)
+{
+	uint16_t data_len;
+	if (upcb_client->flags & UDP_FLAGS_CONNECTED)
+	{
+		/* free the UDP connection, so we can accept new clients */
+		udp_disconnect(upcb_client);
+	}
+
+	if (!(upcb_client->flags & UDP_FLAGS_CONNECTED))
+	{
+			/* Connect to the remote client */
+			udp_connect(upcb_client, addr, port);
+	}
+
+	/* Free receive pbuf */
+	pbuf_free(p);
+}
 
 /**
   * @brief  Connect to UDP echo server
@@ -82,46 +104,53 @@ struct udp_pcb *upcb_server;   //定义服务器的初始化模块；
 void udp_echoclient_connect(void)
 {
   ip_addr_t DestIPaddr;
-	ip_addr_t SourIPaddr;
   err_t err;
   /******************客户端的连接**************************/
   /* Create a new UDP control block  */
-//  upcb_client = udp_new();
-//  
-//  if (upcb_client!=NULL)
-//  {
-//    /*assign destination IP address */
-//    IP4_ADDR( &DestIPaddr, DEST_IP_ADDR0, DEST_IP_ADDR1, DEST_IP_ADDR2, DEST_IP_ADDR3 );   //设置服务器端的IP地址
-//		
-//    udp_bind(upcb_client,IP_ADDR_ANY,UDP_CLIENT_PORT);        //客户端端口的绑定；
-//		
-//    /* configure destination IP address and port */
-//		
-//    err= udp_connect(upcb_client, &DestIPaddr, UDP_REMOTE_PORT);   //服务器端地址、端口配置；
-//    
-//    if (err == ERR_OK)
-//    {
-//      /* Set a receive callback for the upcb */
-//      udp_recv(upcb_client, udp_receive_callback, NULL);      //注册回调函数
-//    }   
-//  }
-	
-	 /******************服务器的连接**************************/
-	/* Create a new UDP control block  */
-  upcb_server = udp_new();
+  upcb_client = udp_new();
   
-  if (upcb_server!=NULL)
-  {   
+  if (upcb_client!=NULL)
+  {
+    /*assign destination IP address */
+    IP4_ADDR( &DestIPaddr, DEST_IP_ADDR0, DEST_IP_ADDR1, DEST_IP_ADDR2, DEST_IP_ADDR3 );   //设置服务器端的IP地址
+		
+    udp_bind(upcb_client,IP_ADDR_ANY,UDP_CLIENT_PORT);        //客户端端口的绑定；
+		
     /* configure destination IP address and port */
-    err= udp_bind(upcb_server,IP_ADDR_ANY,UDP_SERVER_PORT);        //客户端端口的绑定；   
+		
+    err= udp_connect(upcb_client, &DestIPaddr, UDP_REMOTE_PORT);   //服务器端地址、端口配置；
+    
     if (err == ERR_OK)
     {
       /* Set a receive callback for the upcb */
-      udp_recv(upcb_server, udp_receive_callback, NULL);       //注册回调函数
-    }
+      udp_recv(upcb_client, udp_receive_callback, NULL);      //注册回调函数
+    }   
   }
 	
+	 /******************服务器的连接**************************/
+	/* Create a new UDP control block  */
+//  upcb_server = udp_new();
+//  
+//  if (upcb_server!=NULL)
+//  {   
+//    /* configure destination IP address and port */
+//		err=udp_connect(upcb_server, IP_ADDR_ANY, UDP_SERVER_PORT); 
+//    if (err == ERR_OK)
+//    {
+//      /* Set a receive callback for the upcb */
+//      udp_recv(upcb_server, udp_server_receive_callback, NULL);       //注册回调函数
+//			LED2_ON();
+//    }
+//  }
+	
 }
+
+
+/***/
+void udp_echoclient_send(void)
+{
+	
+}	
 
 /**
   * @brief This function is called when an UDP datagrm has been received on the port UDP_PORT.
@@ -133,19 +162,18 @@ void udp_echoclient_connect(void)
   * @retval None
   */
 //客户端数据发送函数(个人改动)
-void udp_echoclient_send(uint8_t *data,uint16_t len)
+void udp_client_send(uint8_t *data,uint16_t len)
 {
   struct pbuf *p;
   /* allocate pbuf from pool*/
   p = pbuf_alloc(PBUF_TRANSPORT,len, PBUF_POOL);
-  
   if (p != NULL)
   {
     /* copy data to pbuf */
     pbuf_take(p, data, len);
 		
     /* send udp data */
-    udp_send(upcb_server, p);      //发送数据
+    udp_send(upcb_client, p);      //发送数据
     
     /* free pbuf */
     pbuf_free(p);
@@ -165,21 +193,18 @@ void udp_echoclient_send(uint8_t *data,uint16_t len)
 //客户端接收数据回调函数
 void udp_receive_callback(void *arg, struct udp_pcb *upcb, struct pbuf *p, const ip_addr_t *addr, u16_t port)
 {
-
-//  /*increment message count */
-//  message_count++;
-///* Connect to the remote client */
+  /*increment message count */
+  message_count++;
+/* Connect to the remote client */
 //  udp_connect(upcb, addr, UDP_REMOTE_PORT);
-//    
-//  /* Tell the client that we have accepted it */
-//  udp_send(upcb, p);
-//	
-//  /* free the UDP connection, so we can accept new clients */
+    
+  /* Tell the client that we have accepted it */
+  udp_send(upcb, p);
+  /* free the UDP connection, so we can accept new clients */
 //  udp_disconnect(upcb);
-//	
-//  /* Free receive pbuf */
-//  pbuf_free(p);	
-	udp_echoclient_send(udp_setbuff,100); 
+	
+  /* Free receive pbuf */
+  pbuf_free(p);			
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

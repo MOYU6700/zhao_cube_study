@@ -62,3 +62,4 @@ eth_lwip_project\udp_echoclient.o: ../Middlewares/Third_Party/LwIP/src/include/l
 eth_lwip_project\udp_echoclient.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/prot/icmp.h
 eth_lwip_project\udp_echoclient.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 eth_lwip_project\udp_echoclient.o: ..\user_flie\app_ethernet.h
+eth_lwip_project\udp_echoclient.o: ..\user_flie\user_io.h

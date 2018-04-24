@@ -64,7 +64,6 @@ UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-uint8_t iptxt[20];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -117,7 +116,6 @@ int main(void)
   
   /* Notify user about the netwoek interface config */
   User_notification(&gnetif);	     //用来检测网络有没有连通；  
-	sprintf((char *)iptxt, "%s", ip4addr_ntoa((const ip4_addr_t *)&gnetif.ip_addr));
 	user_timer_init();
   /* USER CODE END 2 */
 

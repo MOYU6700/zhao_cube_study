@@ -56,7 +56,8 @@
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 void udp_echoclient_connect(void);
-void udp_echoclient_send(uint8_t *data,uint16_t len); 
+void udp_echoclient_send(void); 
+void udp_client_send(uint8_t *data,uint16_t len);
 
 #endif /* __UDP_ECHOCLIENT_H__ */
 

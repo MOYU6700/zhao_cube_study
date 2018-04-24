@@ -61,7 +61,7 @@
 /* USER CODE END 0 */
 /* Private function prototypes -----------------------------------------------*/
 /* ETH Variables initialization ----------------------------------------------*/
-//uint8_t udp_setbuff[100]="The UDP test is going on the road!";
+uint8_t udp_setbuff[100]="The UDP test is going on the road!";
 
 void _Error_Handler(char * file, int line);
 
@@ -163,7 +163,7 @@ void MX_LWIP_Process(void)
 /* USER CODE BEGIN 4_3 */
 	if(get_timer2_flag())
 	{
-//		udp_echoclient_send(udp_setbuff,100); 
+    udp_client_send(udp_setbuff,100); 
 		clr_timer2_flag();
 	}	
 /* USER CODE END 4_3 */
