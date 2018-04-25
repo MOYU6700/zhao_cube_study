@@ -17,7 +17,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 uint8_t get_timer2_flag(void)
 {
 	uint8_t flag;
-	return flag=timer2_5s_flag;
+	flag=timer2_5s_flag;
+	return flag;
 }
 
 void clr_timer2_flag(void)

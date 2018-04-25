@@ -66,8 +66,6 @@
 void udp_receive_callback(void *arg, struct udp_pcb *upcb, struct pbuf *p, const ip_addr_t *addr, u16_t port);
 void udp_client_send(uint8_t *data,uint16_t len);
 
-uint8_t i;
-uint8_t iptxt[20];
 u8_t   data[100];  //数据buffer初始化
 __IO uint32_t message_count = 0;
 struct udp_pcb *upcb_client;   //定义客户端的初始化模块；
@@ -129,22 +127,21 @@ void udp_echoclient_connect(void)
 	
 	 /******************服务器的连接**************************/
 	/* Create a new UDP control block  */
-//  upcb_server = udp_new();
-//  
-//  if (upcb_server!=NULL)
-//  {   
-//    /* configure destination IP address and port */
-//		err=udp_connect(upcb_server, IP_ADDR_ANY, UDP_SERVER_PORT); 
-//    if (err == ERR_OK)
-//    {
-//      /* Set a receive callback for the upcb */
-//      udp_recv(upcb_server, udp_server_receive_callback, NULL);       //注册回调函数
-//			LED2_ON();
-//    }
-//  }
+  upcb_server = udp_new();
+  
+  if (upcb_server!=NULL)
+  {   
+    /* configure destination IP address and port */
+		err=udp_connect(upcb_server, IP_ADDR_ANY, UDP_SERVER_PORT); 
+    if (err == ERR_OK)
+    {
+      /* Set a receive callback for the upcb */
+      udp_recv(upcb_server, udp_server_receive_callback, NULL);       //注册回调函数
+			LED2_ON();
+    }
+  }
 	
 }
-
 
 /***/
 void udp_echoclient_send(void)
@@ -180,6 +177,15 @@ void udp_client_send(uint8_t *data,uint16_t len)
   }
 }
 
+/*********************定义网络接收数据的函数****************************/
+uint8_t udp_rec_buff[1024];
+void udp_client_data_handle(uint8_t *data,uint8_t *rec_buff,uint16_t length)
+{
+	if(length!=0)//代表有数据；
+	{
+		memcpy(udp_rec_buff,data,length);
+	}	
+}	
 
 /**
   * @brief This function is called when an UDP datagrm has been received on the port UDP_PORT.
@@ -193,11 +199,9 @@ void udp_client_send(uint8_t *data,uint16_t len)
 //客户端接收数据回调函数
 void udp_receive_callback(void *arg, struct udp_pcb *upcb, struct pbuf *p, const ip_addr_t *addr, u16_t port)
 {
-  /*increment message count */
-  message_count++;
 /* Connect to the remote client */
 //  udp_connect(upcb, addr, UDP_REMOTE_PORT);
-    
+  udp_client_data_handle(p->payload,udp_rec_buff,p->len);
   /* Tell the client that we have accepted it */
   udp_send(upcb, p);
   /* free the UDP connection, so we can accept new clients */

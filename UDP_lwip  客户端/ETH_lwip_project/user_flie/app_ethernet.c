@@ -57,6 +57,7 @@
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
+uint8_t iptxt[20];
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
 /**
@@ -71,6 +72,7 @@ void User_notification(struct netif *netif)
     /* Turn On LED 1 to indicate ETH and LwIP init success*/
 //    BSP_LED_On(LED1);
 		LED1_ON();
+		sprintf((char *)iptxt, "%s", ip4addr_ntoa((const ip4_addr_t *)&netif->ip_addr));
   }
   else
   {     

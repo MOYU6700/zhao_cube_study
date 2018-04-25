@@ -71,3 +71,4 @@ eth_lwip_project\netif.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/prot/
 eth_lwip_project\netif.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/prot/etharp.h
 eth_lwip_project\netif.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/sys.h
 eth_lwip_project\netif.o: ../Middlewares/Third_Party/LwIP/src/include/netif/ethernet.h
+eth_lwip_project\netif.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/dhcp.h
