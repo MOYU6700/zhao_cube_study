@@ -24,6 +24,7 @@ eth_lwip_project\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_corte
 eth_lwip_project\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h
 eth_lwip_project\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h
 eth_lwip_project\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
+eth_lwip_project\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h
 eth_lwip_project\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h
 eth_lwip_project\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h
 eth_lwip_project\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
@@ -69,3 +70,5 @@ eth_lwip_project\main.o: ../Inc/ethernetif.h
 eth_lwip_project\main.o: ..\user_flie\udp_echoclient.h
 eth_lwip_project\main.o: ..\user_flie\app_ethernet.h
 eth_lwip_project\main.o: ..\user_flie\user_timer.h
+eth_lwip_project\main.o: ..\user_flie\spi_lcd.h
+eth_lwip_project\main.o: ..\user_flie\user_spi.h

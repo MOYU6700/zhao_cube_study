@@ -75,7 +75,6 @@ struct udp_pcb *upcb_server;   //定义服务器的初始化模块；
 /****************	服务端回调函数***********************/
 void udp_server_receive_callback(void *arg, struct udp_pcb *upcb, struct pbuf *p, const ip_addr_t *addr, u16_t port)
 {
-	uint16_t data_len;
 	if (upcb_client->flags & UDP_FLAGS_CONNECTED)
 	{
 		/* free the UDP connection, so we can accept new clients */
@@ -137,7 +136,6 @@ void udp_echoclient_connect(void)
     {
       /* Set a receive callback for the upcb */
       udp_recv(upcb_server, udp_server_receive_callback, NULL);       //注册回调函数
-			LED2_ON();
     }
   }
 	

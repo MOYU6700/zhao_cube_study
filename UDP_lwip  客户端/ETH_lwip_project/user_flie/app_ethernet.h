@@ -59,7 +59,11 @@
 /* Exported types ------------------------------------------------------------*/
 extern struct netif gnetif;	 
 /* Exported constants --------------------------------------------------------*/   
+
 /* Exported macro ------------------------------------------------------------*/
+#define USE_LCD        /* enable LCD  */
+#define USE_DHCP       /* enable DHCP, if disabled static address is used */
+	 
 #define DEST_IP_ADDR0   192
 #define DEST_IP_ADDR1   168
 #define DEST_IP_ADDR2   1
@@ -86,9 +90,25 @@ extern struct netif gnetif;
 #define GW_ADDR1   168
 #define GW_ADDR2   1
 #define GW_ADDR3   1	 
-/* Exported functions ------------------------------------------------------- */
-void User_notification(struct netif *netif);
 
+/* DHCP process states */
+#define DHCP_OFF                   (uint8_t) 0
+#define DHCP_START                 (uint8_t) 1
+#define DHCP_WAIT_ADDRESS          (uint8_t) 2
+#define DHCP_ADDRESS_ASSIGNED      (uint8_t) 3
+#define DHCP_TIMEOUT               (uint8_t) 4
+#define DHCP_LINK_DOWN             (uint8_t) 5
+/* Exported functions ------------------------------------------------------- */
+extern struct netif gnetif;
+#ifdef USE_DHCP
+extern __IO uint8_t DHCP_state;
+#endif 
+
+void User_notification(struct netif *netif);
+#ifdef USE_DHCP
+void DHCP_Process(struct netif *netif);
+void DHCP_Periodic_Handle(struct netif *netif);
+#endif  
 #ifdef __cplusplus
 }
 #endif

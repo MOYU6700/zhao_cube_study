@@ -54,6 +54,7 @@
 #if defined ( __CC_ARM )  /* MDK ARM Compiler */
 #include "lwip/sio.h"
 #endif /* MDK ARM Compiler */
+#include "ethernetif.h"
 
 /* USER CODE BEGIN 0 */
 #include "user_timer.h"
@@ -110,6 +111,11 @@ void MX_LWIP_Init(void)
     netif_set_down(&gnetif);
   }
 
+  /* Set the link callback function, this function is called on change of link status*/
+  netif_set_link_callback(&gnetif, ethernetif_update_config);
+
+  /* Create the Ethernet link handler thread */
+
   /* Start DHCP negotiation for a network interface (IPv4) */
   dhcp_start(&gnetif);
 
@@ -153,6 +159,10 @@ void MX_LWIP_Process(void)
     udp_client_send(udp_setbuff,100); 
 		clr_timer2_flag();
 	}	
+#ifdef USE_DHCP
+    /* handle periodic timers for LwIP */
+    DHCP_Periodic_Handle(&gnetif);
+#endif
 /* USER CODE END 4_3 */
 }
 

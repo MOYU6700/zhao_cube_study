@@ -55,9 +55,14 @@
 #include "udp_echoclient.h"  
 #include "app_ethernet.h"
 #include "user_timer.h"
+#include  "spi_lcd.h"
+#include "user_spi.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
+SPI_HandleTypeDef hspi1;
+DMA_HandleTypeDef hdma_spi1_tx;
+
 TIM_HandleTypeDef htim2;
 
 UART_HandleTypeDef huart2;
@@ -69,8 +74,10 @@ UART_HandleTypeDef huart2;
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
+static void MX_DMA_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_TIM2_Init(void);
+static void MX_SPI1_Init(void);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
@@ -106,19 +113,23 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_LWIP_Init();
   MX_USART2_UART_Init();
   MX_TIM2_Init();
+  MX_SPI1_Init();
 
   /* USER CODE BEGIN 2 */
+	user_timer_init();
+	spi_lcd_init();
+	user_spi_init();
   /* udp client connect */
   udp_echoclient_connect();
   
   /* Notify user about the netwoek interface config */
   User_notification(&gnetif);	     //用来检测网络有没有连通；  
-	user_timer_init();
   /* USER CODE END 2 */
-
+	
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
@@ -198,6 +209,30 @@ void SystemClock_Config(void)
   HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
 }
 
+/* SPI1 init function */
+static void MX_SPI1_Init(void)
+{
+
+  /* SPI1 parameter configuration*/
+  hspi1.Instance = SPI1;
+  hspi1.Init.Mode = SPI_MODE_MASTER;
+  hspi1.Init.Direction = SPI_DIRECTION_2LINES;
+  hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
+  hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
+  hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
+  hspi1.Init.NSS = SPI_NSS_SOFT;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4;
+  hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
+  hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
+  hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+  hspi1.Init.CRCPolynomial = 10;
+  if (HAL_SPI_Init(&hspi1) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+}
+
 /* TIM2 init function */
 static void MX_TIM2_Init(void)
 {
@@ -250,6 +285,21 @@ static void MX_USART2_UART_Init(void)
 
 }
 
+/** 
+  * Enable DMA controller clock
+  */
+static void MX_DMA_Init(void) 
+{
+  /* DMA controller clock enable */
+  __HAL_RCC_DMA1_CLK_ENABLE();
+
+  /* DMA interrupt init */
+  /* DMA1_Channel3_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Channel3_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Channel3_IRQn);
+
+}
+
 /** Configure pins as 
         * Analog 
         * Input 
@@ -271,10 +321,24 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(OUTPUT_LCD_CS_GPIO_Port, OUTPUT_LCD_CS_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOE, OUTPUT_LCD_RES_Pin|OUTPUT_LCD_DC_Pin|OUTPUT_LCD_BL_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOE, LED1_Pin|LED2_Pin|LED3_Pin, GPIO_PIN_SET);
 
-  /*Configure GPIO pins : LED1_Pin LED2_Pin LED3_Pin */
-  GPIO_InitStruct.Pin = LED1_Pin|LED2_Pin|LED3_Pin;
+  /*Configure GPIO pin : OUTPUT_LCD_CS_Pin */
+  GPIO_InitStruct.Pin = OUTPUT_LCD_CS_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(OUTPUT_LCD_CS_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : OUTPUT_LCD_RES_Pin OUTPUT_LCD_DC_Pin OUTPUT_LCD_BL_Pin LED1_Pin 
+                           LED2_Pin LED3_Pin */
+  GPIO_InitStruct.Pin = OUTPUT_LCD_RES_Pin|OUTPUT_LCD_DC_Pin|OUTPUT_LCD_BL_Pin|LED1_Pin 
+                          |LED2_Pin|LED3_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);

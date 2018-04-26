@@ -57,6 +57,14 @@
 
 /* Private define ------------------------------------------------------------*/
 
+#define OUTPUT_LCD_CS_Pin GPIO_PIN_6
+#define OUTPUT_LCD_CS_GPIO_Port GPIOA
+#define OUTPUT_LCD_RES_Pin GPIO_PIN_7
+#define OUTPUT_LCD_RES_GPIO_Port GPIOE
+#define OUTPUT_LCD_DC_Pin GPIO_PIN_8
+#define OUTPUT_LCD_DC_GPIO_Port GPIOE
+#define OUTPUT_LCD_BL_Pin GPIO_PIN_9
+#define OUTPUT_LCD_BL_GPIO_Port GPIOE
 #define LED1_Pin GPIO_PIN_13
 #define LED1_GPIO_Port GPIOE
 #define LED2_Pin GPIO_PIN_14

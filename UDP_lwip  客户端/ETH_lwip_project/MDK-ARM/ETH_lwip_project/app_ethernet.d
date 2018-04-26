@@ -26,6 +26,7 @@ eth_lwip_project\app_ethernet.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_h
 eth_lwip_project\app_ethernet.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h
 eth_lwip_project\app_ethernet.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h
 eth_lwip_project\app_ethernet.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
+eth_lwip_project\app_ethernet.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h
 eth_lwip_project\app_ethernet.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h
 eth_lwip_project\app_ethernet.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h
 eth_lwip_project\app_ethernet.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
@@ -53,4 +54,13 @@ eth_lwip_project\app_ethernet.o: ../Middlewares/Third_Party/LwIP/src/include/lwi
 eth_lwip_project\app_ethernet.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/stats.h
 eth_lwip_project\app_ethernet.o: ../Inc/ethernetif.h
 eth_lwip_project\app_ethernet.o: ..\user_flie\udp_echoclient.h
+eth_lwip_project\app_ethernet.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/dhcp.h
+eth_lwip_project\app_ethernet.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/udp.h
+eth_lwip_project\app_ethernet.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/ip.h
+eth_lwip_project\app_ethernet.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/ip4.h
+eth_lwip_project\app_ethernet.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/prot/ip4.h
+eth_lwip_project\app_ethernet.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/ip6.h
+eth_lwip_project\app_ethernet.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/prot/ip.h
+eth_lwip_project\app_ethernet.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/prot/udp.h
 eth_lwip_project\app_ethernet.o: ..\user_flie\user_io.h
+eth_lwip_project\app_ethernet.o: ..\user_flie\spi_lcd.h
