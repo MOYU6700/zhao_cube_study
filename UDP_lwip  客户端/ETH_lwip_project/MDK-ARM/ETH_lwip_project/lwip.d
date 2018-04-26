@@ -71,3 +71,4 @@ eth_lwip_project\lwip.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/init.h
 eth_lwip_project\lwip.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/sio.h
 eth_lwip_project\lwip.o: ..\user_flie\user_timer.h
 eth_lwip_project\lwip.o: ..\user_flie\udp_echoclient.h
+eth_lwip_project\lwip.o: ..\user_flie\app_ethernet.h

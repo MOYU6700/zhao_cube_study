@@ -58,7 +58,8 @@
 
 /* USER CODE BEGIN 0 */
 #include "user_timer.h"
-#include "udp_echoclient.h"  
+#include "udp_echoclient.h" 
+#include "app_ethernet.h"
 /* USER CODE END 0 */
 /* Private function prototypes -----------------------------------------------*/
 /* ETH Variables initialization ----------------------------------------------*/
