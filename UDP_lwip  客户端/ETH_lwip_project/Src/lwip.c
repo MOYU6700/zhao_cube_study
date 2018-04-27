@@ -161,8 +161,10 @@ void MX_LWIP_Process(void)
 		clr_timer2_flag();
 	}	
 #ifdef USE_DHCP
+	/*sets the netif link status.*/
+	ethernetif_set_link(&gnetif);    //用来POLL 网口状态的更新，支持热插拔；
     /* handle periodic timers for LwIP */
-    DHCP_Periodic_Handle(&gnetif);
+  DHCP_Periodic_Handle(&gnetif);
 #endif
 /* USER CODE END 4_3 */
 }

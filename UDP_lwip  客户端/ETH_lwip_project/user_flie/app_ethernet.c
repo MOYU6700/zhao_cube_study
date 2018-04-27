@@ -81,7 +81,6 @@ void User_notification(struct netif *netif)
 #ifdef USE_DHCP
     /* Update DHCP state machine */
     DHCP_state = DHCP_START;
-	  LCD_UsrLog ("  State: Looking for DHCP server ...\n");
 #else
 #ifdef USE_LCD
     uint8_t iptxt[20];

@@ -67,7 +67,7 @@ extern struct netif gnetif;
 #define DEST_IP_ADDR0   192
 #define DEST_IP_ADDR1   168
 #define DEST_IP_ADDR2   1
-#define DEST_IP_ADDR3   102
+#define DEST_IP_ADDR3   114
 
 #define UDP_SERVER_PORT    ((uint16_t)1030)   /* define the UDP local bind port */
 #define UDP_CLIENT_PORT    ((uint16_t)1031)   /* define the UDP local connection port */
