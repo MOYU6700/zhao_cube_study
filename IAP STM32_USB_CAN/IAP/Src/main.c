@@ -43,6 +43,7 @@
 /* USER CODE BEGIN Includes */
 #include "user_io.h"
 #include "user_uart.h"
+#include "user_boot.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -74,7 +75,8 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-
+	uint32_t UpdateTimeoutTimer = 0u;
+	user_boot();
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -108,7 +110,11 @@ int main(void)
   while (1)
   {
   /* USER CODE END WHILE */
-
+		if (HAL_GetTick() - UpdateTimeoutTimer >= 3*60*1000)
+		{
+			HAL_NVIC_SystemReset();
+			while(1);
+		}
   /* USER CODE BEGIN 3 */
 
   }

@@ -556,6 +556,11 @@
               <FileType>1</FileType>
               <FilePath>..\user_flie\user_flash.c</FilePath>
             </File>
+            <File>
+              <FileName>modbus_usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\user_flie\modbus_usart.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

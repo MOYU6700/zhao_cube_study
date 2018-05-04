@@ -24,6 +24,7 @@
 "iap\flash_if.o"
 "iap\user_boot.o"
 "iap\user_flash.o"
+"iap\modbus_usart.o"
 --library_type=microlib --strict --scatter "IAP\IAP.sct"
 
 --diag_suppress=L6329 --summary_stderr --info summarysizes --map --xref --callgraph --symbols

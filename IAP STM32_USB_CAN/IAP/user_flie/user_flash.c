@@ -7,9 +7,10 @@ FLASH_EraseInitTypeDef erase_init;
 typedef struct flash_write_buf
 {
 	uint64_t buf[FLASH_PAGE_SIZE/8];
-} flash_write_t;
+} flash_write_t; 
 
 static uint8_t flash_page_buf[FLASH_PAGE_SIZE] = {0};
+/*32位的指针地址强制转换为8位的指针地址 */
 static flash_write_t *flash_write = (flash_write_t *)flash_page_buf;
 
 void user_flash_read(uint32_t addr, uint16_t len, uint8_t *data);
@@ -33,8 +34,12 @@ void user_flash_write(uint32_t addr, uint16_t len, uint8_t *data)
 	/*刷除EEPROM的内容*/
 	uint32_t PageError = 0;
 	HAL_FLASHEx_Erase(&erase_init, &PageError);
-	/*写入EEPROM*/
-	HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, flash_addr,data);
+	/*写入EEPROM对FLASH烧写*/
+	for (i=0; i<(FLASH_PAGE_SIZE/8); i++)
+	{
+		HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, flash_addr, flash_write->buf[i]);
+		flash_addr += 8;
+	}
 	/*锁住FLASH*/
 	HAL_FLASH_Lock();	
 }	
