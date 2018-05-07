@@ -1,17 +1,19 @@
 #include "stm32f1xx_hal.h"
 #include "user_uart.h"
-
+#include "flash_map.h"
+#include "user_boot.h"
 #include <string.h>
+
+uint16_t uart_rec_cnt=0;
+uint32_t uart_cnt=0;
+uint8_t uart_rec_buff[UART_BUFF_LEN] __attribute__ ((at(USER_FLASH_BIN_BASE)));//接收缓冲,最大USART_REC_LEN个字节,起始地址为USER_FLASH_BIN_BASE.  
 
 extern UART_HandleTypeDef huart1;
 
-struct frame frame = {0};
-
 void user_uart_init(void)
 {
-	memset((void *)&frame, 0, sizeof(frame));
 	__HAL_UART_ENABLE(&huart1);
-	HAL_UART_Receive_IT(&huart1, (uint8_t *)&(frame.data), 1);	//串口接收一个字节，并通过中断返回结果
+	HAL_UART_Receive_IT(&huart1, (uint8_t *)&uart_rec_buff, 1);	//串口接收一个字节，并通过中断返回结果
 }
 
 void user_uart_stop(void)
@@ -21,47 +23,25 @@ void user_uart_stop(void)
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
-	if(frame.index == 0 && frame.data == 0xff)	//判定帧头0xff
-	{
-		frame.index++;
-		HAL_UART_Receive_IT(&huart1, (uint8_t *)&(frame.data), 1);
-		return;
-	}
-	if(frame.index == 1)	//判定帧头0xc2
-	{
-		switch (frame.data)
-		{
-			case 0xc2:
-				frame.index++;
-				break;
-			case 0xff:
-				break;
-			default :
-				frame.index = 0;
-				break;
-		}
-		HAL_UART_Receive_IT(&huart1, (uint8_t *)&(frame.data), 1);
-		return;
-	}
-	if(frame.index >= 8)	//判定帧尾0xee
-	{
-		switch (frame.data)
-		{
-			case 0xee:
-				frame.enable = 1;
-				frame.index = 0;
-				break;
-			default :
-				frame.index = 0;
-				break;
-		}
-		HAL_UART_Receive_IT(&huart1, (uint8_t *)&(frame.data), 1);
-		return;
-	}
-	frame.buff[frame.index] = frame.data;
-	frame.index++;
-
-	HAL_UART_Receive_IT(&huart1, (uint8_t *)&(frame.data), 1);
+	uint8_t temp_buff;
+//	if(huart->Instance==USART1)
+//	{
+//		if(HAL_UART_GetState(&huart1)==HAL_UART_STATE_READY)
+//		{
+//			temp_buff=huart1.Instance->DR;
+//		}
+//		/*判断接收的数据是否超出最大缓存区*/
+//		if(uart_cnt<UART_BUFF_LEN)
+//		{
+//			uart_rec_buff[uart_cnt]=temp_buff;
+//			uart_cnt++;
+//		}	
+//		else  //数据缓存大于最大值，报错；
+//		{
+//			printf("Is error for recive the BIN update flie!\n");
+//		}	
+//	}
+	HAL_UART_Receive_IT(&huart1, (uint8_t *)&uart_rec_buff, 1);	//串口接收一个字节，并通过中断返回结果
 }
 
 
@@ -96,5 +76,5 @@ void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
 					 break;
 		}
 	}	
-	HAL_UART_Receive_IT(&huart1, (uint8_t *)&(frame.data), 1);
+	HAL_UART_Receive_IT(&huart1, (uint8_t *)&uart_rec_buff, 1);
 }	

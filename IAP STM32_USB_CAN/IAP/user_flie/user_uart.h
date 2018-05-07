@@ -3,17 +3,10 @@
 
 #include "user_config.h"
 
-#define UART_BUFF_SIZE 20
+#define UART_BUFF_LEN 224*1024
 
-struct frame
-{
-	__IO uint8_t enable;
-	__IO uint8_t data;
-	__IO uint8_t buff[UART_BUFF_SIZE];
-	__IO uint8_t index;
-};
-
-extern struct frame frame;
+extern uint32_t uart_cnt;
+extern uint8_t uart_rec_buff[UART_BUFF_LEN];
 
 extern void user_uart_init(void);
 extern void user_uart_stop(void);

@@ -29,4 +29,6 @@ iap\user_uart.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
 iap\user_uart.o: ..\user_flie\user_uart.h
 iap\user_uart.o: ..\user_flie\user_config.h
 iap\user_uart.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+iap\user_uart.o: ..\user_flie\flash_map.h
+iap\user_uart.o: ..\user_flie\user_boot.h
 iap\user_uart.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
