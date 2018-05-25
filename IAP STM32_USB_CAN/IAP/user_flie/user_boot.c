@@ -24,7 +24,7 @@ void user_boot(void)
 	}
 	else                                   //激活就直接跳到IAP去；
 	{
-//		boot_clean_update_flag();
+		boot_clean_update_flag();
 	}	
 }	
 

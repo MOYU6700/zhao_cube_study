@@ -61,8 +61,8 @@ UART_HandleTypeDef huart1;
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_CAN_Init(void);
 static void MX_USART1_UART_Init(void);
+static void MX_CAN_Init(void);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
@@ -101,8 +101,8 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_CAN_Init();
   MX_USART1_UART_Init();
+  MX_CAN_Init();
 
   /* USER CODE BEGIN 2 */
 	user_io_init();
@@ -126,7 +126,7 @@ int main(void)
 //				printf("用户程序接收完成!\r\n");
 //				printf("代码长度:%dBytes\r\n",applenth);
 //				printf("开始更新固件...\r\n");	
- 				if(((*(uint32_t*)(0X20001000+4))&0xFF000000)==0x08000000)//判断是否为0X08XXXXXX.
+ 				if(((*(uint32_t*)(0X20001000+4))&0xFF000000)==0X20001000)//判断是否为0X08XXXXXX.
 				{	 
 					iap_write_appbin(USER_FLASH_APP_BASE,uart_rec_buff,applenth);//更新FLASH代码   
 //					printf("固件更新完成!\r\n");	

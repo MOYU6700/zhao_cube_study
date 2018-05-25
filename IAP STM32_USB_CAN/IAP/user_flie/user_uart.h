@@ -3,11 +3,9 @@
 
 #include "user_config.h"
 
-#define UART_BUFF_LEN 224*1024
 
 extern uint32_t uart_cnt;
 extern uint8_t uart_rec_buff[UART_BUFF_LEN];
-
 extern void user_uart_init(void);
 extern void user_uart_stop(void);
 

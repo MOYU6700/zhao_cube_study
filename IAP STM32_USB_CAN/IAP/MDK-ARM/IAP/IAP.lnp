@@ -1,7 +1,6 @@
 --cpu Cortex-M3
 "iap\stm32f1xx_hal.o"
 "iap\stm32f1xx_hal_cortex.o"
-"iap\stm32f1xx_hal_can.o"
 "iap\stm32f1xx_hal_rcc.o"
 "iap\stm32f1xx_hal_pwr.o"
 "iap\stm32f1xx_hal_dma.o"
@@ -13,6 +12,7 @@
 "iap\stm32f1xx_hal_tim.o"
 "iap\stm32f1xx_hal_gpio_ex.o"
 "iap\stm32f1xx_hal_uart.o"
+"iap\stm32f1xx_hal_can.o"
 "iap\startup_stm32f103xe.o"
 "iap\system_stm32f1xx.o"
 "iap\stm32f1xx_hal_msp.o"

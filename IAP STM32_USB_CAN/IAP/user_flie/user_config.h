@@ -11,7 +11,7 @@
 	__set_PRIMASK(0); \
 }while(0)	//原子操作
 
-
+#define UART_BUFF_LEN 50*1024  //定义最大接收字节数 100K
 
 extern CAN_HandleTypeDef hcan;
 
