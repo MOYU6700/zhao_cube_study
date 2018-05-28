@@ -1,0 +1,27 @@
+--cpu Cortex-M3
+"binary_project\startup_stm32f103xe.o"
+"binary_project\stm32f1xx_it.o"
+"binary_project\main.o"
+"binary_project\stm32f1xx_hal_msp.o"
+"binary_project\user_boot.o"
+"binary_project\user_flash.o"
+"binary_project\user_uart.o"
+"binary_project\system_stm32f1xx.o"
+"binary_project\stm32f1xx_hal_tim.o"
+"binary_project\stm32f1xx_hal_rcc.o"
+"binary_project\stm32f1xx_hal_flash.o"
+"binary_project\stm32f1xx_hal.o"
+"binary_project\stm32f1xx_hal_rcc_ex.o"
+"binary_project\stm32f1xx_hal_gpio.o"
+"binary_project\stm32f1xx_hal_flash_ex.o"
+"binary_project\stm32f1xx_hal_dma.o"
+"binary_project\stm32f1xx_hal_cortex.o"
+"binary_project\stm32f1xx_hal_tim_ex.o"
+"binary_project\stm32f1xx_hal_gpio_ex.o"
+"binary_project\stm32f1xx_hal_pwr.o"
+"binary_project\stm32f1xx_hal_uart.o"
+--library_type=microlib --strict --scatter "binary_project\binary_project.sct"
+
+--diag_suppress=L6329 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "binary_project.map" -o binary_project\binary_project.axf
