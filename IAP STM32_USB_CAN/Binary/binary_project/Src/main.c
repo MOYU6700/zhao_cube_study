@@ -107,12 +107,12 @@ int main(void)
   /* USER CODE BEGIN 3 */
 		HAL_Delay(1000);
 		up_limit1(); 
-		up_limit2() ;
-		up_limit3() ;
+//		up_limit2() ;
+//		up_limit3() ;
 
-		down_limit1(); 
-		down_limit2() ;
-		down_limit3() ;
+//		down_limit1(); 
+//		down_limit2() ;
+//		down_limit3() ;
   }
   /* USER CODE END 3 */
 

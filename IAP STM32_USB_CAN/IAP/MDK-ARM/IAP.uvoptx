@@ -192,7 +192,7 @@
         <Ww>
           <count>3</count>
           <WinNumber>1</WinNumber>
-          <ItemText>uart_cnt</ItemText>
+          <ItemText>uart_cnt,0x0A</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>

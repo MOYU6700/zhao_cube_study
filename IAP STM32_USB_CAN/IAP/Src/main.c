@@ -46,6 +46,7 @@
 #include "user_boot.h"
 #include "user_boot.h"
 #include "flash_map.h"
+#include "flash_if.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -78,9 +79,11 @@ int main(void)
 
   /* USER CODE BEGIN 1 */
 	uint32_t UpdateTimeoutTimer = 0u;
+	uint32_t UpdateTimeout = 0u;
+	uint32_t Update_usart = 0u;
 	uint16_t oldcount=0;	//老的串口接收数据值
 	uint16_t applenth=0;	//接收到的app代码长度
-	user_boot();
+//	user_boot();
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -116,6 +119,8 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
+	if (HAL_GetTick() - Update_usart >= 1000)
+	{		
 	 	if(uart_cnt)
 		{
 			if(oldcount==uart_cnt)//新周期内,没有收到任何数据,认为本次数据接收完成.
@@ -123,13 +128,9 @@ int main(void)
 				applenth=uart_cnt;
 				oldcount=0;
 				uart_cnt=0;
-//				printf("用户程序接收完成!\r\n");
-//				printf("代码长度:%dBytes\r\n",applenth);
-//				printf("开始更新固件...\r\n");	
- 				if(((*(uint32_t*)(0X20001000+4))&0xFF000000)==0X20001000)//判断是否为0X08XXXXXX.
+ 				if(((*(uint32_t*)(USER_FLASH_APP_BASE+4))&0xFF000000)==0X08000000)//判断是否为0X08XXXXXX.
 				{	 
 					iap_write_appbin(USER_FLASH_APP_BASE,uart_rec_buff,applenth);//更新FLASH代码   
-//					printf("固件更新完成!\r\n");	
 					boot_clean_update_flag();	
 					HAL_NVIC_SystemReset();
 					while(1);					
@@ -139,14 +140,21 @@ int main(void)
 			{
 				oldcount=uart_cnt;
 			}
-		}		
-			
+		}	
+		Update_usart=HAL_GetTick();	
+	}	
+/*******************监测用BEGIN*******************************/			
+			if (HAL_GetTick() - UpdateTimeout >= 1000)
+			{
+					LED_UP_LIMIT2_TOGGLE(); 
+					UpdateTimeout=HAL_GetTick();				
+			}		
+/********************监测用END******************************/				
 			if (HAL_GetTick() - UpdateTimeoutTimer >= 3*60*1000)
 			{
 				HAL_NVIC_SystemReset();
 				while(1);
 			}			
-		
   }
   /* USER CODE END 3 */
 

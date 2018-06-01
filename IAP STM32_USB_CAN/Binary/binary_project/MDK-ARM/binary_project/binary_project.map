@@ -595,11 +595,11 @@ Image Symbol Table
     i.__scatterload_zeroinit                 0x080114fe   Section       14  handlers.o(i.__scatterload_zeroinit)
     i.boot_set_update_flag                   0x0801150c   Section        0  user_boot.o(i.boot_set_update_flag)
     i.main                                   0x08011528   Section        0  main.o(i.main)
-    i.user_flash_read                        0x0801160c   Section        0  user_flash.o(i.user_flash_read)
-    i.user_flash_write                       0x08011618   Section        0  user_flash.o(i.user_flash_write)
-    i.user_uart_init                         0x08011688   Section        0  user_uart.o(i.user_uart_init)
-    .constdata                               0x080116a8   Section       16  system_stm32f1xx.o(.constdata)
-    .constdata                               0x080116b8   Section        8  system_stm32f1xx.o(.constdata)
+    i.user_flash_read                        0x080115d4   Section        0  user_flash.o(i.user_flash_read)
+    i.user_flash_write                       0x080115e0   Section        0  user_flash.o(i.user_flash_write)
+    i.user_uart_init                         0x08011650   Section        0  user_uart.o(i.user_uart_init)
+    .constdata                               0x08011670   Section       16  system_stm32f1xx.o(.constdata)
+    .constdata                               0x08011680   Section        8  system_stm32f1xx.o(.constdata)
     .data                                    0x20000000   Section        4  user_boot.o(.data)
     .data                                    0x20000004   Section        4  user_flash.o(.data)
     flash_write                              0x20000004   Data           4  user_flash.o(.data)
@@ -756,14 +756,14 @@ Image Symbol Table
     __scatterload_null                       0x080114fd   Thumb Code     2  handlers.o(i.__scatterload_null)
     __scatterload_zeroinit                   0x080114ff   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
     boot_set_update_flag                     0x0801150d   Thumb Code    22  user_boot.o(i.boot_set_update_flag)
-    main                                     0x08011529   Thumb Code   204  main.o(i.main)
-    user_flash_read                          0x0801160d   Thumb Code    12  user_flash.o(i.user_flash_read)
-    user_flash_write                         0x08011619   Thumb Code    98  user_flash.o(i.user_flash_write)
-    user_uart_init                           0x08011689   Thumb Code    22  user_uart.o(i.user_uart_init)
-    AHBPrescTable                            0x080116a8   Data          16  system_stm32f1xx.o(.constdata)
-    APBPrescTable                            0x080116b8   Data           8  system_stm32f1xx.o(.constdata)
-    Region$$Table$$Base                      0x080116c0   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x080116e0   Number         0  anon$$obj.o(Region$$Table)
+    main                                     0x08011529   Thumb Code   146  main.o(i.main)
+    user_flash_read                          0x080115d5   Thumb Code    12  user_flash.o(i.user_flash_read)
+    user_flash_write                         0x080115e1   Thumb Code    98  user_flash.o(i.user_flash_write)
+    user_uart_init                           0x08011651   Thumb Code    22  user_uart.o(i.user_uart_init)
+    AHBPrescTable                            0x08011670   Data          16  system_stm32f1xx.o(.constdata)
+    APBPrescTable                            0x08011680   Data           8  system_stm32f1xx.o(.constdata)
+    Region$$Table$$Base                      0x08011688   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x080116a8   Number         0  anon$$obj.o(Region$$Table)
     boot_status                              0x20000000   Data           4  user_boot.o(.data)
     uart_rec_buff                            0x20000009   Data           5  user_uart.o(.data)
     SystemCoreClock                          0x20000010   Data           4  system_stm32f1xx.o(.data)
@@ -781,9 +781,9 @@ Memory Map of the image
 
   Image Entry point : 0x08010131
 
-  Load Region LR_IROM1 (Base: 0x08010000, Size: 0x000016f8, Max: 0x00070000, ABSOLUTE)
+  Load Region LR_IROM1 (Base: 0x08010000, Size: 0x000016c0, Max: 0x00070000, ABSOLUTE)
 
-    Execution Region ER_IROM1 (Base: 0x08010000, Size: 0x000016e0, Max: 0x00070000, ABSOLUTE)
+    Execution Region ER_IROM1 (Base: 0x08010000, Size: 0x000016a8, Max: 0x00070000, ABSOLUTE)
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -871,13 +871,13 @@ Memory Map of the image
     0x080114fc   0x00000002   Code   RO         1726    i.__scatterload_null  mc_w.l(handlers.o)
     0x080114fe   0x0000000e   Code   RO         1727    i.__scatterload_zeroinit  mc_w.l(handlers.o)
     0x0801150c   0x0000001c   Code   RO          253    i.boot_set_update_flag  user_boot.o
-    0x08011528   0x000000e4   Code   RO          173    i.main              main.o
-    0x0801160c   0x0000000c   Code   RO          306    i.user_flash_read   user_flash.o
-    0x08011618   0x00000070   Code   RO          307    i.user_flash_write  user_flash.o
-    0x08011688   0x00000020   Code   RO          346    i.user_uart_init    user_uart.o
-    0x080116a8   0x00000010   Data   RO          397    .constdata          system_stm32f1xx.o
-    0x080116b8   0x00000008   Data   RO          398    .constdata          system_stm32f1xx.o
-    0x080116c0   0x00000020   Data   RO         1723    Region$$Table       anon$$obj.o
+    0x08011528   0x000000ac   Code   RO          173    i.main              main.o
+    0x080115d4   0x0000000c   Code   RO          306    i.user_flash_read   user_flash.o
+    0x080115e0   0x00000070   Code   RO          307    i.user_flash_write  user_flash.o
+    0x08011650   0x00000020   Code   RO          346    i.user_uart_init    user_uart.o
+    0x08011670   0x00000010   Data   RO          397    .constdata          system_stm32f1xx.o
+    0x08011680   0x00000008   Data   RO          398    .constdata          system_stm32f1xx.o
+    0x08011688   0x00000020   Data   RO         1723    Region$$Table       anon$$obj.o
 
 
     Execution Region RW_IRAM1 (Base: 0x20000000, Size: 0x00000c88, Max: 0x00010000, ABSOLUTE)
@@ -903,7 +903,7 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-       332         24          0          0         64       2286   main.o
+       276         26          0          0         64       2246   main.o
         36          8        304          0       1024        836   startup_stm32f103xe.o
        132         22          0          4          0       3851   stm32f1xx_hal.o
        264         24          0          0          0      27928   stm32f1xx_hal_cortex.o
@@ -921,7 +921,7 @@ Image component sizes
        212         44          0          6          0       2629   user_uart.o
 
     ----------------------------------------------------------------------
-      5342        422        360         24       3184     528560   Object Totals
+      5286        424        360         24       3184     528520   Object Totals
          0          0         32          0          0          0   (incl. Generated)
         16          0          0          2          0          0   (incl. Padding)
 
@@ -962,15 +962,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      5496        438        360         24       3184     525848   Grand Totals
-      5496        438        360         24       3184     525848   ELF Image Totals
-      5496        438        360         24          0          0   ROM Totals
+      5440        440        360         24       3184     525808   Grand Totals
+      5440        440        360         24       3184     525808   ELF Image Totals
+      5440        440        360         24          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                 5856 (   5.72kB)
+    Total RO  Size (Code + RO Data)                 5800 (   5.66kB)
     Total RW  Size (RW Data + ZI Data)              3208 (   3.13kB)
-    Total ROM Size (Code + RO Data + RW Data)       5880 (   5.74kB)
+    Total ROM Size (Code + RO Data + RW Data)       5824 (   5.69kB)
 
 ==============================================================================
 
