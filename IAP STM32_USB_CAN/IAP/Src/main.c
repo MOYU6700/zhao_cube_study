@@ -130,6 +130,7 @@ int main(void)
 				uart_cnt=0;
  				if(((*(uint32_t*)(USER_FLASH_APP_BASE+4))&0xFF000000)==0X08000000)//判断是否为0X08XXXXXX.
 				{	 
+					FLASH_If_Erase(USER_FLASH_APP_BASE);
 					iap_write_appbin(USER_FLASH_APP_BASE,uart_rec_buff,applenth);//更新FLASH代码   
 					boot_clean_update_flag();	
 					HAL_NVIC_SystemReset();

@@ -84,9 +84,9 @@ uint32_t FLASH_If_Erase(uint32_t start)
 
   /* Get the sector where start the user flash area */
 
-    NbrOfPages = (USER_FLASH_END_ADDRESS - start)/FLASH_PAGE_SIZE;
+    NbrOfPages = (USER_FLASH_END_ADDRESS+1 - start)/FLASH_PAGE_SIZE;
     pEraseInit.TypeErase = FLASH_TYPEERASE_PAGES;
-    pEraseInit.PageAddress = USER_FLASH_END_ADDRESS;
+    pEraseInit.PageAddress = start;
     pEraseInit.Banks = FLASH_BANK_1;
     pEraseInit.NbPages = NbrOfPages;
     status = HAL_FLASHEx_Erase(&pEraseInit, &PageError);
