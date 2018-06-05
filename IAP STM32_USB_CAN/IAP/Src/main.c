@@ -83,6 +83,7 @@ int main(void)
 	uint32_t Update_usart = 0u;
 	uint16_t oldcount=0;	//老的串口接收数据值
 	uint16_t applenth=0;	//接收到的app代码长度
+	uint16_t k;
 //	user_boot();
   /* USER CODE END 1 */
 
@@ -128,14 +129,22 @@ int main(void)
 				applenth=uart_cnt;
 				oldcount=0;
 				uart_cnt=0;
- 				if(((*(uint32_t*)(USER_FLASH_APP_BASE+4))&0xFF000000)==0X08000000)//判断是否为0X08XXXXXX.
-				{	 
+// 				if(((*(uint32_t*)(USER_FLASH_APP_BASE+4))&0xFF000000)==0X08000000)//判断是否为0X08XXXXXX.
+//				{	 			
 					FLASH_If_Erase(USER_FLASH_APP_BASE);
 					iap_write_appbin(USER_FLASH_APP_BASE,uart_rec_buff,applenth);//更新FLASH代码   
-					boot_clean_update_flag();	
-					HAL_NVIC_SystemReset();
-					while(1);					
-				} 				
+					HAL_GPIO_WritePin(MAX485_IO_EN_GPIO_Port, MAX485_IO_EN_Pin, GPIO_PIN_RESET);
+				  HAL_Delay(10);
+				  for(k=0;k<applenth;k++)
+					 {
+							printf("%x  \n",*(uint8_t *)(0X08010000+k));
+					 }
+					 HAL_Delay(10);
+					 HAL_GPIO_WritePin(MAX485_IO_EN_GPIO_Port, MAX485_IO_EN_Pin, GPIO_PIN_SET);
+//					boot_clean_update_flag();	
+//					HAL_NVIC_SystemReset();
+//					while(1);					
+//				} 				
 			}
 			else 
 			{
