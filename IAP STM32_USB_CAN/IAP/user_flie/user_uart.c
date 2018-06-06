@@ -29,20 +29,21 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 		LED_UP_LIMIT1_TOGGLE();
 		if(HAL_UART_GetState(&huart1)==HAL_UART_STATE_READY)
 		{
-			temp_buff=huart1.Instance->DR;
+				temp_buff=huart1.Instance->DR;
+			
+			/*判断接收的数据是否超出最大缓存区*/
+			if(uart_cnt<UART_BUFF_LEN)
+			{
+				uart_rec_buff[uart_cnt]=temp_buff;
+				uart_cnt++;
+			}	
+			else  //数据缓存大于最大值，报错；
+			{
+				printf("Is error for recive the BIN update flie!\n");
+			}	
 		}
-		/*判断接收的数据是否超出最大缓存区*/
-		if(uart_cnt<UART_BUFF_LEN)
-		{
-			uart_rec_buff[uart_cnt]=temp_buff;
-			uart_cnt++;
-		}	
-		else  //数据缓存大于最大值，报错；
-		{
-			printf("Is error for recive the BIN update flie!\n");
-		}	
 	}
-	HAL_UART_Receive_IT(&huart1, (uint8_t *)&uart_rec_buff, 1);	//串口接收一个字节，并通过中断返回结果
+	HAL_UART_Receive_IT(&huart1, (uint8_t *)&temp_buff, 1);	//串口接收一个字节，并通过中断返回结果
 }
 
 
@@ -56,6 +57,7 @@ int fputc(int ch, FILE *f)
 /*******增加错误处理复位机制***********/
 void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
 {
+	uint8_t temp_buff;
 	if(huart->Instance==USART1)
 	{
 		switch(huart->ErrorCode)
@@ -77,5 +79,5 @@ void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
 					 break;
 		}
 	}	
-	HAL_UART_Receive_IT(&huart1, (uint8_t *)&uart_rec_buff, 1);
+	HAL_UART_Receive_IT(&huart1, (uint8_t *)&temp_buff, 1);
 }	

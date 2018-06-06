@@ -47,6 +47,7 @@
 #include "user_boot.h"
 #include "flash_map.h"
 #include "flash_if.h"
+#include "user_flash.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/

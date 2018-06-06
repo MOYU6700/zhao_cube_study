@@ -56,11 +56,11 @@ void boot_clean_update_flag(void)
 				     (uint8_t *)&(update_flag));
 }
 
-
-uint32_t iapbuf[512];   
+uint32_t iapbuf[512]={0};   
 //appxaddr:应用程序的起始地址
 //appbuf:应用程序CODE.
 //appsize:应用程序大小(字节).
+uint32_t a[4];
 void iap_write_appbin(uint32_t appxaddr,uint8_t *appbuf,uint32_t appsize)
 {
 	uint16_t t;
@@ -68,16 +68,66 @@ void iap_write_appbin(uint32_t appxaddr,uint8_t *appbuf,uint32_t appsize)
 	uint32_t temp;
 	uint32_t fwaddr=appxaddr;//当前写入的地址
 	uint8_t *dfu=appbuf;
-	for(t=0;t<appsize;t++)
-	{		
-		temp=(uint32_t)dfu[0];	  
-		iapbuf[i++]=temp;	    
-		if(i==2048)
+	for(t=0;t<appsize;t+=4)
+	{	
+		temp=(uint32_t)dfu[3]<<24;
+		temp|=(uint32_t)dfu[2]<<16;
+		temp|=(uint32_t)dfu[1]<<8;
+		temp|=(uint32_t)dfu[0];	  
+		a[3]=(uint32_t)dfu[3];
+		a[2]=(uint32_t)dfu[2];
+		a[1]=(uint32_t)dfu[1];
+		a[0]=(uint32_t)dfu[0];
+		dfu+=4;//偏移4个字节
+		iapbuf[i++]=temp;	  	
+		if(i==512)
 		{
 			i=0;
-			FLASH_If_Write(fwaddr,iapbuf,2048);	
+			FLASH_If_Write(fwaddr,iapbuf,512);	
 			fwaddr+=2048;//偏移2048  16=2*8.所以要乘以2.
 		}
 	}
 	if(i)FLASH_If_Write(fwaddr,iapbuf,i);//将最后的一些内容字节写进去.  
+}
+
+
+//向flash 写数据 代码：
+//http://bbs.21ic.com/icview-1260346-1-1.html
+void StmFlashWrite(uint32_t WriteAddr,uint32_t *pBuffer,uint32_t NumToWrite) 
+{ 
+    FLASH_Status status = FLASH_COMPLETE;
+    uint32_t addrx = 0;
+    uint32_t endaddr = 0; 
+    if((WriteAddr < STM32_FLASH_BASE) || (WriteAddr%4)) return; //非法地址
+    FLASH_Unlock();          //解锁 
+    FLASH_DataCacheCmd(DISABLE);            //FLASH擦除期间,必须禁止数据缓存
+    addrx = WriteAddr;            //写入的起始地址
+    endaddr = WriteAddr + NumToWrite*4;     //写入的结束地址
+    
+    if(addrx < 0X1FFF0000)           //只有主存储区,才需要执行擦除操作!!
+    {
+        while(addrx < endaddr)          //扫清一切障碍.(对非FFFFFFFF的地方,先擦除)
+        {
+            if(StmFlashReadWord(addrx) != 0XFFFFFFFF)//有非0XFFFFFFFF的地方,要擦除这个扇区
+            {   
+                status = FLASH_EraseSector(StmFlashGetSector(addrx),VoltageRange_3);//VCC=2.7~3.6V之间!!
+                if(status != FLASH_COMPLETE)    break; //发生错误了
+            }
+            else addrx += 4;
+        } 
+    }
+    if(status == FLASH_COMPLETE)
+    {
+        while(WriteAddr < endaddr)//写数据
+        {
+            if(FLASH_ProgramWord(WriteAddr,*pBuffer) != FLASH_COMPLETE)//写入数据
+            { 
+                break; //写入异常
+            }
+            WriteAddr += 4;
+            pBuffer ++;
+        } 
+    }
+    FLASH_DataCacheCmd(ENABLE); //FLASH擦除结束,开启数据缓存
+    FLASH_Lock();//上锁
 }

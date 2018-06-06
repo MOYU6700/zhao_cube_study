@@ -33,3 +33,4 @@ iap\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 iap\main.o: ..\user_flie\user_boot.h
 iap\main.o: ..\user_flie\flash_map.h
 iap\main.o: ..\user_flie\flash_if.h
+iap\main.o: ..\user_flie\user_flash.h
