@@ -4,11 +4,11 @@
 #include "user_boot.h"
 #include <string.h>
 #include "user_io.h"
+#include "user_config.h"
 
 uint32_t uart_cnt=0;
 //uint8_t uart_rec_buff[UART_BUFF_LEN] __attribute__ ((at(0X20001000+4)));//接收缓冲,最大USART_REC_LEN个字节,起始地址为USER_FLASH_BIN_BASE.  
 uint8_t uart_rec_buff[UART_BUFF_LEN]; 
-extern UART_HandleTypeDef huart1;
 
 void user_uart_init(void)
 {

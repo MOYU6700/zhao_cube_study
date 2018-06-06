@@ -44,7 +44,6 @@
 #include "user_io.h"
 #include "user_uart.h"
 #include "user_boot.h"
-#include "user_boot.h"
 #include "flash_map.h"
 #include "flash_if.h"
 #include "user_flash.h"
@@ -81,11 +80,7 @@ int main(void)
   /* USER CODE BEGIN 1 */
 	uint32_t UpdateTimeoutTimer = 0u;
 	uint32_t UpdateTimeout = 0u;
-	uint32_t Update_usart = 0u;
-	uint16_t oldcount=0;	//老的串口接收数据值
-	uint16_t applenth=0;	//接收到的app代码长度
-	uint16_t k;
-//	user_boot();
+	user_boot();
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -121,39 +116,7 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-	if (HAL_GetTick() - Update_usart >= 1000)
-	{		
-	 	if(uart_cnt)
-		{
-			if(oldcount==uart_cnt)//新周期内,没有收到任何数据,认为本次数据接收完成.
-			{
-				applenth=uart_cnt;
-				oldcount=0;
-				uart_cnt=0;
-// 				if(((*(uint32_t*)(USER_FLASH_APP_BASE+4))&0xFF000000)==0X08000000)//判断是否为0X08XXXXXX.
-//				{	 			
-					FLASH_If_Erase(USER_FLASH_APP_BASE);
-					iap_write_appbin(USER_FLASH_APP_BASE,uart_rec_buff,applenth);//更新FLASH代码   
-					HAL_GPIO_WritePin(MAX485_IO_EN_GPIO_Port, MAX485_IO_EN_Pin, GPIO_PIN_RESET);
-				  HAL_Delay(10);
-				  for(k=0;k<applenth;k++)
-					 {
-							printf("%x  \n",*(uint8_t *)(0X08010000+k));
-					 }
-					 HAL_Delay(10);
-					 HAL_GPIO_WritePin(MAX485_IO_EN_GPIO_Port, MAX485_IO_EN_Pin, GPIO_PIN_SET);
-//					boot_clean_update_flag();	
-//					HAL_NVIC_SystemReset();
-//					while(1);					
-//				} 				
-			}
-			else 
-			{
-				oldcount=uart_cnt;
-			}
-		}	
-		Update_usart=HAL_GetTick();	
-	}	
+		usart_update_detection();
 /*******************监测用BEGIN*******************************/			
 			if (HAL_GetTick() - UpdateTimeout >= 1000)
 			{

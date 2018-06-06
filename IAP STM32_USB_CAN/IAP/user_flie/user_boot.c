@@ -2,7 +2,7 @@
 #include "user_config.h"
 #include "flash_if.h"
 #include "user_flash.h"
-
+#include "user_uart.h"
 
 void user_boot_app(void);
 void boot_clean_update_flag(void);
@@ -93,41 +93,43 @@ void iap_write_appbin(uint32_t appxaddr,uint8_t *appbuf,uint32_t appsize)
 
 //向flash 写数据 代码：
 //http://bbs.21ic.com/icview-1260346-1-1.html
-void StmFlashWrite(uint32_t WriteAddr,uint32_t *pBuffer,uint32_t NumToWrite) 
-{ 
-    FLASH_Status status = FLASH_COMPLETE;
-    uint32_t addrx = 0;
-    uint32_t endaddr = 0; 
-    if((WriteAddr < STM32_FLASH_BASE) || (WriteAddr%4)) return; //非法地址
-    FLASH_Unlock();          //解锁 
-    FLASH_DataCacheCmd(DISABLE);            //FLASH擦除期间,必须禁止数据缓存
-    addrx = WriteAddr;            //写入的起始地址
-    endaddr = WriteAddr + NumToWrite*4;     //写入的结束地址
-    
-    if(addrx < 0X1FFF0000)           //只有主存储区,才需要执行擦除操作!!
-    {
-        while(addrx < endaddr)          //扫清一切障碍.(对非FFFFFFFF的地方,先擦除)
-        {
-            if(StmFlashReadWord(addrx) != 0XFFFFFFFF)//有非0XFFFFFFFF的地方,要擦除这个扇区
-            {   
-                status = FLASH_EraseSector(StmFlashGetSector(addrx),VoltageRange_3);//VCC=2.7~3.6V之间!!
-                if(status != FLASH_COMPLETE)    break; //发生错误了
-            }
-            else addrx += 4;
-        } 
-    }
-    if(status == FLASH_COMPLETE)
-    {
-        while(WriteAddr < endaddr)//写数据
-        {
-            if(FLASH_ProgramWord(WriteAddr,*pBuffer) != FLASH_COMPLETE)//写入数据
-            { 
-                break; //写入异常
-            }
-            WriteAddr += 4;
-            pBuffer ++;
-        } 
-    }
-    FLASH_DataCacheCmd(ENABLE); //FLASH擦除结束,开启数据缓存
-    FLASH_Lock();//上锁
+static uint32_t Update_usart = 0u;
+static uint16_t oldcount=0;	//老的串口接收数据值
+static uint16_t applenth=0;	//接收到的app代码长度
+void usart_update_detection(void)
+{
+//	uint16_t k;
+		if (HAL_GetTick() - Update_usart >= 1000)
+	{		
+	 	if(uart_cnt)
+		{
+			if(oldcount==uart_cnt)//新周期内,没有收到任何数据,认为本次数据接收完成.
+			{
+				applenth=uart_cnt;
+				oldcount=0;
+				uart_cnt=0;
+ 				if(((*(uint32_t*)(USER_FLASH_APP_BASE+4))&0xFF000000)==0X08000000)//判断是否为0X08XXXXXX.
+				{	 			
+					FLASH_If_Erase(USER_FLASH_APP_BASE);
+					iap_write_appbin(USER_FLASH_APP_BASE,uart_rec_buff,applenth);//更新FLASH代码   
+//					HAL_GPIO_WritePin(MAX485_IO_EN_GPIO_Port, MAX485_IO_EN_Pin, GPIO_PIN_RESET);
+//				  HAL_Delay(10);
+//				  for(k=0;k<applenth;k++)
+//					 {
+//							printf("%x  \n",*(uint8_t *)(0X08010000+k));
+//					 }
+//					 HAL_Delay(10);
+//					 HAL_GPIO_WritePin(MAX485_IO_EN_GPIO_Port, MAX485_IO_EN_Pin, GPIO_PIN_SET);
+					boot_clean_update_flag();	
+					HAL_NVIC_SystemReset();
+					while(1);					
+				} 				
+			}
+			else 
+			{
+				oldcount=uart_cnt;
+			}
+		}	
+		Update_usart=HAL_GetTick();	
+	}	
 }
