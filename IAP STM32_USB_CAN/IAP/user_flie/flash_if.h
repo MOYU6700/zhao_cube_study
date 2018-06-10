@@ -206,11 +206,11 @@ enum {
 #define APPLICATION_ADDRESS     (uint32_t)USER_FLASH_APP_BASE      /* Start user code address: ADDR_FLASH_PAGE_8 */
 
 /* Notable Flash addresses */
-#define USER_FLASH_END_ADDRESS 0x08080000
+#define USER_FLASH_END_ADDRESS USER_FLASH_APP_END
 
 
 /* Define the user application size */
-#define USER_FLASH_SIZE               ((uint32_t)0x00003000) /* Small default template application */
+#define USER_FLASH_SIZE               ((uint32_t)USER_FLASH_APP_SIZE) /* Small default template application */
 
 /* Define bitmap representing user flash area that could be write protected (check restricted to pages 8-39). */
 #define FLASH_PAGE_TO_BE_PROTECTED (OB_WRP_PAGES8TO9 | OB_WRP_PAGES10TO11 | OB_WRP_PAGES12TO13 | OB_WRP_PAGES14TO15 | \

@@ -2,6 +2,7 @@
 #include "user_config.h"
 #include "string.h"
 #include "flash_if.h"
+#include "user_boot.h"
 
 /**
   * @brief  Convert an Integer to a string
@@ -114,12 +115,15 @@ uint32_t Str2Int(uint8_t *p_inputstr, uint32_t *p_intnum)
 void Serial_PutString(uint8_t *p_string)
 {
   uint16_t length = 0;
-
+	HAL_GPIO_WritePin(MAX485_IO_EN_GPIO_Port, MAX485_IO_EN_Pin, GPIO_PIN_RESET);
+	HAL_Delay(5);
   while (p_string[length] != '\0')
   {
     length++;
   }
   HAL_UART_Transmit(&huart1, p_string, length, TX_TIMEOUT);
+	HAL_Delay(5);
+  HAL_GPIO_WritePin(MAX485_IO_EN_GPIO_Port, MAX485_IO_EN_Pin, GPIO_PIN_SET);	
 }
 
 /**
@@ -129,7 +133,13 @@ void Serial_PutString(uint8_t *p_string)
   */
 HAL_StatusTypeDef Serial_PutByte( uint8_t param )
 {
-  return HAL_UART_Transmit(&huart1, &param, 1, TX_TIMEOUT);
+	HAL_StatusTypeDef status;
+	HAL_GPIO_WritePin(MAX485_IO_EN_GPIO_Port, MAX485_IO_EN_Pin, GPIO_PIN_RESET);
+	HAL_Delay(5);	
+  status=HAL_UART_Transmit(&huart1, &param, 1, TX_TIMEOUT);
+	HAL_Delay(5);
+  HAL_GPIO_WritePin(MAX485_IO_EN_GPIO_Port, MAX485_IO_EN_Pin, GPIO_PIN_SET);
+	return status;
 }
 /**
   * @}
@@ -396,6 +406,7 @@ uint8_t CalcChecksum(const uint8_t *p_data, uint32_t size)
   * @param  p_size The size of the file.
   * @retval COM_StatusTypeDef result of reception/programming
   */
+uint8_t look;
 COM_StatusTypeDef Ymodem_Receive ( uint32_t *p_size )
 {
   uint32_t i, packet_length, session_done = 0, file_done, errors = 0, session_begin = 0;
@@ -403,17 +414,17 @@ COM_StatusTypeDef Ymodem_Receive ( uint32_t *p_size )
   uint8_t *file_ptr;
   uint8_t file_size[FILE_SIZE_LENGTH], tmp, packets_received;
   COM_StatusTypeDef result = COM_OK;
-
+  
   /* Initialize flashdestination variable */
   flashdestination = APPLICATION_ADDRESS; 
 
   while ((session_done == 0) && (result == COM_OK))
   {
-    packets_received = 0;
+    packets_received = 0;   //记录接收到的数据包的个数
     file_done = 0;
     while ((file_done == 0) && (result == COM_OK))
     {
-      switch (ReceivePacket(aPacketData, &packet_length, DOWNLOAD_TIMEOUT))
+      switch (look=ReceivePacket(aPacketData, &packet_length, DOWNLOAD_TIMEOUT))
       {
         case HAL_OK:
           errors = 0;
@@ -421,16 +432,19 @@ COM_StatusTypeDef Ymodem_Receive ( uint32_t *p_size )
           {
             case 2:
               /* Abort by sender */
+						 /* 发送方终止发送 */
               Serial_PutByte(ACK);
               result = COM_ABORT;
               break;
             case 0:
               /* End of transmission */
+						  /* 正常结束传输 */
               Serial_PutByte(ACK);
               file_done = 1;
               break;
             default:
               /* Normal packet */
+						  /* 数据包编号出错 */
               if (aPacketData[PACKET_NUMBER_INDEX] != packets_received)
               {
                 Serial_PutByte(NAK);
@@ -440,9 +454,11 @@ COM_StatusTypeDef Ymodem_Receive ( uint32_t *p_size )
                 if (packets_received == 0)
                 {
                   /* File name packet */
+									/* 数据包编号为0，证明这是数据区存放文件名的帧数据，事实上这个判断是有误的 */
                   if (aPacketData[PACKET_DATA_INDEX] != 0)
                   {
                     /* File name extraction */
+										//读取文件名
                     i = 0;
                     file_ptr = aPacketData + PACKET_DATA_INDEX;
                     while ( (*file_ptr != 0) && (i < FILE_NAME_LENGTH))
@@ -451,6 +467,7 @@ COM_StatusTypeDef Ymodem_Receive ( uint32_t *p_size )
                     }
 
                     /* File size extraction */
+										//读取文件大小
                     aFileName[i++] = '\0';
                     i = 0;
                     file_ptr ++;
@@ -463,15 +480,21 @@ COM_StatusTypeDef Ymodem_Receive ( uint32_t *p_size )
 
                     /* Test the size of the image to be sent */
                     /* Image size is greater than Flash size */
+										//文件大过于可供存储的FLASH的空间
                     if (*p_size > (USER_FLASH_SIZE + 1))
                     {
                       /* End session */
                       tmp = CA;
+											HAL_GPIO_WritePin(MAX485_IO_EN_GPIO_Port, MAX485_IO_EN_Pin, GPIO_PIN_RESET);
+											HAL_Delay(5);
                       HAL_UART_Transmit(&huart1, &tmp, 1, NAK_TIMEOUT);
                       HAL_UART_Transmit(&huart1, &tmp, 1, NAK_TIMEOUT);
+											HAL_Delay(5);
+											HAL_GPIO_WritePin(MAX485_IO_EN_GPIO_Port, MAX485_IO_EN_Pin, GPIO_PIN_SET);	
                       result = COM_LIMIT;
                     }
                     /* erase user application area */
+										 /* 擦除扇区 */
                     FLASH_If_Erase(APPLICATION_ADDRESS);
                     *p_size = filesize;
 
@@ -479,6 +502,7 @@ COM_StatusTypeDef Ymodem_Receive ( uint32_t *p_size )
                     Serial_PutByte(CRC16);
                   }
                   /* File header packet is empty, end session */
+									/* 文件头为空，传输结束 */
                   else
                   {
                     Serial_PutByte(ACK);
@@ -487,17 +511,18 @@ COM_StatusTypeDef Ymodem_Receive ( uint32_t *p_size )
                     break;
                   }
                 }
-                else /* Data packet */
+                else /* Data packet *//* 真正的数据包 */
                 {
                   ramsource = (uint32_t) & aPacketData[PACKET_DATA_INDEX];
 
                   /* Write received data in Flash */
+									//将收到的数据存放到FLASH
                   if (FLASH_If_Write(flashdestination, (uint32_t*) ramsource, packet_length/4) == FLASHIF_OK)                   
                   {
                     flashdestination += packet_length;
                     Serial_PutByte(ACK);
                   }
-                  else /* An error occurred while writing to Flash memory */
+                  else /* An error occurred while writing to Flash memory */ //写入失败
                   {
                     /* End session */
                     Serial_PutByte(CA);
@@ -524,12 +549,13 @@ COM_StatusTypeDef Ymodem_Receive ( uint32_t *p_size )
           if (errors > MAX_ERRORS)
           {
             /* Abort communication */
+						//errors大于MAX_ERRORS，PC端将收到"接收端未响应的提示"，终止传输
             Serial_PutByte(CA);
             Serial_PutByte(CA);
           }
           else
           {
-            Serial_PutByte(CRC16); /* Ask for a packet */
+            Serial_PutByte(CRC16); /* Ask for a packet *///返回'C'字符，PC端提示接收端未响应并记录次数，超过次数PC端也将提出
           }
           break;
       }
@@ -758,4 +784,50 @@ COM_StatusTypeDef Ymodem_Transmit (uint8_t *p_buf, const uint8_t *p_file_name, u
   */
 
 /*******************(C)COPYRIGHT 2016 STMicroelectronics *****END OF FILE****/
+
+
+/**
+  * @brief  Download a file via serial port
+  * @param  None
+  * @retval None
+  */
+void SerialDownload(void)
+{
+  uint8_t number[11] = {0};
+  uint32_t size = 0;
+  COM_StatusTypeDef result;
+
+  Serial_PutString((uint8_t *)"Waiting for the file to be sent ... (press 'a' to abort)\n\r");
+  result = Ymodem_Receive( &size );
+  if (result == COM_OK)
+  {
+		HAL_Delay(500); //保证下面程序执行；
+    Serial_PutString((uint8_t *)"\n\n\r Programming Completed Successfully!\n\r--------------------------------\r\n Name: ");
+    Serial_PutString(aFileName);
+    Int2Str(number, size);
+    Serial_PutString((uint8_t *)"\n\r Size: ");
+    Serial_PutString(number);
+    Serial_PutString((uint8_t *)" Bytes\r\n");
+    Serial_PutString((uint8_t *)"-------------------\n");
+		boot_clean_update_flag();	
+		HAL_NVIC_SystemReset();
+		while(1);			
+  }
+  else if (result == COM_LIMIT)
+  {
+    Serial_PutString((uint8_t *)"\n\n\rThe image size is higher than the allowed space memory!\n\r");
+  }
+  else if (result == COM_DATA)
+  {
+    Serial_PutString((uint8_t *)"\n\n\rVerification failed!\n\r");
+  }
+  else if (result == COM_ABORT)
+  {
+    Serial_PutString((uint8_t *)"\r\n\nAborted by user.\n\r");
+  }
+  else
+  {
+    Serial_PutString((uint8_t *)"\n\rFailed to receive the file!\n\r");
+  }
+}
 

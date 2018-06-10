@@ -1,7 +1,7 @@
 [PreviousGenFiles]
-HeaderPath=C:/Users/SHUQUEE8006/Desktop/zhao_cube_study/IAP STM32_USB_CAN/IAP/Inc
+HeaderPath=C:/Users/zhao/Desktop/优质文档/zhao_cube_study/IAP STM32_USB_CAN/IAP/Inc
 HeaderFiles=stm32f1xx_it.h;stm32f1xx_hal_conf.h;main.h;
-SourcePath=C:/Users/SHUQUEE8006/Desktop/zhao_cube_study/IAP STM32_USB_CAN/IAP/Src
+SourcePath=C:/Users/zhao/Desktop/优质文档/zhao_cube_study/IAP STM32_USB_CAN/IAP/Src
 SourceFiles=stm32f1xx_it.c;stm32f1xx_hal_msp.c;main.c;
 
 [PreviousLibFiles]

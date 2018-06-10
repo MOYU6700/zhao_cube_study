@@ -47,6 +47,7 @@
 #include "flash_map.h"
 #include "flash_if.h"
 #include "user_flash.h"
+#include "modbus_usart.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -116,7 +117,8 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-		usart_update_detection();
+//		usart_update_detection();
+		SerialDownload();
 /*******************¼à²âÓÃBEGIN*******************************/			
 			if (HAL_GetTick() - UpdateTimeout >= 1000)
 			{

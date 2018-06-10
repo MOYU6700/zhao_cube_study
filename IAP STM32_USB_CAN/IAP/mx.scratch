@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Project>
-<ProjectName>C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\IAP STM32_USB_CAN\IAP\\IAP</ProjectName>
+<ProjectName>C:\Users\zhao\Desktop\&#20248;&#36136;&#25991;&#26723;\zhao_cube_study\IAP STM32_USB_CAN\IAP\\IAP</ProjectName>
 <CMSIS>..\Drivers\CMSIS</CMSIS>
-<HAL_Driver>C:\Users\SHUQUEE8006\STM32Cube\Repository\STM32Cube_FW_F1_V1.6.0\Drivers\CMSIS</HAL_Driver>
+<HAL_Driver>C:\Users\zhao\STM32Cube\Repository\STM32Cube_FW_F1_V1.6.0\Drivers\CMSIS</HAL_Driver>
 
 <Toolchain>MDK-ARM</Toolchain>
 	<Toolversion>5</Toolversion>
