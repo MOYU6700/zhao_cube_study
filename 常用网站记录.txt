@@ -77,3 +77,11 @@ CAN分析仪软件网盘地址
 https://blog.csdn.net/jdsnpgxj/article/details/71479995
 http://blog.sina.com.cn/s/blog_479e0a710100es7r.html
 如何使用STM32F4的BootLoader和APP程序
+
+socket编程
+
+https://blog.csdn.net/yazhouren/article/details/73385580
+IAP+YMODEM+CRC16+AES256+PC端软件+hex合并
+
+http://download.microsoft.com/download/B/8/F/B8F1470D-2396-4E7A-83F5-AC09154EB925/vs2015.ent_chs.iso
+Visual Studio Enterprise 2015简体中文版（企业版）下载地址：

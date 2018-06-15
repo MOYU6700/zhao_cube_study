@@ -1,0 +1,5 @@
+https://blog.csdn.net/gongluck93/article/details/53096013
+波形音频（WAVE）底层接口的学习与使用
+
+https://www.cnblogs.com/lidabo/p/6829827.html
+Windows PCM音频捕获与播放实现
