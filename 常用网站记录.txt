@@ -69,6 +69,7 @@ https://wenku.baidu.com/view/e94ed14faeaad1f347933f3b.html
 对LWIP函数详细解析
 
 http://www.stmicroelectronics.com.cn/zh/microcontrollers.html
+USER ID : zhangjianzhao
 STM32官网示例程序下载地址
 
 https://pan.baidu.com/s/1kUUF4Jt
@@ -78,6 +79,7 @@ https://blog.csdn.net/jdsnpgxj/article/details/71479995
 http://blog.sina.com.cn/s/blog_479e0a710100es7r.html
 如何使用STM32F4的BootLoader和APP程序
 
+https://blog.csdn.net/u010066903/article/details/52827297/
 socket编程
 
 https://blog.csdn.net/yazhouren/article/details/73385580
@@ -85,3 +87,11 @@ IAP+YMODEM+CRC16+AES256+PC端软件+hex合并
 
 http://download.microsoft.com/download/B/8/F/B8F1470D-2396-4E7A-83F5-AC09154EB925/vs2015.ent_chs.iso
 Visual Studio Enterprise 2015简体中文版（企业版）下载地址：
+
+TCP调试助手(稳定版)
+https://pan.baidu.com/s/1AXaTldpzGrLPugzR_oC3uQ?errno=0&errmsg=Auth%20Login%20Sucess&&bduss=&ssnerror=0&traceid=
+
+https://wenku.baidu.com/view/d8945f9b80eb6294dd886ccb.html
+
+http://blog.sina.com.cn/s/blog_6754612e0101c380.html
+非接触式IC卡性能简介2（M1）

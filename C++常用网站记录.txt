@@ -3,3 +3,9 @@ https://blog.csdn.net/gongluck93/article/details/53096013
 
 https://www.cnblogs.com/lidabo/p/6829827.html
 Windows PCM音频捕获与播放实现
+
+https://www.cnblogs.com/lidabo/p/3701959.html
+音频操作所需头文件和链接库
+
+http://www.cnblogs.com/lidabo/p/6829834.html
+大神博客

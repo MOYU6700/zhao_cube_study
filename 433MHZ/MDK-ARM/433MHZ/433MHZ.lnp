@@ -1,0 +1,25 @@
+--cpu Cortex-M3
+"433mhz\startup_stm32f103xe.o"
+"433mhz\user_433mzh.o"
+"433mhz\user_usart.o"
+"433mhz\main.o"
+"433mhz\stm32f1xx_it.o"
+"433mhz\stm32f1xx_hal_msp.o"
+"433mhz\stm32f1xx_hal_gpio_ex.o"
+"433mhz\stm32f1xx_hal_tim.o"
+"433mhz\stm32f1xx_hal_tim_ex.o"
+"433mhz\stm32f1xx_hal_uart.o"
+"433mhz\stm32f1xx_hal.o"
+"433mhz\stm32f1xx_hal_rcc.o"
+"433mhz\stm32f1xx_hal_rcc_ex.o"
+"433mhz\stm32f1xx_hal_gpio.o"
+"433mhz\stm32f1xx_hal_dma.o"
+"433mhz\stm32f1xx_hal_cortex.o"
+"433mhz\stm32f1xx_hal_pwr.o"
+"433mhz\stm32f1xx_hal_flash.o"
+"433mhz\stm32f1xx_hal_flash_ex.o"
+"433mhz\system_stm32f1xx.o"
+--library_type=microlib --strict --scatter "433MHZ\433MHZ.sct"
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "433MHZ.map" -o 433MHZ\433MHZ.axf
