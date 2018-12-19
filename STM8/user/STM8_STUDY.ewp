@@ -1597,6 +1597,9 @@
       <name>$PROJ_DIR$\..\drive\led.c</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\drive\stm8s_interrupt.c</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\drive\usart.c</name>
     </file>
   </group>

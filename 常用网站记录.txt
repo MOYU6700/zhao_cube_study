@@ -95,3 +95,6 @@ https://wenku.baidu.com/view/d8945f9b80eb6294dd886ccb.html
 
 http://blog.sina.com.cn/s/blog_6754612e0101c380.html
 非接触式IC卡性能简介2（M1）
+
+https://www.st.com/zh/embedded-software/stm8-embedded-software.html?querycriteria=productId=SC1807
+STM8网站      ID：174636424@qq.com
