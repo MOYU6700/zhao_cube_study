@@ -30,10 +30,13 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
+#include "drv_delay.h"
+#include "drv_io.h"
+#include "drv_SI4438.h"
+#include "main.h"
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
-extern void TimingDelay_Decrement(void);
 /* Private functions ---------------------------------------------------------*/
 
 /* Public functions ----------------------------------------------------------*/
@@ -75,7 +78,7 @@ INTERRUPT_HANDLER(TLI_IRQHandler, 0)
 {
   /* In order to detect unexpected events during development,
      it is recommended to set a breakpoint on the following instruction.
-  */
+  */ 
 }
 
 /**
@@ -112,6 +115,7 @@ INTERRUPT_HANDLER(EXTI_PORTA_IRQHandler, 3)
   /* In order to detect unexpected events during development,
      it is recommended to set a breakpoint on the following instruction.
   */
+  
 }
 
 /**
@@ -143,11 +147,39 @@ INTERRUPT_HANDLER(EXTI_PORTC_IRQHandler, 5)
   * @param  None
   * @retval None
   */
+uint8_t t_SI4463ItStatus[ 9 ] = { 0 };
+uint16_t leave_load=0;
 INTERRUPT_HANDLER(EXTI_PORTD_IRQHandler, 6)
 {
   /* In order to detect unexpected events during development,
      it is recommended to set a breakpoint on the following instruction.
   */
+  /*PD3口检测IRQ 的中断入口*/
+  if ((GPIO_ReadInputData(IRQ_EXTI_PORT) & IRQ_EXTI_PIN) == 0x00)
+  {
+      SI446x_Interrupt_Status( t_SI4463ItStatus ); 
+      if(t_SI4463ItStatus[3] &(0x01<<1))  //是否发送几乎空警报；  
+      {
+        send_load=32;
+        leave_load++;
+        if((sizeof(tx_packet)-(63-10+32*leave_load))<=32)     
+        {
+          send_load=sizeof(tx_packet)-(63-10+32*leave_load);
+        }
+        arrary_table=(63-10)+send_load*leave_load;
+        SI446x_Interrupt_Status( t_SI4463ItStatus ); 
+      } 
+      
+   /*数据发送完毕检测*/
+      if(t_SI4463ItStatus[3] &(0x01<<5))   
+      {
+        send_load=63;
+        leave_load=0;
+        SI446x_Interrupt_Status( t_SI4463ItStatus ); 
+      }      
+      
+  }
+  
 }
 
 /**
@@ -457,9 +489,8 @@ INTERRUPT_HANDLER(TIM6_UPD_OVF_TRG_IRQHandler, 23)
   */
  INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 23)
 {
-   TimingDelay_Decrement();
+
   /* Cleat Interrupt Pending bit */
-  TIM4_ClearITPendingBit(TIM4_IT_UPDATE);
 
 }
 #endif /*STM8S903*/

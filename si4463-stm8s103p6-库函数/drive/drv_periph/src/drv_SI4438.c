@@ -355,7 +355,7 @@ void SI446x_Config_Init( void )
     SI446x_Set_Property_1( PKT_FIELD_1_CONFIG, 0x00 );
     SI446x_Set_Property_1( PKT_FIELD_1_CRC_CONFIG, 0x00 );
     SI446x_Set_Property_1( PKT_FIELD_2_LENGTH_12_8, 0x00 );
-    SI446x_Set_Property_1( PKT_FIELD_2_LENGTH_7_0, 0x20 );
+    SI446x_Set_Property_1( PKT_FIELD_2_LENGTH_7_0, 0x40 );
     SI446x_Set_Property_1( PKT_FIELD_2_CONFIG, 0x00 );
     SI446x_Set_Property_1( PKT_FIELD_2_CRC_CONFIG, 0x00 );
 	

@@ -18,15 +18,25 @@
 #include "main.h"							//main.h 中含有TX/RX、软件SPI/硬件SPI选择配置选项
 #include "user_flash.h"
 #include "drv_SI4438.h"
+#include "drv_io.h"
 
-char  g_Ashining[] = "ashining Tx is00000 123456789123456789123456789123456789123456789123456789";
+const uint8_t tx_packet[128] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
+16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
+32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47,
+48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63,
+64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79,
+80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95,
+96, 97, 98, 99, 100,101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111,
+112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122,123, 124, 125, 126, 127};
+
 uint8_t g_TxMode = 0, g_UartRxFlag = 0;
 uint8_t g_UartRxBuffer[ 64 ] = { 0 };
 uint8_t g_SI4463ItStatus[ 9 ] = { 0 };
 uint8_t g_SI4463RxBuffer[ 64 ] = { 0 }; 
 uint8_t channel=0;
-
-
+uint16_t length=5;
+uint16_t send_load=63;
+uint16_t arrary_table=0;
 /**
   * @brief :主函数
   * @param :无
@@ -34,9 +44,8 @@ uint8_t channel=0;
   * @retval:无
   */
 int main( void )
-{	
-	uint16_t i = 0;
-
+{		
+     uint16_t i=0;
 	//串口初始化 波特率默认设置为9600
 	drv_uart_init( 9600 );
 	
@@ -46,8 +55,7 @@ int main( void )
         channel=flash_channel();
 	//SI4463初始化
 	SI446x_Init();
-			
-	
+        GPIO_Config();		
 #ifdef	__SI4438_TX_TEST__		
 //=========================================================================================//	
 //*****************************************************************************************//
@@ -56,48 +64,16 @@ int main( void )
 //=========================================================================================//	
 		
 	while( 1 )	
-	{
-		//模式1 1S发送“ashining”一次
-		if( TX_MODE_1 == g_TxMode )
+	{          
+          if( TX_MODE_1 == g_TxMode )
 		{
 			//动态数据长度
 			#if PACKET_LENGTH == 0                              
-				SI446x_Send_Packet( (uint8_t *)g_Ashining,60, channel, 0 ); 
-                                SI446x_Interrupt_Status( g_SI4463ItStatus );
-			#else
-				SI446x_Send_Packet( (uint8_t *)g_Ashining, PACKET_LENGTH, channel, 0 );
-			#endif
-			drv_delay_ms( 100 );             
-                        g_Ashining[18]++;
-                        if(g_Ashining[18]>'9')
-                        {
-                         g_Ashining[18]='0';
-                         g_Ashining[17]++;
-                         if(g_Ashining[17]>'9')
-                         {
-                          g_Ashining[17]='0';
-                          g_Ashining[16]++;
-                          if(g_Ashining[16]>'9')
-                          {
-                            g_Ashining[16]='0';
-                            g_Ashining[15]++;
-                            if(g_Ashining[15]>'9')
-                            {
-                              g_Ashining[15]='0';
-                              g_Ashining[14]++;                             
-                              if(g_Ashining[14]>'9')  
-                              {
-                                g_Ashining[14]='F';
-                                g_Ashining[15]='F';
-                                g_Ashining[16]='F';
-                                g_Ashining[17]='F';
-                                g_Ashining[18]='F';
-                              }
-                            } 
-                          } 
-                         } 
-                        }
+                            SI446x_Send_Packet( (uint8_t *)tx_packet[arrary_table],send_load, channel, 0 ); 
+			#else	                               
+                            SI446x_Send_Packet( (uint8_t *)tx_packet, PACKET_LENGTH, channel, 0 );   
                         
+			#endif                       
 		}
 		else	//模式2 外部通过串口发送数据到单片机，单片机通过SI4463将数据发送出去
 		{	
@@ -131,7 +107,7 @@ int main( void )
 	{
 		SI446x_Interrupt_Status( g_SI4463ItStatus );		//查询中断状态
 		
-		if( g_SI4463ItStatus[ 3 ] & ( 0x01 << 4 ))
+		if( g_SI4463ItStatus[ 3 ] & ( 0x01 << 4 ))   
         {
 			i = SI446x_Read_Packet( g_SI4463RxBuffer );		//读接收到的数据
 			if( i != 0 )

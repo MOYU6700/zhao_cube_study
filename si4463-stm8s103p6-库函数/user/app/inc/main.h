@@ -19,7 +19,6 @@
 #define __MAIN_H__
 
 
-#include "drv_button.h"
 #include "drv_delay.h"
 #include "drv_led.h"
 #include "drv_spi.h"
@@ -40,4 +39,8 @@ enum
 };
 
 
+extern const uint8_t tx_packet[128];
+extern uint16_t send_load;
+extern uint8_t channel;
+extern uint16_t arrary_table;
 #endif

@@ -24,7 +24,7 @@
 #include "drv_Si4438_Config_26M.h"
 
 
-#define  PACKET_LENGTH      		64 		//0-64, 0:动态数据长度 1:固定数据长度
+#define  PACKET_LENGTH      		0 		//0-64, 0:动态数据长度 1:固定数据长度
 
 
 /** SI4463 IO引脚硬件接口定义 */

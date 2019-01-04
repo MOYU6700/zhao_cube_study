@@ -27,12 +27,15 @@ Project File Date:  12/07/2018
 <h2>Output:</h2>
 Build target 'SI4438'
 compiling main.c...
-compiling drv_SI4438.c...
-compiling drv_spi.c...
+Source_Files\app\src\main.c(40): warning:  #177-D: variable "Estatus" was declared but never referenced
+    uint32_t Estatus=0;
+Source_Files\app\src\main.c(29): warning:  #550-D: variable "rx_error_cnt" was set but never used
+  static uint16_t rx_error_cnt=0;
+Source_Files\app\src\main.c: 2 warnings, 0 errors
 linking...
-Program Size: Code=8428 RO-data=712 RW-data=36 ZI-data=716  
+Program Size: Code=4220 RO-data=716 RW-data=32 ZI-data=720  
 FromELF: creating hex file...
-"..\output\Project_4438.axf" - 0 Error(s), 0 Warning(s).
+"..\output\Project_4438.axf" - 0 Error(s), 2 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
   C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\si4463-stm32-¿âº¯Êý\Demo_SI4438_Stm32F103\Project_SI4438\RTE

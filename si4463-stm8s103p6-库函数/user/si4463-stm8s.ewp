@@ -1595,10 +1595,10 @@
   <group>
     <name>drive</name>
     <file>
-      <name>$PROJ_DIR$\..\drive\drv_mcu\src\drv_button.c</name>
+      <name>$PROJ_DIR$\..\drive\drv_mcu\src\drv_delay.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\drive\drv_mcu\src\drv_delay.c</name>
+      <name>$PROJ_DIR$\..\drive\drv_mcu\src\drv_io.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\drive\drv_periph\src\drv_SI4438.c</name>
@@ -1616,10 +1616,16 @@
       <name>$PROJ_DIR$\..\lib\src\stm8s_clk.c</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\lib\src\stm8s_exti.c</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\lib\src\stm8s_flash.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\lib\src\stm8s_gpio.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\lib\src\stm8s_it.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\lib\src\stm8s_spi.c</name>

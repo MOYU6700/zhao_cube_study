@@ -146,7 +146,7 @@ int main( void )
 	{
 		SI446x_Interrupt_Status( g_SI4463ItStatus );		//读中断状态
 		
-		if( g_SI4463ItStatus[ 3 ] & ( 0x01 << 4 ))
+		if( g_SI4463ItStatus[ 3 ] & ( 0x01 << 4 ))     //查询中断RX 寄存器值
         {
 			i = SI446x_Read_Packet( g_SI4463RxBuffer );		//读FIFO数据
 			if( i != 0 )
@@ -156,18 +156,18 @@ int main( void )
 					flag_for_one++;
 				}
 				led_green_flashing( );
-				drv_uart_tx_bytes( g_SI4463RxBuffer,i+1 );	//输出接收到的字节
-				printf("  ");
-				Estatus=hex_to_dec(g_SI4463RxBuffer); 
-				if((Estatus== 55)||(Estatus!=(hex_to_dec(temp_data)+1))){rx_error_cnt++;}				
-				memcpy(temp_data,g_SI4463RxBuffer,sizeof(g_SI4463RxBuffer));
+				drv_uart_tx_bytes( g_SI4463RxBuffer,i );	//输出接收到的字节
+//				printf("  ");
+//				Estatus=hex_to_dec(g_SI4463RxBuffer); 
+//				if((Estatus== 55)||(Estatus!=(hex_to_dec(temp_data)+1))){rx_error_cnt++;}				
+//				memcpy(temp_data,g_SI4463RxBuffer,sizeof(g_SI4463RxBuffer));
 				rx_corret_cnt++;
 				if(flag_for_one==1)
 				{
 					rx_error_cnt=0;
 					flag_for_one=2;
 				}
-				printf("The packet loss rate is %f\n",(float)rx_error_cnt/rx_corret_cnt);
+//				printf("The packet loss rate is %f\n",(float)rx_error_cnt/rx_corret_cnt);
 			}
 		
 			SI446x_Change_Status( 6 );
