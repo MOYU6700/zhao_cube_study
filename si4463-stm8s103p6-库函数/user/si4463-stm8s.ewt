@@ -1988,6 +1988,9 @@
       <name>$PROJ_DIR$\app\src\main.c</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\app\src\user_config.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\drive\drv_mcu\src\user_flash.c</name>
     </file>
   </group>

@@ -33,7 +33,7 @@
 
 void drv_uart_init( uint32_t UartBaudRate );
 void drv_uart_tx_bytes( uint8_t* TxBuffer, uint8_t Length );
-uint8_t drv_uart_rx_bytes( uint8_t* RxBuffer );
+uint16_t drv_uart_rx_bytes( uint8_t* RxBuffer );
 
 
 

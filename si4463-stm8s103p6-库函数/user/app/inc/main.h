@@ -31,16 +31,4 @@
 
 
 
-/** 发送模式定义 */
-enum
-{
-	TX_MODE_1 = 0,		//发送模式1，发送固定的字符串
-	TX_MODE_2			//发送模式2，发送串口接收到的数据
-};
-
-
-extern const uint8_t tx_packet[128];
-extern uint16_t send_load;
-extern uint8_t channel;
-extern uint16_t arrary_table;
 #endif

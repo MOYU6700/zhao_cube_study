@@ -38,13 +38,18 @@ ShowSource=1
 [Simulator]
 Freq=16000000
 [DebugChecksum]
-Checksum=-190439021
+Checksum=-2036892972
 [CallStack]
 ShowArgs=0
 [Disassembly]
 MixedMode=1
+[struct_types]
+Fmt0=struct LongPacketData-NumTxPositionInPayload	3	0
+Fmt1=struct LongPacketData-pTxPositionInPayload	3	0
 [watch_formats]
 Fmt0={W}1:Length	3	0
+Fmt1={W}1:UDR	4	0
+Fmt2={W}1:send_buff	3	0
 [DataSample]
 LogEnabled=0
 GraphEnabled=0
@@ -57,7 +62,13 @@ Category=_ 0
 LoggingEnabled=_ 0
 LogFile=_ ""
 [Breakpoints]
-Count=0
+Bp0=_ "STD_CODE" "{$PROJ_DIR$\..\lib\src\stm8s_it.c}.376.15" 1 0 0 0 "" 0 ""
+Bp1=_ "STD_CODE" "{$PROJ_DIR$\..\lib\src\stm8s_it.c}.390.39" 1 0 0 0 "" 0 ""
+Bp2=_ "STD_CODE" "{$PROJ_DIR$\..\lib\src\stm8s_it.c}.379.20" 1 0 0 0 "" 0 ""
+Bp3=_ "STD_CODE" "{$PROJ_DIR$\..\lib\src\stm8s_it.c}.374.7" 1 0 0 0 "" 0 ""
+Bp4=_ "STD_CODE" "{$PROJ_DIR$\..\lib\src\stm8s_it.c}.371.14" 1 0 0 0 "" 0 ""
+Bp5=_ "STD_CODE" "{$PROJ_DIR$\..\lib\src\stm8s_it.c}.368.3" 1 0 0 0 "" 0 ""
+Count=6
 [Aliases]
 Count=0
 SuppressDialog=0

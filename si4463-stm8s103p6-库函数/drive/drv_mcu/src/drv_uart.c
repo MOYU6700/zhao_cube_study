@@ -34,8 +34,10 @@ void drv_uart_init( uint32_t UartBaudRate )
 	CLK_PeripheralClockConfig(CLK_PERIPHERAL_UART1, ENABLE);	//使能串口时钟
 	UART1_DeInit();		//串口复位
 	//串口初始化 8位数据 1个停止位 无校验 发送接收 波特率可变
-	UART1_Init( UartBaudRate, UART1_WORDLENGTH_8D, UART1_STOPBITS_1, UART1_PARITY_NO, UART1_SYNCMODE_CLOCK_DISABLE, UART1_MODE_TXRX_ENABLE );
+	UART1_Init( UartBaudRate, UART1_WORDLENGTH_8D, UART1_STOPBITS_1, UART1_PARITY_NO, UART1_SYNCMODE_CLOCK_DISABLE, UART1_MODE_RX_ENABLE );
+        UART1_ITConfig(UART1_IT_RXNE,ENABLE );        
 	UART1_Cmd(ENABLE);	//使能串口
+        enableInterrupts(); //开启中断
 }
 
 /**
@@ -63,9 +65,9 @@ void drv_uart_tx_bytes( uint8_t* TxBuffer, uint8_t Length )
   * @note  :无
   * @retval:接收到的字节个数
   */
-uint8_t drv_uart_rx_bytes( uint8_t* RxBuffer )
+uint16_t drv_uart_rx_bytes( uint8_t* RxBuffer )
 {
-	uint8_t l_RxLength = 0;
+	uint16_t l_RxLength = 0;
 	uint16_t l_UartRxTimOut = 0xFFF;
 	
 	while( l_UartRxTimOut-- )			//在超时范围内查询数据
@@ -77,7 +79,7 @@ uint8_t drv_uart_rx_bytes( uint8_t* RxBuffer )
 			l_RxLength++;
 			l_UartRxTimOut = 0xFFF;		//恢复超时等待时间
 		}
-		if( 17 == l_RxLength )
+		if( 512 == l_RxLength )
 		{
 			break;						//字节不能超过100个字节，由于部分8位机内存较小，接收buffer开得较小
 		}

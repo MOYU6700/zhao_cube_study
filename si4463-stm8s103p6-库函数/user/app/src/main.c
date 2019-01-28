@@ -19,8 +19,10 @@
 #include "user_flash.h"
 #include "drv_SI4438.h"
 #include "drv_io.h"
+#include "string.h"
+#include "user_config.h"
 
-const uint8_t tx_packet[128] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
+uint8_t tx_packet[128] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47,
 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63,
@@ -34,9 +36,10 @@ uint8_t g_UartRxBuffer[ 64 ] = { 0 };
 uint8_t g_SI4463ItStatus[ 9 ] = { 0 };
 uint8_t g_SI4463RxBuffer[ 64 ] = { 0 }; 
 uint8_t channel=0;
-uint16_t length=5;
-uint16_t send_load=63;
-uint16_t arrary_table=0;
+uint8_t si4463_tx_buff[64]={0};
+struct PacketTxData PacketTxData;
+struct LongPacketData LongPacketData;
+void set_packages(uint8_t *address,uint16_t len);
 /**
   * @brief :主函数
   * @param :无
@@ -45,55 +48,36 @@ uint16_t arrary_table=0;
   */
 int main( void )
 {		
-     uint16_t i=0;
-	//串口初始化 波特率默认设置为9600
-	drv_uart_init( 9600 );
-	
+     uint16_t i=0; 
+	//串口初始化 波特率默认设置为250000
+	drv_uart_init( 250000 );	
 	//SPI初始化
 	drv_spi_init( );
 	user_write_flash(CHANNLE_MESSAGE_ROM,0);
         channel=flash_channel();
 	//SI4463初始化
 	SI446x_Init();
-        GPIO_Config();		
+        GPIO_Config();	 
+//        memset(PacketTxData.buf,2,480);
+//        memset(PacketTxData.buf+480,3,32);
 #ifdef	__SI4438_TX_TEST__		
 //=========================================================================================//	
 //*****************************************************************************************//
 //************************************* 发送 **********************************************//
 //*****************************************************************************************//
-//=========================================================================================//	
-		
+//=========================================================================================//			
 	while( 1 )	
 	{          
-          if( TX_MODE_1 == g_TxMode )
-		{
+ 
 			//动态数据长度
-			#if PACKET_LENGTH == 0                              
-                            SI446x_Send_Packet( (uint8_t *)tx_packet[arrary_table],send_load, channel, 0 ); 
-			#else	                               
-                            SI446x_Send_Packet( (uint8_t *)tx_packet, PACKET_LENGTH, channel, 0 );   
-                        
+		       #if PACKET_LENGTH == 0                     
+                     SI446x_Send_Packet( (uint8_t *)tx_packet, PACKET_LENGTH, channel, 0 ); 
+                     drv_delay_ms( 2000 );   
+			#else	   
+                           set_packages(PacketTxData.buf,512);
+                            drv_delay_ms( 3000 ); 
 			#endif                       
-		}
-		else	//模式2 外部通过串口发送数据到单片机，单片机通过SI4463将数据发送出去
-		{	
-			//轮训接收串口数据
-			i = drv_uart_rx_bytes( g_UartRxBuffer );
-			
-			if( 0 != i )
-			{
-				if( 17 < i )
-				{
-					i = 0;		//一次不超过17个字节
-				}
-				#if PACKET_LENGTH == 0
-					SI446x_Send_Packet( (uint8_t *)g_UartRxBuffer, i, channel, 0 );
-				#else
-					SI446x_Send_Packet( (uint8_t *)g_UartRxBuffer, PACKET_LENGTH, channel, 0 );
-				#endif
-			}
-		}
-              
+			//外部通过串口发送数据到单片机，单片机通过SI4463将数据发送出去            
 	}
 	
 #else		
@@ -130,7 +114,43 @@ int main( void )
 		}
 	}
 		
-#endif
-	
+#endif	
 }
 
+void set_packages(uint8_t *address,uint16_t len)
+{
+  uint8_t loop_counter=0;
+  uint8_t remain_byte=0; 
+  uint8_t *addr=0;
+  addr=address;
+  uint8_t i=0;
+  loop_counter=len/60;
+  remain_byte=len%60;
+  for(i=0;i<(loop_counter+1);i++)
+  {
+    if(i<loop_counter)
+    {
+      si4463_tx_buff[0]=i+1;
+      si4463_tx_buff[1]=60;
+      memset(&si4463_tx_buff[2],*addr,60);
+      if(i<loop_counter)
+      {
+        addr+=60;
+      }
+      else
+      {
+        addr+=32;
+      }  
+    } 
+    else
+    {
+      si4463_tx_buff[0]=i+1;
+      si4463_tx_buff[1]=remain_byte;
+      memset(&si4463_tx_buff[2],*addr,remain_byte);
+    } 
+    SI446x_Send_Packet( (uint8_t *)si4463_tx_buff, PACKET_LENGTH, channel, 0 ); 
+    while(!LongPacketData.TxlengthGet) ; 
+    LongPacketData.TxlengthGet =0;
+   }  
+  
+}

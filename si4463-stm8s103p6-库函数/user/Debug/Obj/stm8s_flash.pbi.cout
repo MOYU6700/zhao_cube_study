@@ -12,6 +12,8 @@ C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\si4463-stm8s103p6-¿âº¯Êý\user\app\i
 -I
 C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\si4463-stm8s103p6-¿âº¯Êý\user
 -I
+C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\si4463-stm8s103p6-¿âº¯Êý\user\app\src
+-I
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\stm8\inc
 -I
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\stm8\inc\c
@@ -25,6 +27,8 @@ C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\si4463-stm8s103p6-¿âº¯Êý\lib\inc
 C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\si4463-stm8s103p6-¿âº¯Êý\user\app\inc
 -I
 C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\si4463-stm8s103p6-¿âº¯Êý\user
+-I
+C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\si4463-stm8s103p6-¿âº¯Êý\user\app\src
 -D__CHAR_BITS__=8
 -D__CHAR_MAX__=0xff
 -D__CHAR_MIN__=0

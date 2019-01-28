@@ -262,6 +262,7 @@
           <state>C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\si4463-stm8s103p6-&#x5e93;&#x51FD;&#x6570;\lib\inc</state>
           <state>C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\si4463-stm8s103p6-&#x5e93;&#x51FD;&#x6570;\user\app\inc</state>
           <state>C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\si4463-stm8s103p6-&#x5e93;&#x51FD;&#x6570;\user</state>
+          <state>C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\si4463-stm8s103p6-&#x5e93;&#x51FD;&#x6570;\user\app\src</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -1638,6 +1639,9 @@
     <name>user</name>
     <file>
       <name>$PROJ_DIR$\app\src\main.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\app\src\user_config.h</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\drive\drv_mcu\src\user_flash.c</name>

@@ -34,8 +34,10 @@
 #include "drv_io.h"
 #include "drv_SI4438.h"
 #include "main.h"
+#include "user_config.h" 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
+
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
 
@@ -148,7 +150,8 @@ INTERRUPT_HANDLER(EXTI_PORTC_IRQHandler, 5)
   * @retval None
   */
 uint8_t t_SI4463ItStatus[ 9 ] = { 0 };
-uint16_t leave_load=0;
+uint8_t send_buff=0;
+
 INTERRUPT_HANDLER(EXTI_PORTD_IRQHandler, 6)
 {
   /* In order to detect unexpected events during development,
@@ -157,29 +160,13 @@ INTERRUPT_HANDLER(EXTI_PORTD_IRQHandler, 6)
   /*PD3口检测IRQ 的中断入口*/
   if ((GPIO_ReadInputData(IRQ_EXTI_PORT) & IRQ_EXTI_PIN) == 0x00)
   {
-      SI446x_Interrupt_Status( t_SI4463ItStatus ); 
-      if(t_SI4463ItStatus[3] &(0x01<<1))  //是否发送几乎空警报；  
-      {
-        send_load=32;
-        leave_load++;
-        if((sizeof(tx_packet)-(63-10+32*leave_load))<=32)     
-        {
-          send_load=sizeof(tx_packet)-(63-10+32*leave_load);
-        }
-        arrary_table=(63-10)+send_load*leave_load;
-        SI446x_Interrupt_Status( t_SI4463ItStatus ); 
-      } 
-      
-   /*数据发送完毕检测*/
-      if(t_SI4463ItStatus[3] &(0x01<<5))   
-      {
-        send_load=63;
-        leave_load=0;
-        SI446x_Interrupt_Status( t_SI4463ItStatus ); 
-      }      
-      
+      /*要发送的字节长度 大于当前FIFO的空间（63字节）*/
+     SI446x_Interrupt_Status( t_SI4463ItStatus ); 
+   if((t_SI4463ItStatus[ 3 ] & ( 0x01 << 5))) 
+   {
+      LongPacketData.TxlengthGet = 1;
+   }
   }
-  
 }
 
 /**
@@ -365,11 +352,48 @@ INTERRUPT_HANDLER(TIM1_CAP_COM_IRQHandler, 12)
   * @param  None
   * @retval None
   */
+static uint16_t UDR=0;
+static uint16_t RXB8=0;
+static uint16_t pDMX_buf = 0;  //数据指针
+static uint8_t fDMX_buf_right = 0;
+/**********************DMX512****************************************/
+uint8_t uart3_recok=0;				 //校验成功与否标志
+uint8_t DMXSignalFlag = 0; 
+uint8_t RXDData[530]; //接收缓冲区200个数据
  INTERRUPT_HANDLER(UART1_RX_IRQHandler, 18)
 {
   /* In order to detect unexpected events during development,
      it is recommended to set a breakpoint on the following instruction.
   */
+  if(UART1_GetITStatus(UART1_IT_RXNE) != RESET)
+  {
+      UART1_ClearITPendingBit(UART1_IT_RXNE);
+      UDR  = UART1_ReceiveData9();  //16bit  0-8  9bit
+      RXB8 = (UDR&0x0100);  //得到第9位数据
+
+      if(RXB8 == 0) //如果是复位信号
+      {   
+              if(!UDR) //如果数据为0
+              {
+                  fDMX_buf_right = 1; //接收数据正确
+                   pDMX_buf = 0;       //直接接收第一个数据,不保存第0个数据
+              }
+      }
+      else  //rxb8=1 pDMX_buf =1 调光数据
+      {
+               if(1 == fDMX_buf_right) //正确调光数据标志
+               {
+           PacketTxData.buf[pDMX_buf++] = (uint8_t)UDR; //得到8位的数据 
+                       //接收到0-192个数据
+                       if(pDMX_buf > 192)
+                       {
+                                      fDMX_buf_right = 0;   //标志清零
+                                      DMXSignalFlag = 1; 		//更新调光数据						 				 
+                       }
+                      
+               } 
+      }
+  }
 }
 #endif /*STM8S105 || STM8S001 */
 

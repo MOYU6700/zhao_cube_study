@@ -379,6 +379,10 @@ void SI446x_Write_TxFifo( uint8_t *pWriteData, uint8_t Length )
 {
     SI_SET_CSN_LOW( );
     drv_spi_read_write_byte( WRITE_TX_FIFO );		//写命令
+#if PACKET_LENGTH == 0			//动态数据长度
+    drv_spi_read_write_byte( Length );
+	
+#endif
     while( Length-- )    
 	{ 
 		drv_spi_read_write_byte( *pWriteData++ ); 	//写数据
@@ -674,8 +678,8 @@ void SI446x_Init(void)
 	SI446x_Power_Up( 30000000 );//reset 后需要Power up设备 晶振30MHz
 	SI446x_Config_Init( );		//SI4463模块初始化
 	SI446x_Set_Power( 0x7F );	//功率设置
-	SI446x_Change_Status( 6 );	//切换到RX状态
-	while( 6 != SI446x_Get_Device_Status( ));
-	SI446x_Start_Rx( channel, 0, PACKET_LENGTH,0,0,3 );
+	SI446x_Change_Status( 5 );	//切换到RX状态
+	while( 5 != SI446x_Get_Device_Status( ));
+//	SI446x_Start_Rx( channel, 0, PACKET_LENGTH,0,0,3 );
 
 }
