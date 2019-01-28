@@ -81,7 +81,7 @@ void UART1_SendData8(uint8_t Data)
   * @note  :无
   * @retval:无
   */
-void drv_uart_tx_bytes( uint8_t* TxBuffer, uint8_t Length )
+void drv_uart_tx_bytes( uint8_t* TxBuffer, uint16_t Length ) 
 {
 	while( Length-- )
 	{

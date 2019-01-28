@@ -19,15 +19,18 @@
 #include "string.h"
 #include "drv_uart.h"
 #include  "stdio.h"
+#include  "drv_io.h"
+#include  "user_config.h"   
+
 const char *g_Ashining = "ashining";
 uint8_t g_TxMode = 0, g_UartRxFlag = 0;
 uint8_t g_UartRxBuffer[ 64 ] = { 0 };
 uint8_t g_SI4463ItStatus[ 9 ] = { 0 };
-uint8_t g_SI4463RxBuffer[ 64 ] = { 0 }; 
-uint8_t temp_data[64]={0};
-static uint16_t rx_corret_cnt=0;
-static uint16_t rx_error_cnt=0;
-static uint8_t flag_for_one=0;
+uint8_t g_SI4463RxBuffer[ 520 ] = { 0 }; 
+uint8_t a_SI4463RxBuffer[ 64 ] = { 0 };
+struct PacketrxData PacketrxData; 
+struct LongPacketData LongPacketData;
+uint32_t counter=0;
 /**
   * @brief :主函数 
   * @param :无
@@ -37,12 +40,13 @@ static uint8_t flag_for_one=0;
 int main( void )
 {	
 	uint16_t i = 0;
-  uint32_t Estatus=0;
 	//串口初始化波特率 9600
-	drv_uart_init( 9600 );
+	drv_uart_init( 115200 );
 	
 	//延时初始化
 	drv_delay_init( );
+	
+//	EXTIX_Init(); 
 	
 	//LED初始化
 	drv_led_init( );
@@ -61,6 +65,7 @@ int main( void )
 		led_green_flashing( );
 		drv_delay_500Ms( 1 );
 	}
+//	LongPacketData.TxlengthGet=1;
 		
 	
 #ifdef	__SI4438_TX_TEST__		
@@ -141,33 +146,17 @@ int main( void )
 //************************************* 接收 **********************************************//
 //*****************************************************************************************//
 //=========================================================================================//	
-	
+
 	while( 1 )
 	{
-		SI446x_Interrupt_Status( g_SI4463ItStatus );		//读中断状态
+		SI446x_Interrupt_Status( g_SI4463ItStatus );		//查询中断状态
 		
-		if( g_SI4463ItStatus[ 3 ] & ( 0x01 << 4 ))     //查询中断RX 寄存器值
-        {
-			i = SI446x_Read_Packet( g_SI4463RxBuffer );		//读FIFO数据
+		if( g_SI4463ItStatus[ 3 ] & ( 0x01 << 4 ))   
+    {
+			i = SI446x_Read_Packet( g_SI4463RxBuffer );		//读接收到的数据
 			if( i != 0 )
 			{
-				if(flag_for_one!=2)
-				{
-					flag_for_one++;
-				}
-				led_green_flashing( );
-				drv_uart_tx_bytes( g_SI4463RxBuffer,i );	//输出接收到的字节
-//				printf("  ");
-//				Estatus=hex_to_dec(g_SI4463RxBuffer); 
-//				if((Estatus== 55)||(Estatus!=(hex_to_dec(temp_data)+1))){rx_error_cnt++;}				
-//				memcpy(temp_data,g_SI4463RxBuffer,sizeof(g_SI4463RxBuffer));
-				rx_corret_cnt++;
-				if(flag_for_one==1)
-				{
-					rx_error_cnt=0;
-					flag_for_one=2;
-				}
-//				printf("The packet loss rate is %f\n",(float)rx_error_cnt/rx_corret_cnt);
+				drv_uart_tx_bytes( g_SI4463RxBuffer,i );	//串口输出SI4463接收到的数据
 			}
 		
 			SI446x_Change_Status( 6 );
@@ -184,8 +173,60 @@ int main( void )
 			drv_delay_ms( 1 );
 		}
 	}
-		
-#endif
 	
+//	SI446x_Change_Status( 6 );
+//	while( 6 != SI446x_Get_Device_Status( ));
+//	SI446x_Start_Rx(  0, 0, PACKET_LENGTH,0,0,3 );
+//	
+//	while( 1 )
+//	{
+//		SI446x_Interrupt_Status( g_SI4463ItStatus );		//查询中断状态
+//		
+//		if ((g_SI4463ItStatus[3]&(0x01<<4)) ||
+//				(g_SI4463ItStatus[3]&(0x01<<0)))
+//        {
+//			i = i+SI446x_Read_Packet( g_SI4463RxBuffer );		//读接收到的数据
+//			if(g_SI4463ItStatus[3]&(0x01<<4))
+//			{				
+////				drv_uart_tx_bytes( g_SI4463RxBuffer,i );	//串口输出SI4463接收到的数据
+//				drv_uart_tx_bytes( (uint8_t *)&i,1 );	//串口输出SI4463接收到的数据
+//				i = 0;
+//			}
+////			i = 0;
+//		
+////			SI446x_Change_Status( 6 );
+////			while( 6 != SI446x_Get_Device_Status( ));
+////			SI446x_Start_Rx(  0, 0, PACKET_LENGTH,0,0,3 );
+//		}
+//		else
+//		{
+//			if( 30000 == i++ )
+//			{
+//				i = 0;
+//				SI446x_Init( );
+//			}
+//			drv_delay_ms( 1 );
+//		}
+//	}	
+	
+//	while( 1 )
+//	{				
+//				/*发送当前接收到的数据*/
+//				if(LongPacketData.sent_buff)
+//				{	
+//					
+//					counter++;
+//					if(counter%100)
+//					{
+//						led_green_flashing( );
+//						
+//					}	
+//					drv_uart_tx_bytes( g_SI4463RxBuffer,512 );	
+//          LongPacketData.sent_buff=0;					
+//				}
+//	}		
+
+#endif
 }
+
 

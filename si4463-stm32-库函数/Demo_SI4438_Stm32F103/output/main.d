@@ -23,3 +23,7 @@
 ..\output\main.o: .\Source_Files\drv_periph\inc\drv_Si4438_Config_26M.h
 ..\output\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 ..\output\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+..\output\main.o: .\Source_Files\drv_mcu\inc\drv_io.h
+..\output\main.o: .\Source_Files\std_lib\inc\stm32f10x_exti.h
+..\output\main.o: .\Source_Files\std_lib\inc\misc.h
+..\output\main.o: Source_Files\app\src\user_config.h

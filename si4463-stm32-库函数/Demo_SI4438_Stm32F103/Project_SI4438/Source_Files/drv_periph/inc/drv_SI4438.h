@@ -24,7 +24,7 @@
 #include "drv_Si4438_Config_26M.h"
 
 
-#define  PACKET_LENGTH      		0 		//0-64, 0:动态长度 1:固定长度
+#define  PACKET_LENGTH      		64 		//0-64, 0:动态长度 1:固定长度
 
 
 /** SI4463硬件接口IO定义 */
@@ -450,7 +450,7 @@ void SI446x_Reset_RxFifo( void );
 void SI446x_Reset_TxFifo( void );
 void SI446x_Send_Packet( uint8_t *pTxData, uint8_t Length, uint8_t Channel, uint8_t Condition );
 void SI446x_Start_Tx( uint8_t Channel, uint8_t Condition, uint16_t Length );
-uint8_t SI446x_Read_Packet( uint8_t *pRxData );
+uint8_t SI446x_Read_Packet( uint8_t *pRxData);
 void SI446x_Start_Rx( uint8_t Channel, uint8_t Condition, uint16_t Length, uint8_t Next_State1, uint8_t Next_State2, uint8_t Next_State3 );
 void SI446x_Get_Packet_Information( uint8_t *pReadData, uint8_t FieldNumMask, uint16_t Length, uint16_t DiffLen );
 void SI446x_Get_Fifo_Information( uint8_t *pReadData );
