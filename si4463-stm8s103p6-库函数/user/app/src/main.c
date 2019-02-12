@@ -48,7 +48,7 @@ void set_packages(uint8_t *address,uint16_t len);
   */
 int main( void )
 {		
-     uint16_t i=0; 
+        CLK_HSIPrescalerConfig(CLK_PRESCALER_HSIDIV1);
 	//串口初始化 波特率默认设置为250000
 	drv_uart_init( 250000 );	
 	//SPI初始化
@@ -70,13 +70,17 @@ int main( void )
 	{          
  
 			//动态数据长度
+//                     if(PacketTxData.DMXSignalFlag)
+//                     {
+                       PacketTxData.DMXSignalFlag=0;                 
 		       #if PACKET_LENGTH == 0                     
                      SI446x_Send_Packet( (uint8_t *)tx_packet, PACKET_LENGTH, channel, 0 ); 
                      drv_delay_ms( 2000 );   
 			#else	   
                            set_packages(PacketTxData.buf,512);
-                            drv_delay_ms( 3000 ); 
-			#endif                       
+                           drv_delay_ms( 3000 ); 
+			#endif 
+//                     }      
 			//外部通过串口发送数据到单片机，单片机通过SI4463将数据发送出去            
 	}
 	
@@ -132,7 +136,7 @@ void set_packages(uint8_t *address,uint16_t len)
     {
       si4463_tx_buff[0]=i+1;
       si4463_tx_buff[1]=60;
-      memset(&si4463_tx_buff[2],*addr,60);
+      memcpy(si4463_tx_buff+2,addr,60);
       if(i<loop_counter)
       {
         addr+=60;
@@ -146,10 +150,10 @@ void set_packages(uint8_t *address,uint16_t len)
     {
       si4463_tx_buff[0]=i+1;
       si4463_tx_buff[1]=remain_byte;
-      memset(&si4463_tx_buff[2],*addr,remain_byte);
+      memcpy(si4463_tx_buff+2,addr,remain_byte);
     } 
     SI446x_Send_Packet( (uint8_t *)si4463_tx_buff, PACKET_LENGTH, channel, 0 ); 
-    while(!LongPacketData.TxlengthGet) ; 
+    while(!LongPacketData.TxlengthGet);
     LongPacketData.TxlengthGet =0;
    }  
   

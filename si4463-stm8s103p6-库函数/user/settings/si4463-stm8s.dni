@@ -38,7 +38,7 @@ ShowSource=1
 [Simulator]
 Freq=16000000
 [DebugChecksum]
-Checksum=-2036892972
+Checksum=-1831764840
 [CallStack]
 ShowArgs=0
 [Disassembly]
@@ -62,13 +62,7 @@ Category=_ 0
 LoggingEnabled=_ 0
 LogFile=_ ""
 [Breakpoints]
-Bp0=_ "STD_CODE" "{$PROJ_DIR$\..\lib\src\stm8s_it.c}.376.15" 1 0 0 0 "" 0 ""
-Bp1=_ "STD_CODE" "{$PROJ_DIR$\..\lib\src\stm8s_it.c}.390.39" 1 0 0 0 "" 0 ""
-Bp2=_ "STD_CODE" "{$PROJ_DIR$\..\lib\src\stm8s_it.c}.379.20" 1 0 0 0 "" 0 ""
-Bp3=_ "STD_CODE" "{$PROJ_DIR$\..\lib\src\stm8s_it.c}.374.7" 1 0 0 0 "" 0 ""
-Bp4=_ "STD_CODE" "{$PROJ_DIR$\..\lib\src\stm8s_it.c}.371.14" 1 0 0 0 "" 0 ""
-Bp5=_ "STD_CODE" "{$PROJ_DIR$\..\lib\src\stm8s_it.c}.368.3" 1 0 0 0 "" 0 ""
-Count=6
+Count=0
 [Aliases]
 Count=0
 SuppressDialog=0

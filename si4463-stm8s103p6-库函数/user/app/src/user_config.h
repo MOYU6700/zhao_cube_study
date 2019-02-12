@@ -10,13 +10,14 @@ struct PacketTxData
 {
   uint16_t length;
   uint8_t buf[512];
+  uint8_t DMXSignalFlag;
 };
 
 struct LongPacketData
 {
  uint8_t NumTxPositionInPayload;
  uint8_t * pTxPositionInPayload;
- uint8_t TxlengthGet;
+ volatile uint8_t TxlengthGet;
 };
 
 extern uint16_t date_len;

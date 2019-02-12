@@ -160,8 +160,8 @@ INTERRUPT_HANDLER(EXTI_PORTD_IRQHandler, 6)
   /*PD3口检测IRQ 的中断入口*/
   if ((GPIO_ReadInputData(IRQ_EXTI_PORT) & IRQ_EXTI_PIN) == 0x00)
   {
-      /*要发送的字节长度 大于当前FIFO的空间（63字节）*/
-     SI446x_Interrupt_Status( t_SI4463ItStatus ); 
+      /*要发送的字节长度 大于当前FIFO的空间（64字节）*/
+    SI446x_Interrupt_Status( t_SI4463ItStatus ); 
    if((t_SI4463ItStatus[ 3 ] & ( 0x01 << 5))) 
    {
       LongPacketData.TxlengthGet = 1;
@@ -368,6 +368,13 @@ uint8_t RXDData[530]; //接收缓冲区200个数据
   if(UART1_GetITStatus(UART1_IT_RXNE) != RESET)
   {
       UART1_ClearITPendingBit(UART1_IT_RXNE);
+      if(UART1->SR & UART1_SR_OR)
+      {
+      UART1->SR &= ~UART2_SR_OR;
+      UART1->SR &= ~UART2_SR_RXNE;
+      UDR  = UART1_ReceiveData9(); 
+      }
+      else
       UDR  = UART1_ReceiveData9();  //16bit  0-8  9bit
       RXB8 = (UDR&0x0100);  //得到第9位数据
 
@@ -385,10 +392,10 @@ uint8_t RXDData[530]; //接收缓冲区200个数据
                {
            PacketTxData.buf[pDMX_buf++] = (uint8_t)UDR; //得到8位的数据 
                        //接收到0-192个数据
-                       if(pDMX_buf > 192)
+                       if(pDMX_buf > 510)
                        {
                                       fDMX_buf_right = 0;   //标志清零
-                                      DMXSignalFlag = 1; 		//更新调光数据						 				 
+                                      PacketTxData.DMXSignalFlag = 1; 		//更新调光数据	
                        }
                       
                } 

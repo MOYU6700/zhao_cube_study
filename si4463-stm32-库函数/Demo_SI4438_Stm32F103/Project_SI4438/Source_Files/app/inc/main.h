@@ -37,6 +37,6 @@ enum
 	TX_MODE_1 = 0,		//发送模式1，发送固定的字符串
 	TX_MODE_2			//发送模式2，发送串口接收到的数据
 };
-extern uint8_t g_SI4463RxBuffer[ 520 ];
+extern uint8_t g_SI4463RxBuffer[ 600 ];
 
 #endif

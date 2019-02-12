@@ -181,9 +181,9 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>42</LineNumber>
+          <LineNumber>36</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134218182</Address>
+          <Address>134218184</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -192,14 +192,14 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\si4463-stm32-搴撳嚱鏁?Demo_SI4438_Stm32F103\Project_SI4438\Source_Files\drv_mcu\src\drv_io.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\Project_4438\Source_Files/drv_mcu/src/drv_io.c\42</Expression>
+          <Expression>\\Project_4438\Source_Files/drv_mcu/src/drv_io.c\36</Expression>
         </Bp>
         <Bp>
           <Number>1</Number>
           <Type>0</Type>
-          <LineNumber>60</LineNumber>
+          <LineNumber>57</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134218284</Address>
+          <Address>134218264</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -208,23 +208,23 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\si4463-stm32-搴撳嚱鏁?Demo_SI4438_Stm32F103\Project_SI4438\Source_Files\drv_mcu\src\drv_io.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\Project_4438\Source_Files/drv_mcu/src/drv_io.c\60</Expression>
+          <Expression>\\Project_4438\Source_Files/drv_mcu/src/drv_io.c\57</Expression>
         </Bp>
         <Bp>
           <Number>2</Number>
           <Type>0</Type>
-          <LineNumber>54</LineNumber>
+          <LineNumber>172</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134218250</Address>
+          <Address>134222632</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\si4463-stm32-搴撳嚱鏁?Demo_SI4438_Stm32F103\Project_SI4438\Source_Files\drv_mcu\src\drv_io.c</Filename>
+          <Filename>C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\si4463-stm32-搴撳嚱鏁?Demo_SI4438_Stm32F103\Project_SI4438\Source_Files\app\src\main.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\Project_4438\Source_Files/drv_mcu/src/drv_io.c\54</Expression>
+          <Expression>\\Project_4438\Source_Files/app/src/main.c\172</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -247,6 +247,11 @@
           <count>3</count>
           <WinNumber>1</WinNumber>
           <ItemText>g_SI4463RxBuffer</ItemText>
+        </Ww>
+        <Ww>
+          <count>4</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>t_rec_buff</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>

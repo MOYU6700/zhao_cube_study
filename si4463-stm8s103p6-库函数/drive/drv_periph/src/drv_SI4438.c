@@ -434,7 +434,7 @@ void SI446x_Send_Packet( uint8_t *pTxData, uint8_t Length, uint8_t Channel, uint
 {
     uint8_t l_Cmd[ 5 ] = { 0 };
     uint8_t tx_len = Length;
-
+    
     SI446x_Reset_TxFifo( );		//Çå¿ÕTX FIFO
 
     SI_SET_CSN_LOW( );		

@@ -26,7 +26,7 @@ const char *g_Ashining = "ashining";
 uint8_t g_TxMode = 0, g_UartRxFlag = 0;
 uint8_t g_UartRxBuffer[ 64 ] = { 0 };
 uint8_t g_SI4463ItStatus[ 9 ] = { 0 };
-uint8_t g_SI4463RxBuffer[ 520 ] = { 0 }; 
+uint8_t g_SI4463RxBuffer[ 600 ] = { 0 };  
 uint8_t a_SI4463RxBuffer[ 64 ] = { 0 };
 struct PacketrxData PacketrxData; 
 struct LongPacketData LongPacketData;
@@ -64,10 +64,7 @@ int main( void )
 		led_red_flashing( );
 		led_green_flashing( );
 		drv_delay_500Ms( 1 );
-	}
-//	LongPacketData.TxlengthGet=1;
-		
-	
+	}	
 #ifdef	__SI4438_TX_TEST__		
 //=========================================================================================//	
 //*****************************************************************************************//
@@ -157,8 +154,7 @@ int main( void )
 			if( i != 0 )
 			{
 				drv_uart_tx_bytes( g_SI4463RxBuffer,i );	//串口输出SI4463接收到的数据
-			}
-		
+			}		
 			SI446x_Change_Status( 6 );
 			while( 6 != SI446x_Get_Device_Status( ));
 			SI446x_Start_Rx(  0, 0, PACKET_LENGTH,0,0,3 );
@@ -172,60 +168,15 @@ int main( void )
 			}
 			drv_delay_ms( 1 );
 		}
-	}
-	
-//	SI446x_Change_Status( 6 );
-//	while( 6 != SI446x_Get_Device_Status( ));
-//	SI446x_Start_Rx(  0, 0, PACKET_LENGTH,0,0,3 );
-//	
-//	while( 1 )
-//	{
-//		SI446x_Interrupt_Status( g_SI4463ItStatus );		//查询中断状态
-//		
-//		if ((g_SI4463ItStatus[3]&(0x01<<4)) ||
-//				(g_SI4463ItStatus[3]&(0x01<<0)))
-//        {
-//			i = i+SI446x_Read_Packet( g_SI4463RxBuffer );		//读接收到的数据
-//			if(g_SI4463ItStatus[3]&(0x01<<4))
-//			{				
-////				drv_uart_tx_bytes( g_SI4463RxBuffer,i );	//串口输出SI4463接收到的数据
-//				drv_uart_tx_bytes( (uint8_t *)&i,1 );	//串口输出SI4463接收到的数据
-//				i = 0;
-//			}
-////			i = 0;
-//		
-////			SI446x_Change_Status( 6 );
-////			while( 6 != SI446x_Get_Device_Status( ));
-////			SI446x_Start_Rx(  0, 0, PACKET_LENGTH,0,0,3 );
-//		}
-//		else
-//		{
-//			if( 30000 == i++ )
+//			if(LongPacketData.sent_buff)
 //			{
-//				i = 0;
-//				SI446x_Init( );
-//			}
-//			drv_delay_ms( 1 );
-//		}
-//	}	
-	
-//	while( 1 )
-//	{				
-//				/*发送当前接收到的数据*/
-//				if(LongPacketData.sent_buff)
-//				{	
-//					
-//					counter++;
-//					if(counter%100)
-//					{
-//						led_green_flashing( );
-//						
-//					}	
-//					drv_uart_tx_bytes( g_SI4463RxBuffer,512 );	
-//          LongPacketData.sent_buff=0;					
-//				}
-//	}		
-
+//				LongPacketData.sent_buff=0;				
+//				drv_uart_tx_bytes( g_SI4463RxBuffer,576 );	//串口输出SI4463接收到的数据		
+//			}	
+//			SI446x_Change_Status( 6 );
+//			while( 6 != SI446x_Get_Device_Status( ));
+//			SI446x_Start_Rx(  0, 0, PACKET_LENGTH,0,0,3 );			
+	}	
 #endif
 }
 

@@ -34,7 +34,7 @@ void drv_uart_init( uint32_t UartBaudRate )
 	CLK_PeripheralClockConfig(CLK_PERIPHERAL_UART1, ENABLE);	//使能串口时钟
 	UART1_DeInit();		//串口复位
 	//串口初始化 8位数据 1个停止位 无校验 发送接收 波特率可变
-	UART1_Init( UartBaudRate, UART1_WORDLENGTH_8D, UART1_STOPBITS_1, UART1_PARITY_NO, UART1_SYNCMODE_CLOCK_DISABLE, UART1_MODE_RX_ENABLE );
+	UART1_Init( UartBaudRate, UART1_WORDLENGTH_9D, UART1_STOPBITS_1, UART1_PARITY_NO, UART1_SYNCMODE_CLOCK_DISABLE, UART1_MODE_TXRX_ENABLE );
         UART1_ITConfig(UART1_IT_RXNE,ENABLE );        
 	UART1_Cmd(ENABLE);	//使能串口
         enableInterrupts(); //开启中断
