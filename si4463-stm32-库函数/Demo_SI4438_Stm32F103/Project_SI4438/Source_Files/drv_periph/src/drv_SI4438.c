@@ -190,6 +190,23 @@ void SI446x_Interrupt_Status( uint8_t *pRead )
 }
 
 /**
+  * @brief :SI446x读Modem状态
+  * @param :
+  *			@pRead:返回数据首地址
+  * @note  :无
+  * @retval:无
+  */
+void SI446x_Modem_Status( uint8_t *pRead )
+{
+    uint8_t l_Cmd[ 1 ] = { 0 };
+	
+    l_Cmd[0] = GET_MODEM_STATUS;		
+
+    SI446x_Write_Cmds( l_Cmd, 1 );		//发送中断读取命令
+    SI446x_Read_Response( pRead, 9 );	//读取状态
+}
+
+/**
   * @brief :SI446x读取属性值
   * @param :
   *			@Group_Num:属性组(参考SI446X_PROPERTY)

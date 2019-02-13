@@ -1610,6 +1610,9 @@
     <file>
       <name>$PROJ_DIR$\..\drive\drv_mcu\src\drv_uart.c</name>
     </file>
+    <file>
+      <name>$PROJ_DIR$\app\src\modbus_crc.c</name>
+    </file>
   </group>
   <group>
     <name>lib</name>

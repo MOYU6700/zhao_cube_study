@@ -27,3 +27,4 @@
 ..\output\main.o: .\Source_Files\std_lib\inc\stm32f10x_exti.h
 ..\output\main.o: .\Source_Files\std_lib\inc\misc.h
 ..\output\main.o: Source_Files\app\src\user_config.h
+..\output\main.o: .\Source_Files\app\inc\modbus_crc.h

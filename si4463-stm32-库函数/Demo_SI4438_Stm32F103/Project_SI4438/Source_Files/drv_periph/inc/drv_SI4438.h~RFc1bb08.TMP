@@ -439,7 +439,6 @@ uint8_t SI446x_Nop( void );
 void SI446x_Get_Part_Informatoin( uint8_t *pRead );
 void SI446x_Get_Fun_Informatoin( uint8_t *pRead );
 void SI446x_Interrupt_Status( uint8_t *pRead );
-void SI446x_Modem_Status( uint8_t *pRead );
 void SI446x_Get_Property( SI446X_PROPERTY Group_Num, uint8_t Num_Props, uint8_t *pRead  );
 void SI446x_Set_Property( SI446X_PROPERTY Group_Num, uint8_t Num_Props, uint8_t *pWrite );
 void SI446x_Set_Property_1( SI446X_PROPERTY Group_Num, uint8_t Start_Prop );

@@ -21,6 +21,7 @@
 #include "drv_io.h"
 #include "string.h"
 #include "user_config.h"
+#include "modbus_crc.h"
 
 uint8_t tx_packet[128] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
@@ -34,6 +35,7 @@ uint8_t tx_packet[128] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
 uint8_t g_TxMode = 0, g_UartRxFlag = 0;
 uint8_t g_UartRxBuffer[ 64 ] = { 0 };
 uint8_t g_SI4463ItStatus[ 9 ] = { 0 };
+uint8_t rssi_SI4463ItStatus[ 9 ] = { 0 };
 uint8_t g_SI4463RxBuffer[ 64 ] = { 0 }; 
 uint8_t channel=0;
 uint8_t si4463_tx_buff[64]={0};
@@ -70,17 +72,17 @@ int main( void )
 	{          
  
 			//动态数据长度
-//                     if(PacketTxData.DMXSignalFlag)
-//                     {
+                     if(PacketTxData.DMXSignalFlag)
+                     {
                        PacketTxData.DMXSignalFlag=0;                 
 		       #if PACKET_LENGTH == 0                     
                      SI446x_Send_Packet( (uint8_t *)tx_packet, PACKET_LENGTH, channel, 0 ); 
                      drv_delay_ms( 2000 );   
 			#else	   
                            set_packages(PacketTxData.buf,512);
-                           drv_delay_ms( 3000 ); 
+                           SI446x_Modem_Status( rssi_SI4463ItStatus );
 			#endif 
-//                     }      
+                     }      
 			//外部通过串口发送数据到单片机，单片机通过SI4463将数据发送出去            
 	}
 	
@@ -125,6 +127,9 @@ void set_packages(uint8_t *address,uint16_t len)
 {
   uint8_t loop_counter=0;
   uint8_t remain_byte=0; 
+  uint16_t temp_value=0;
+  uint8_t crc_lsb=0;
+  uint8_t crc_msb=0;
   uint8_t *addr=0;
   addr=address;
   uint8_t i=0;
@@ -135,8 +140,13 @@ void set_packages(uint8_t *address,uint16_t len)
     if(i<loop_counter)
     {
       si4463_tx_buff[0]=i+1;
-      si4463_tx_buff[1]=60;
+      si4463_tx_buff[1]=60;   
       memcpy(si4463_tx_buff+2,addr,60);
+      temp_value=crc16(si4463_tx_buff, 62);
+      crc_lsb=temp_value;
+      crc_msb=temp_value>>8;      
+      si4463_tx_buff[62]=crc_lsb;
+      si4463_tx_buff[63]=crc_msb;       
       if(i<loop_counter)
       {
         addr+=60;
@@ -149,8 +159,13 @@ void set_packages(uint8_t *address,uint16_t len)
     else
     {
       si4463_tx_buff[0]=i+1;
-      si4463_tx_buff[1]=remain_byte;
+      si4463_tx_buff[1]=remain_byte;     
       memcpy(si4463_tx_buff+2,addr,remain_byte);
+      temp_value=crc16(si4463_tx_buff, 62);
+      crc_lsb=temp_value;
+      crc_msb=temp_value>>8;      
+      si4463_tx_buff[62]=crc_lsb;
+      si4463_tx_buff[63]=crc_msb;      
     } 
     SI446x_Send_Packet( (uint8_t *)si4463_tx_buff, PACKET_LENGTH, channel, 0 ); 
     while(!LongPacketData.TxlengthGet);

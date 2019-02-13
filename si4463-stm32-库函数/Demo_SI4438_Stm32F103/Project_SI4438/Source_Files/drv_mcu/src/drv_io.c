@@ -24,10 +24,7 @@ void EXTIX_Init(void)
 		NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; //使能外部中断通道
 		NVIC_Init(&NVIC_InitStructure);	  
 }
-uint8_t t_rec_buff[64]={0};
-uint8_t t_SI4463ItStatus[ 9 ] = { 0 };
-uint16_t i = 0;
-uint8_t count_flag=0;
+
 void EXTI4_IRQHandler(void)
 {
 	if(EXTI_GetITStatus(EXTI_Line4)!=RESET)
@@ -36,7 +33,7 @@ void EXTI4_IRQHandler(void)
 			if(GPIO_ReadInputDataBit(SI4463_IRQ_PORT,SI4463_IRQ_PIN)==0)
 			{
 					/*读取当前的中断状态*/
-					SI446x_Interrupt_Status( t_SI4463ItStatus );
+//					SI446x_Interrupt_Status( t_SI4463ItStatus );
 					/*CRC Error interrupt occurred*/
 //					if(t_SI4463ItStatus[3]&(0x01<<3))
 //					{
@@ -45,24 +42,9 @@ void EXTI4_IRQHandler(void)
 //						SI446x_Start_Rx(  0, 0, PACKET_LENGTH,0,0,3 );						
 //					}				
 					/*packet received interrupt occurred*/
-					if(t_SI4463ItStatus[3]&(0x01<<4))
-					{
-						i = SI446x_Read_Packet( t_rec_buff );		//读接收到的数据						
-						if( i != 0 )
-						{
-							count_flag++;	
-							memcpy(g_SI4463RxBuffer+((t_rec_buff[0]-1)*64),t_rec_buff,64);
-						}	
-						SI446x_Change_Status( 6 );
-						while( 6 != SI446x_Get_Device_Status( ));
-						SI446x_Start_Rx(  0, 0, PACKET_LENGTH,0,0,3 );							
-						if(count_flag>=9)
-						{
-							count_flag=0;							
-							LongPacketData.sent_buff=1;
-						}	
-					}	
-
+//					if(t_SI4463ItStatus[3]&(0x01<<4))
+//					{			
+//					}	
 			}	    
 	}	
 	EXTI_ClearITPendingBit(EXTI_Line4);  //清除EXTI4线路挂起位 

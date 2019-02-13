@@ -683,3 +683,20 @@ void SI446x_Init(void)
 //	SI446x_Start_Rx( channel, 0, PACKET_LENGTH,0,0,3 );
 
 }
+
+/**
+  * @brief :SI446x读Modem状态
+  * @param :
+  *			@pRead:返回数据首地址
+  * @note  :无
+  * @retval:无
+  */
+void SI446x_Modem_Status( uint8_t *pRead )
+{
+    uint8_t l_Cmd[ 1 ] = { 0 };
+	
+    l_Cmd[0] = GET_MODEM_STATUS;		
+
+    SI446x_Write_Cmds( l_Cmd, 1 );		//发送中断读取命令
+    SI446x_Read_Response( pRead, 9 );	//读取状态
+}

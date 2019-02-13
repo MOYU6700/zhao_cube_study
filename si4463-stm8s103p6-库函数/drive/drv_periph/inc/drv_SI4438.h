@@ -454,6 +454,6 @@ void SI446x_Set_Power( uint8_t PowerLevel );
 void SI446x_Gpio_Init( void );
 void SI446x_Config_Init( void );
 void SI446x_Init(void);
-
+void SI446x_Modem_Status( uint8_t *pRead );
 
 #endif

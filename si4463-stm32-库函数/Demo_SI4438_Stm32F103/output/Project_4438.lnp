@@ -1,6 +1,7 @@
 --cpu Cortex-M3
 "..\output\main.o"
 "..\output\drv_si4438.o"
+"..\output\modbus_crc.o"
 "..\output\drv_button.o"
 "..\output\drv_delay.o"
 "..\output\drv_led.o"

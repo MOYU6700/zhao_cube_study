@@ -428,6 +428,11 @@
               <FileType>1</FileType>
               <FilePath>.\Source_Files\drv_periph\src\drv_SI4438.c</FilePath>
             </File>
+            <File>
+              <FileName>modbus_crc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Source_Files\app\src\modbus_crc.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

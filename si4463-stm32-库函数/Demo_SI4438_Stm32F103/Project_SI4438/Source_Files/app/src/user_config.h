@@ -10,6 +10,7 @@ struct PacketrxData
 {
   uint16_t length;
   uint8_t buf[512];
+	uint8_t flag;
 };
 
 struct LongPacketData
