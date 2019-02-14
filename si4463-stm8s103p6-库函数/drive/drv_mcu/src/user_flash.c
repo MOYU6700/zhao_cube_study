@@ -34,7 +34,7 @@ void user_write_flash(uint32_t add,uint8_t data)
 
 uint8_t  user_read_flash(uint32_t add)
 {
-  uint8_t val=0;
+    uint8_t val=0;
     /* Define FLASH programming time */
     FLASH_SetProgrammingTime(FLASH_PROGRAMTIME_STANDARD);
 
@@ -51,9 +51,5 @@ uint8_t flash_channel(void)
 {
   uint8_t pchannel=0;
   pchannel=user_read_flash(CHANNLE_MESSAGE_ROM);
-  if(pchannel >=148)   //470MHZ
-  {
-    pchannel=148;
-  }  
   return pchannel; 
 }

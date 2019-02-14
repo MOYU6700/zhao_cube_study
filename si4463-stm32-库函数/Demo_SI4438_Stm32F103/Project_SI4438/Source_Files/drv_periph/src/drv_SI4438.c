@@ -15,7 +15,7 @@
   
   
 #include "drv_SI4438.h"
-
+#include "main.h"
 
 const static uint8_t config_table[ ] = RADIO_CONFIGURATION_DATA_ARRAY;
  
@@ -713,6 +713,6 @@ void SI446x_Init( void )
 	SI446x_Set_Power( 0x7F );	//功率设置
 	SI446x_Change_Status( 6 );	//切换到RX状态
 	while( 6 != SI446x_Get_Device_Status( ));
-	SI446x_Start_Rx( 0, 0, PACKET_LENGTH,0,0,3 );
+	SI446x_Start_Rx( channel, 0, PACKET_LENGTH,0,0,3 ); 
 
 }

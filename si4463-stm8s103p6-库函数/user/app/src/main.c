@@ -39,9 +39,11 @@ uint8_t rssi_SI4463ItStatus[ 9 ] = { 0 };
 uint8_t g_SI4463RxBuffer[ 64 ] = { 0 }; 
 uint8_t channel=0;
 uint8_t si4463_tx_buff[64]={0};
+uint8_t pre_channel=0;
 struct PacketTxData PacketTxData;
 struct LongPacketData LongPacketData;
 void set_packages(uint8_t *address,uint16_t len);
+void check_for_route(uint8_t rssi_threshold);
 /**
   * @brief :主函数
   * @param :无
@@ -54,14 +56,12 @@ int main( void )
 	//串口初始化 波特率默认设置为250000
 	drv_uart_init( 250000 );	
 	//SPI初始化
-	drv_spi_init( );
-	user_write_flash(CHANNLE_MESSAGE_ROM,0);
+	drv_spi_init( );	
         channel=flash_channel();
 	//SI4463初始化
 	SI446x_Init();
         GPIO_Config();	 
-//        memset(PacketTxData.buf,2,480);
-//        memset(PacketTxData.buf+480,3,32);
+        pre_channel=channel;
 #ifdef	__SI4438_TX_TEST__		
 //=========================================================================================//	
 //*****************************************************************************************//
@@ -71,7 +71,11 @@ int main( void )
 	while( 1 )	
 	{          
  
-			//动态数据长度
+                      /*检测当前的信号是否空闲*/
+                     SI446x_Change_Status( 6 );
+                     while( 6 != SI446x_Get_Device_Status( ));
+		     SI446x_Start_Rx(  0, 0, PACKET_LENGTH,0,0,3 );
+                     check_for_route(0x50);                    
                      if(PacketTxData.DMXSignalFlag)
                      {
                        PacketTxData.DMXSignalFlag=0;                 
@@ -79,8 +83,7 @@ int main( void )
                      SI446x_Send_Packet( (uint8_t *)tx_packet, PACKET_LENGTH, channel, 0 ); 
                      drv_delay_ms( 2000 );   
 			#else	   
-                           set_packages(PacketTxData.buf,512);
-                           SI446x_Modem_Status( rssi_SI4463ItStatus );
+                           set_packages(PacketTxData.buf,512);                          
 			#endif 
                      }      
 			//外部通过串口发送数据到单片机，单片机通过SI4463将数据发送出去            
@@ -172,4 +175,64 @@ void set_packages(uint8_t *address,uint16_t len)
     LongPacketData.TxlengthGet =0;
    }  
   
+}
+
+void set_channel_ifo(uint8_t chain)
+{
+  uint16_t temp_value=0;
+  uint8_t crc_lsb=0;
+  uint8_t crc_msb=0;
+  si4463_tx_buff[0]=0x55;
+  si4463_tx_buff[1]=chain;   
+  memset(si4463_tx_buff+2,0,60);
+  temp_value=crc16(si4463_tx_buff, 62);
+  crc_lsb=temp_value;
+  crc_msb=temp_value>>8;      
+  si4463_tx_buff[62]=crc_lsb;
+  si4463_tx_buff[63]=crc_msb;        
+  SI446x_Send_Packet( (uint8_t *)si4463_tx_buff, PACKET_LENGTH, channel, 0 ); 
+  while(!LongPacketData.TxlengthGet);
+  LongPacketData.TxlengthGet =0;   
+}
+
+/**
+  * @brief  *检测当前的信号是否空闲*
+  * @param  设置RSSI的阀值
+  * @retval None
+  */
+static uint8_t avr_counter=0;
+uint8_t rssi_letch[21]={0};
+uint16_t sum_rssi=0;
+void check_for_route(uint8_t rssi_threshold)
+{
+  uint8_t cycle=20;
+  SI446x_Modem_Status( rssi_SI4463ItStatus );
+  rssi_letch[avr_counter]=rssi_SI4463ItStatus[3];
+  sum_rssi+=rssi_letch[avr_counter];
+  avr_counter++;
+  if(avr_counter>=20)
+  {
+    rssi_letch[20]=sum_rssi/20;
+    sum_rssi=0;
+    avr_counter=0;
+    if(rssi_letch[20]>=rssi_threshold)
+    {
+       pre_channel++;
+     if(pre_channel >148)   //470MHZ
+      {
+        pre_channel=0;
+      }
+     /*写入FLASH保存,并用最开始的*/
+     user_write_flash(CHANNLE_MESSAGE_ROM,pre_channel);
+     SI446x_Change_Status( 5 );
+     while( 5 != SI446x_Get_Device_Status( ));  
+     while(cycle)
+     {
+      set_channel_ifo(pre_channel);
+      drv_delay_ms( 50 );
+      cycle--;
+     }
+     channel=pre_channel;
+    } 
+  } 
 }

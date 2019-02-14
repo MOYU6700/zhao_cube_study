@@ -418,6 +418,11 @@
               <FileType>5</FileType>
               <FilePath>.\Source_Files\app\src\user_config.h</FilePath>
             </File>
+            <File>
+              <FileName>user_flash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Source_Files\app\src\user_flash.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -527,6 +532,11 @@
               <FileName>misc.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Source_Files\std_lib\src\misc.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f10x_flash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Source_Files\std_lib\src\stm32f10x_flash.c</FilePath>
             </File>
           </Files>
         </Group>

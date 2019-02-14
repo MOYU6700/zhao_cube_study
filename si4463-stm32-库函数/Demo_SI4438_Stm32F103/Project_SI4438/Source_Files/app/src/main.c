@@ -22,6 +22,7 @@
 #include  "drv_io.h"
 #include  "user_config.h"   
 #include  "modbus_crc.h"  
+#include "user_flash.h"
 uint8_t g_TxMode = 0, g_UartRxFlag = 0;
 uint8_t g_SI4463ItStatus[ 9 ] = { 0 };
 uint8_t rssi_SI4463ItStatus[ 9 ] = { 0 };
@@ -30,6 +31,7 @@ uint8_t a_SI4463RxBuffer[ 64 ] = { 0 };
 struct PacketrxData PacketrxData; 
 struct LongPacketData LongPacketData;
 uint8_t error_cnt=0;
+uint8_t channel=0;
 /**
   * @brief :主函数 
   * @param :无
@@ -53,7 +55,9 @@ int main( void )
 	
 	//SPI初始化
 	drv_spi_init( );
-
+  channel=channle_read_data(CHANNLE_MESSAGE_ROM);  
+  if(channel==0xff)   
+   channel=0;		
 	//SI4463初始化	
 	SI446x_Init( );
 	
@@ -70,73 +74,8 @@ int main( void )
 //*****************************************************************************************//
 //************************************* 发送 **********************************************//
 //*****************************************************************************************//
-//=========================================================================================//	
+//=========================================================================================//		
 	
-	//按键初始化
-	drv_button_init( );				//Demo程序中 只有在发送时才会使用按键
-	
-	while( 1 )	
-	{
-		//模式切换
-		if( BUTOTN_PRESS_DOWN == drv_button_check( ))	//检查按键动作
-		{
-			g_TxMode = 1 - g_TxMode;		//模式会在 TX_MODE_1( 0 ),TX_MODE_2( 1 )之间切换
-			
-			//状态显示清零
-			led_green_off( );
-			led_red_off( );
-			
-			if( TX_MODE_1 == g_TxMode )
-			{
-				for( i = 0; i < 6; i++ )		//固定发送模式，红灯闪烁3次
-				{
-					led_red_flashing( );	
-					drv_delay_500Ms( 1 );		
-				}
-			}
-			else
-			{
-				for( i = 0; i < 6; i++ )		//串口发送模式，绿灯闪烁3次
-				{
-					led_green_flashing( );	
-					drv_delay_500Ms( 1 );
-				}
-			}
-		}
-		
-		//发送固定字符串
-		if( TX_MODE_1 == g_TxMode )
-		{
-			//发送数据
-			#if PACKET_LENGTH == 0
-				SI446x_Send_Packet( (uint8_t *)g_Ashining, 8, 0, 0 );
-			#else
-				SI446x_Send_Packet( (uint8_t *)g_Ashining, PACKET_LENGTH, 0, 0 );
-			#endif
-			drv_delay_500Ms( 1 );	
-			led_red_flashing( );			//1S左右发送一包 每发送一包红灯闪烁一次
-			drv_delay_500Ms( 1 );	
-		}
-		else	//发送串口接收到的字符串
-		{	
-			//查询串口数据
-			i = drv_uart_rx_bytes( g_UartRxBuffer );
-			
-			if( 0 != i )
-			{
-				if( 16 < i )
-				{
-					i = 0;
-				}
-				#if PACKET_LENGTH == 0
-					SI446x_Send_Packet( (uint8_t *)g_UartRxBuffer, i, 0, 0 );
-				#else
-					SI446x_Send_Packet( (uint8_t *)g_UartRxBuffer, PACKET_LENGTH, 0, 0 );
-				#endif
-				led_red_flashing( );
-			}
-		}
-	}	
 #else		
 //=========================================================================================//	
 //*****************************************************************************************//
@@ -148,11 +87,16 @@ int main( void )
 		SI446x_Interrupt_Status( g_SI4463ItStatus );		//查询中断状态		
 		if( g_SI4463ItStatus[ 3 ] & ( 0x01 << 4 ))   
     {
-			SI446x_Modem_Status( rssi_SI4463ItStatus );
+//			SI446x_Modem_Status( rssi_SI4463ItStatus );
 			i = SI446x_Read_Packet( a_SI4463RxBuffer );		//读接收到的数据
 			if( a_SI4463RxBuffer[0]==1 )
 			{
 				PacketrxData.flag=1;					
+			}	
+			if(a_SI4463RxBuffer[0]==0x55)
+			{
+				PacketrxData.flag=1;	
+				temp=0x55;
 			}	
 			if(PacketrxData.flag)
 			{				
@@ -251,6 +195,15 @@ int main( void )
 								 error_cnt=0;
 								 drv_uart_tx_bytes( g_SI4463RxBuffer,576 );	//串口输出SI4463接收到的数据
 								 break;	
+					case 0x55:
+					       if(check_crc(a_SI4463RxBuffer, 64)==1)						
+								 {
+									  temp=0;		
+										PacketrxData.flag=0;
+									  channel=a_SI4463RxBuffer[1];
+									  user_flash_write(CHANNLE_MESSAGE_ROM,channel);
+								 }
+								    break;
 					default:temp=0;
 									PacketrxData.flag=0;
 									break;
@@ -258,7 +211,7 @@ int main( void )
 			}	
 			SI446x_Change_Status( 6 );
 			while( 6 != SI446x_Get_Device_Status( ));
-			SI446x_Start_Rx(  0, 0, PACKET_LENGTH,0,0,3 );
+			SI446x_Start_Rx(channel, 0, PACKET_LENGTH,0,0,3 );
 		}
 		else
 		{
