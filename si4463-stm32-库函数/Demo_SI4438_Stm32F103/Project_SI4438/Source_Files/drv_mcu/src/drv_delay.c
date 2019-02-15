@@ -16,7 +16,8 @@
 
 
 #include "drv_delay.h"
-
+#include "misc.h"
+#include "drv_led.h"
 
 /**
   * @brief :延时初始化
@@ -122,4 +123,63 @@ void drv_delay_free( uint32_t Delay_Time )
 	{
 			//
 	}
+}
+
+/**
+  * @brief :延时初始化
+  * @param :无
+  * @note  :定时器默认初始化成us级计数
+  * @retval:无
+  */
+void handle_cnt_init( void )
+{
+	TIM_TimeBaseInitTypeDef	 TimerInitStructer;
+	
+	NVIC_InitTypeDef NVIC_InitStructure;  
+	//使能用作延时的TIMER时钟
+	RCC_APB1PeriphClockCmd( HANDLE_TIME_BASE_CLK, ENABLE );
+	
+	TimerInitStructer.TIM_Period = 50000;
+	TimerInitStructer.TIM_Prescaler = 7199;	//初始化默认配置为10ms精度 
+	TimerInitStructer.TIM_ClockDivision = TIM_CKD_DIV1;
+	TimerInitStructer.TIM_CounterMode = TIM_CounterMode_Down;
+	TIM_TimeBaseInit( HANDLE_TIME_BASE, &TimerInitStructer );
+		
+	//中断优先级 NVIC 设置
+	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);// 设置中断优先级分组2
+	NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn;  //TIM3中断
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;  //先占优先级0级
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 3;  //从优先级3级
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; //IRQ通道被使能
+	NVIC_Init(&NVIC_InitStructure);  //根据NVIC_InitStruct中指定的参数初始化外设NVIC寄存器
+
+	TIM_ClearITPendingBit(HANDLE_TIME_BASE, TIM_IT_Update ); //清除 TIM3 更新中断标志
+	TIM_SetCounter(TIM3, 50000);
+	TIM_ITConfig(HANDLE_TIME_BASE,TIM_IT_Update,ENABLE );	
+	TIM_Cmd( HANDLE_TIME_BASE, ENABLE );
+}
+
+//定时器 3 中断服务程序
+static uint8_t timer3_update_flag=0;
+void TIM3_IRQHandler(void) //TIM3 中断
+{
+	if (TIM_GetITStatus(TIM3, TIM_IT_Update) != RESET) //检查 TIM3 更新中断发生与否
+	{
+		timer3_update_flag=1;
+		led_green_flashing( );
+		TIM_SetCounter(TIM3, 50000);
+		TIM_ClearITPendingBit(TIM3, TIM_IT_Update  );  //清除TIMx的中断待处理位:TIM 中断源 
+	}
+}
+
+uint8_t  get_timer3_flag(void)
+{	
+	uint8_t flag=0;
+	flag=timer3_update_flag;
+	return flag;
+}	
+
+void clr_timer3_flag(void)
+{
+	timer3_update_flag=0;
 }

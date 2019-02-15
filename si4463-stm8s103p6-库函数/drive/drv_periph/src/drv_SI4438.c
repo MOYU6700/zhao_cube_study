@@ -680,8 +680,6 @@ void SI446x_Init(void)
 	SI446x_Set_Power( 0x7F );	//功率设置
 	SI446x_Change_Status( 5 );	//切换到RX状态
 	while( 5 != SI446x_Get_Device_Status( ));
-//	SI446x_Start_Rx( channel, 0, PACKET_LENGTH,0,0,3 );
-
 }
 
 /**

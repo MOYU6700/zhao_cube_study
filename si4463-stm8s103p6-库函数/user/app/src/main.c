@@ -57,6 +57,7 @@ int main( void )
 	drv_uart_init( 250000 );	
 	//SPI初始化
 	drv_spi_init( );	
+        user_write_flash(CHANNLE_MESSAGE_ROM,1);
         channel=flash_channel();
 	//SI4463初始化
 	SI446x_Init();
@@ -74,8 +75,8 @@ int main( void )
                       /*检测当前的信号是否空闲*/
                      SI446x_Change_Status( 6 );
                      while( 6 != SI446x_Get_Device_Status( ));
-		     SI446x_Start_Rx(  0, 0, PACKET_LENGTH,0,0,3 );
-                     check_for_route(0x50);                    
+		     SI446x_Start_Rx(  channel, 0, PACKET_LENGTH,0,0,3 );
+                     check_for_route(0x50);   
                      if(PacketTxData.DMXSignalFlag)
                      {
                        PacketTxData.DMXSignalFlag=0;                 
@@ -83,7 +84,7 @@ int main( void )
                      SI446x_Send_Packet( (uint8_t *)tx_packet, PACKET_LENGTH, channel, 0 ); 
                      drv_delay_ms( 2000 );   
 			#else	   
-                           set_packages(PacketTxData.buf,512);                          
+                           set_packages(PacketTxData.buf,512);                                
 			#endif 
                      }      
 			//外部通过串口发送数据到单片机，单片机通过SI4463将数据发送出去            
@@ -95,34 +96,7 @@ int main( void )
 //************************************* 接收 **********************************************//
 //*****************************************************************************************//
 //=========================================================================================//	
-	
-	while( 1 )
-	{
-		SI446x_Interrupt_Status( g_SI4463ItStatus );		//查询中断状态
-		
-		if( g_SI4463ItStatus[ 3 ] & ( 0x01 << 4 ))   
-        {
-			i = SI446x_Read_Packet( g_SI4463RxBuffer );		//读接收到的数据
-			if( i != 0 )
-			{
-				drv_uart_tx_bytes( g_SI4463RxBuffer,i );	//串口输出SI4463接收到的数据
-			}
-		
-			SI446x_Change_Status( 6 );
-			while( 6 != SI446x_Get_Device_Status( ));
-			SI446x_Start_Rx(  0, 0, PACKET_LENGTH,0,0,3 );
-		}
-		else
-		{
-			if( 3000 == i++ )
-			{
-				i = 0;
-				SI446x_Init( );
-			}
-			drv_delay_ms( 1 );
-		}
-	}
-		
+			
 #endif	
 }
 
@@ -162,7 +136,7 @@ void set_packages(uint8_t *address,uint16_t len)
     else
     {
       si4463_tx_buff[0]=i+1;
-      si4463_tx_buff[1]=remain_byte;     
+      si4463_tx_buff[1]=channel;     
       memcpy(si4463_tx_buff+2,addr,remain_byte);
       temp_value=crc16(si4463_tx_buff, 62);
       crc_lsb=temp_value;
@@ -184,7 +158,8 @@ void set_channel_ifo(uint8_t chain)
   uint8_t crc_msb=0;
   si4463_tx_buff[0]=0x55;
   si4463_tx_buff[1]=chain;   
-  memset(si4463_tx_buff+2,0,60);
+  si4463_tx_buff[2]=chain;
+  memset(si4463_tx_buff+3,0,59);
   temp_value=crc16(si4463_tx_buff, 62);
   crc_lsb=temp_value;
   crc_msb=temp_value>>8;      

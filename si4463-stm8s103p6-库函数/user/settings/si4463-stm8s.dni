@@ -38,7 +38,7 @@ ShowSource=1
 [Simulator]
 Freq=16000000
 [DebugChecksum]
-Checksum=1723491025
+Checksum=-2009267938
 [CallStack]
 ShowArgs=0
 [Disassembly]
@@ -62,8 +62,7 @@ Category=_ 0
 LoggingEnabled=_ 0
 LogFile=_ ""
 [Breakpoints]
-Bp0=_ "STD_CODE" "{$PROJ_DIR$\app\src\main.c}.62.2" 1 0 0 0 "" 0 ""
-Count=1
+Count=0
 [Aliases]
 Count=0
 SuppressDialog=0

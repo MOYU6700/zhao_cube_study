@@ -1,5 +1,5 @@
 Dependencies for Project 'Project_4438', Target 'SI4438': (DO NOT MODIFY !)
-F (.\Source_Files\app\src\main.c)(0x5C653771)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I.\Source_Files\app\inc -I.\Source_Files\drv_mcu\inc -I.\Source_Files\drv_periph\inc -I.\Source_Files\std_lib\inc -I.\Source_Files\std_lib\startup -I.\Source_Files\app\src-I C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\si4463-stm32-¿âº¯Êý\Demo_SI4438_Stm32F103\Project_SI4438\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD-o ..\output\main.o --omf_browse ..\output\main.crf --depend ..\output\main.d)
+F (.\Source_Files\app\src\main.c)(0x5C668D67)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I.\Source_Files\app\inc -I.\Source_Files\drv_mcu\inc -I.\Source_Files\drv_periph\inc -I.\Source_Files\std_lib\inc -I.\Source_Files\std_lib\startup -I.\Source_Files\app\src-I C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\si4463-stm32-¿âº¯Êý\Demo_SI4438_Stm32F103\Project_SI4438\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD-o ..\output\main.o --omf_browse ..\output\main.crf --depend ..\output\main.d)
 I (.\Source_Files\app\inc\main.h)(0x5C65175A)
 I (.\Source_Files\drv_mcu\inc\drv_uart.h)(0x5C385FDA)
 I (.\Source_Files\std_lib\inc\stm32f10x_rcc.h)(0x49FD136E)
@@ -13,7 +13,7 @@ I (.\Source_Files\std_lib\inc\stm32f10x_iwdg.h)(0x49FD136E)
 I (.\Source_Files\std_lib\inc\stm32f10x_spi.h)(0x49FD136E)
 I (.\Source_Files\std_lib\inc\stm32f10x_usart.h)(0x49FD136E)
 I (.\Source_Files\drv_mcu\inc\drv_button.h)(0x57FF0BEA)
-I (.\Source_Files\drv_mcu\inc\drv_delay.h)(0x57FF0BB3)
+I (.\Source_Files\drv_mcu\inc\drv_delay.h)(0x5C66726B)
 I (.\Source_Files\std_lib\inc\stm32f10x_tim.h)(0x49FD136E)
 I (.\Source_Files\drv_mcu\inc\drv_led.h)(0x5C089869)
 I (.\Source_Files\drv_mcu\inc\drv_spi.h)(0x5C08986A)
@@ -43,7 +43,7 @@ I (.\Source_Files\std_lib\inc\stm32f10x_rcc.h)(0x49FD136E)
 I (.\Source_Files\std_lib\inc\stm32f10x_spi.h)(0x49FD136E)
 I (.\Source_Files\std_lib\inc\stm32f10x_usart.h)(0x49FD136E)
 I (.\Source_Files\std_lib\inc\stm32f10x_flash.h)(0x4D783BB4)
-F (.\Source_Files\drv_periph\src\drv_SI4438.c)(0x5C6517F7)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I.\Source_Files\app\inc -I.\Source_Files\drv_mcu\inc -I.\Source_Files\drv_periph\inc -I.\Source_Files\std_lib\inc -I.\Source_Files\std_lib\startup -I.\Source_Files\app\src-I C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\si4463-stm32-¿âº¯Êý\Demo_SI4438_Stm32F103\Project_SI4438\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD-o ..\output\drv_si4438.o --omf_browse ..\output\drv_si4438.crf --depend ..\output\drv_si4438.d)
+F (.\Source_Files\drv_periph\src\drv_SI4438.c)(0x5C668546)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I.\Source_Files\app\inc -I.\Source_Files\drv_mcu\inc -I.\Source_Files\drv_periph\inc -I.\Source_Files\std_lib\inc -I.\Source_Files\std_lib\startup -I.\Source_Files\app\src-I C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\si4463-stm32-¿âº¯Êý\Demo_SI4438_Stm32F103\Project_SI4438\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD-o ..\output\drv_si4438.o --omf_browse ..\output\drv_si4438.crf --depend ..\output\drv_si4438.d)
 I (.\Source_Files\drv_periph\inc\drv_SI4438.h)(0x5C63D263)
 I (.\Source_Files\drv_mcu\inc\drv_spi.h)(0x5C08986A)
 I (.\Source_Files\std_lib\inc\stm32f10x_rcc.h)(0x49FD136E)
@@ -59,7 +59,7 @@ I (.\Source_Files\std_lib\inc\stm32f10x_usart.h)(0x49FD136E)
 I (.\Source_Files\app\inc\main.h)(0x5C65175A)
 I (.\Source_Files\drv_mcu\inc\drv_uart.h)(0x5C385FDA)
 I (.\Source_Files\drv_mcu\inc\drv_button.h)(0x57FF0BEA)
-I (.\Source_Files\drv_mcu\inc\drv_delay.h)(0x57FF0BB3)
+I (.\Source_Files\drv_mcu\inc\drv_delay.h)(0x5C66726B)
 I (.\Source_Files\std_lib\inc\stm32f10x_tim.h)(0x49FD136E)
 I (.\Source_Files\drv_mcu\inc\drv_led.h)(0x5C089869)
 I (.\Source_Files\drv_periph\inc\drv_Si4438_Config_26M.h)(0x5C638368)
@@ -87,10 +87,10 @@ I (.\Source_Files\std_lib\inc\stm32f10x_gpio.h)(0x49FD136E)
 I (.\Source_Files\std_lib\inc\stm32f10x_iwdg.h)(0x49FD136E)
 I (.\Source_Files\std_lib\inc\stm32f10x_spi.h)(0x49FD136E)
 I (.\Source_Files\std_lib\inc\stm32f10x_usart.h)(0x49FD136E)
-I (.\Source_Files\drv_mcu\inc\drv_delay.h)(0x57FF0BB3)
+I (.\Source_Files\drv_mcu\inc\drv_delay.h)(0x5C66726B)
 I (.\Source_Files\std_lib\inc\stm32f10x_tim.h)(0x49FD136E)
-F (.\Source_Files\drv_mcu\src\drv_delay.c)(0x58186056)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I.\Source_Files\app\inc -I.\Source_Files\drv_mcu\inc -I.\Source_Files\drv_periph\inc -I.\Source_Files\std_lib\inc -I.\Source_Files\std_lib\startup -I.\Source_Files\app\src-I C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\si4463-stm32-¿âº¯Êý\Demo_SI4438_Stm32F103\Project_SI4438\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD-o ..\output\drv_delay.o --omf_browse ..\output\drv_delay.crf --depend ..\output\drv_delay.d)
-I (.\Source_Files\drv_mcu\inc\drv_delay.h)(0x57FF0BB3)
+F (.\Source_Files\drv_mcu\src\drv_delay.c)(0x5C6681A3)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I.\Source_Files\app\inc -I.\Source_Files\drv_mcu\inc -I.\Source_Files\drv_periph\inc -I.\Source_Files\std_lib\inc -I.\Source_Files\std_lib\startup -I.\Source_Files\app\src-I C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\si4463-stm32-¿âº¯Êý\Demo_SI4438_Stm32F103\Project_SI4438\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD-o ..\output\drv_delay.o --omf_browse ..\output\drv_delay.crf --depend ..\output\drv_delay.d)
+I (.\Source_Files\drv_mcu\inc\drv_delay.h)(0x5C66726B)
 I (.\Source_Files\std_lib\inc\stm32f10x_rcc.h)(0x49FD136E)
 I (.\Source_Files\std_lib\inc\stm32f10x.h)(0x57F992F7)
 I (.\Source_Files\std_lib\inc\core_cm3.h)(0x49FD136C)
@@ -102,6 +102,8 @@ I (.\Source_Files\std_lib\inc\stm32f10x_iwdg.h)(0x49FD136E)
 I (.\Source_Files\std_lib\inc\stm32f10x_spi.h)(0x49FD136E)
 I (.\Source_Files\std_lib\inc\stm32f10x_usart.h)(0x49FD136E)
 I (.\Source_Files\std_lib\inc\stm32f10x_tim.h)(0x49FD136E)
+I (.\Source_Files\std_lib\inc\misc.h)(0x4D783BB4)
+I (.\Source_Files\drv_mcu\inc\drv_led.h)(0x5C089869)
 F (.\Source_Files\drv_mcu\src\drv_led.c)(0x57FDA606)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I.\Source_Files\app\inc -I.\Source_Files\drv_mcu\inc -I.\Source_Files\drv_periph\inc -I.\Source_Files\std_lib\inc -I.\Source_Files\std_lib\startup -I.\Source_Files\app\src-I C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\si4463-stm32-¿âº¯Êý\Demo_SI4438_Stm32F103\Project_SI4438\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD-o ..\output\drv_led.o --omf_browse ..\output\drv_led.crf --depend ..\output\drv_led.d)
 I (.\Source_Files\drv_mcu\inc\drv_led.h)(0x5C089869)
 I (.\Source_Files\std_lib\inc\stm32f10x_rcc.h)(0x49FD136E)
@@ -129,7 +131,7 @@ I (.\Source_Files\std_lib\inc\stm32f10x_usart.h)(0x49FD136E)
 I (.\Source_Files\app\inc\main.h)(0x5C65175A)
 I (.\Source_Files\drv_mcu\inc\drv_uart.h)(0x5C385FDA)
 I (.\Source_Files\drv_mcu\inc\drv_button.h)(0x57FF0BEA)
-I (.\Source_Files\drv_mcu\inc\drv_delay.h)(0x57FF0BB3)
+I (.\Source_Files\drv_mcu\inc\drv_delay.h)(0x5C66726B)
 I (.\Source_Files\std_lib\inc\stm32f10x_tim.h)(0x49FD136E)
 I (.\Source_Files\drv_mcu\inc\drv_led.h)(0x5C089869)
 I (.\Source_Files\drv_periph\inc\drv_SI4438.h)(0x5C63D263)
@@ -166,7 +168,7 @@ I (.\Source_Files\drv_mcu\inc\drv_spi.h)(0x5C08986A)
 I (.\Source_Files\app\inc\main.h)(0x5C65175A)
 I (.\Source_Files\drv_mcu\inc\drv_uart.h)(0x5C385FDA)
 I (.\Source_Files\drv_mcu\inc\drv_button.h)(0x57FF0BEA)
-I (.\Source_Files\drv_mcu\inc\drv_delay.h)(0x57FF0BB3)
+I (.\Source_Files\drv_mcu\inc\drv_delay.h)(0x5C66726B)
 I (.\Source_Files\std_lib\inc\stm32f10x_tim.h)(0x49FD136E)
 I (.\Source_Files\drv_mcu\inc\drv_led.h)(0x5C089869)
 I (.\Source_Files\drv_periph\inc\drv_Si4438_Config_26M.h)(0x5C638368)

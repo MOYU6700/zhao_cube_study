@@ -13,3 +13,5 @@
 ..\output\drv_delay.o: .\Source_Files\std_lib\inc\stm32f10x_spi.h
 ..\output\drv_delay.o: .\Source_Files\std_lib\inc\stm32f10x_usart.h
 ..\output\drv_delay.o: .\Source_Files\std_lib\inc\stm32f10x_tim.h
+..\output\drv_delay.o: .\Source_Files\std_lib\inc\misc.h
+..\output\drv_delay.o: .\Source_Files\drv_mcu\inc\drv_led.h

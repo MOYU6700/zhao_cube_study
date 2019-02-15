@@ -25,13 +25,14 @@
 #include "user_flash.h"
 uint8_t g_TxMode = 0, g_UartRxFlag = 0;
 uint8_t g_SI4463ItStatus[ 9 ] = { 0 };
-uint8_t rssi_SI4463ItStatus[ 9 ] = { 0 };
 uint8_t g_SI4463RxBuffer[ 600 ] = { 0 };  
 uint8_t a_SI4463RxBuffer[ 64 ] = { 0 };
 struct PacketrxData PacketrxData; 
 struct LongPacketData LongPacketData;
 uint8_t error_cnt=0;
 uint8_t channel=0;
+
+void invailid_preamble(uint8_t invailid_cnt,uint16_t change_time,uint8_t *buff);
 /**
   * @brief :主函数 
   * @param :无
@@ -47,7 +48,7 @@ int main( void )
 	
 	//延时初始化
 	drv_delay_init( );
-	
+//	handle_cnt_init();
 //	EXTIX_Init(); 
 	
 	//LED初始化
@@ -55,19 +56,19 @@ int main( void )
 	
 	//SPI初始化
 	drv_spi_init( );
+	user_flash_write(CHANNLE_MESSAGE_ROM,1);
   channel=channle_read_data(CHANNLE_MESSAGE_ROM);  
   if(channel==0xff)   
-   channel=0;		
+  channel=0;		
 	//SI4463初始化	
 	SI446x_Init( );
-	
 	led_red_off( );
 	led_green_off( );
 	for( i = 0; i < 6; i++ )		//模块初始化完成，LED灯闪烁3个周期
 	{
 		led_red_flashing( );
 		led_green_flashing( );
-		drv_delay_500Ms( 1 );
+//		drv_delay_500Ms( 1 );
 	}	
 #ifdef	__SI4438_TX_TEST__		
 //=========================================================================================//	
@@ -82,12 +83,48 @@ int main( void )
 //************************************* 接收 **********************************************//
 //*****************************************************************************************//
 //=========================================================================================//	
+	
+//	while( 1 )
+//	{
+//		SI446x_Interrupt_Status( g_SI4463ItStatus );		//读中断状态
+//		
+//		if( g_SI4463ItStatus[ 3 ] & ( 0x01 << 4 ))
+//        {
+//			i = SI446x_Read_Packet( g_SI4463RxBuffer );		//读FIFO数据
+//			if( i != 0 )
+//			{
+//				led_green_flashing( );
+//				drv_uart_tx_bytes( g_SI4463RxBuffer,i );	//输出接收到的字节
+//			}
+//		
+//			SI446x_Change_Status( 6 );
+//			while( 6 != SI446x_Get_Device_Status( ));
+//			SI446x_Start_Rx(  0, 0, PACKET_LENGTH,0,0,3 );
+//		}
+//		else
+//		{
+//			if( 3000 == i++ )
+//			{
+//				i = 0;
+//				SI446x_Init( );
+//			}
+//			drv_delay_ms( 1 );
+//		}
+//	}
+			
+	
+	
 	while( 1 )
-	{		
-		SI446x_Interrupt_Status( g_SI4463ItStatus );		//查询中断状态		
+	{				
+		SI446x_Interrupt_Status( g_SI4463ItStatus );		//查询中断状态	
+		if(get_timer3_flag())
+		{			
+			clr_timer3_flag();			
+			invailid_preamble(10,1,g_SI4463ItStatus);	
+		}		
 		if( g_SI4463ItStatus[ 3 ] & ( 0x01 << 4 ))   
     {
-//			SI446x_Modem_Status( rssi_SI4463ItStatus );
+			TIM_Cmd( HANDLE_TIME_BASE, DISABLE );				
 			i = SI446x_Read_Packet( a_SI4463RxBuffer );		//读接收到的数据
 			if( a_SI4463RxBuffer[0]==1 )
 			{
@@ -183,7 +220,9 @@ int main( void )
 								 } 								 
 								 break;	
 					case 8:temp=0;
+								 TIM_SetCounter(TIM3, 50000);	
 								 memcpy(g_SI4463RxBuffer+512,a_SI4463RxBuffer,64);
+								 g_SI4463RxBuffer[514]=channel;
 					       if(check_crc(a_SI4463RxBuffer, 64)==0)
 								 {
 									error_cnt++;
@@ -200,8 +239,11 @@ int main( void )
 								 {
 									  temp=0;		
 										PacketrxData.flag=0;
-									  channel=a_SI4463RxBuffer[1];
-									  user_flash_write(CHANNLE_MESSAGE_ROM,channel);
+									  if(a_SI4463RxBuffer[1]==a_SI4463RxBuffer[2])
+									  {
+											channel=a_SI4463RxBuffer[1];
+											user_flash_write(CHANNLE_MESSAGE_ROM,channel);
+										}
 								 }
 								    break;
 					default:temp=0;
@@ -213,17 +255,34 @@ int main( void )
 			while( 6 != SI446x_Get_Device_Status( ));
 			SI446x_Start_Rx(channel, 0, PACKET_LENGTH,0,0,3 );
 		}
-		else
-		{
-			if( 3000 == i++ )
-			{
-				i = 0;
-				SI446x_Init( );
-			}
-			drv_delay_ms( 1 );
-		}		
+//		else
+//		{
+//			if( 3000 == i++ )
+//			{
+//				i = 0;
+//				SI446x_Init( );
+//			}
+//			drv_delay_ms( 1 );
+//		}		
+		TIM3->CR1|=0x0001;
 	}	
 #endif
 }
-
-
+/**
+  * @brief :检测无效的前导码
+  * @param :invailid_cnt  无效的次数设置
+  * @param :change_time   每个信道切换的时间500ms
+  * @param :uint8_t *buff IT的保存数组指针
+  * @note  :无
+  * @retval:无
+  */
+void invailid_preamble(uint8_t invailid_cnt,uint16_t change_time,uint8_t *buff)
+{
+			channel++;
+			if(channel>148)
+			channel=0;	
+			SI446x_Change_Status( 6 );
+			while( 6 != SI446x_Get_Device_Status( ));
+			SI446x_Start_Rx(channel, 0, PACKET_LENGTH,0,0,3 );		
+      user_flash_write(CHANNLE_MESSAGE_ROM,channel);			
+}	
