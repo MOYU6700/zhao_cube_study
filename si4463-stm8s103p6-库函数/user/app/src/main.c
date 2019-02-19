@@ -57,7 +57,7 @@ int main( void )
 	drv_uart_init( 250000 );	
 	//SPI初始化
 	drv_spi_init( );	
-        user_write_flash(CHANNLE_MESSAGE_ROM,1);
+        user_write_flash(CHANNLE_MESSAGE_ROM,0);
         channel=flash_channel();
 	//SI4463初始化
 	SI446x_Init();

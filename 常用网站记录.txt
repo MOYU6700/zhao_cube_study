@@ -91,6 +91,8 @@ Visual Studio Enterprise 2015简体中文版（企业版）下载地址：
 TCP调试助手(稳定版)
 https://pan.baidu.com/s/1AXaTldpzGrLPugzR_oC3uQ?errno=0&errmsg=Auth%20Login%20Sucess&&bduss=&ssnerror=0&traceid=
 
+si4463 WDS配置参数详解
+https://blog.csdn.net/m0_37777700/article/details/84957718
 https://wenku.baidu.com/view/d8945f9b80eb6294dd886ccb.html
 
 http://blog.sina.com.cn/s/blog_6754612e0101c380.html

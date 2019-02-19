@@ -56,7 +56,7 @@ int main( void )
 	
 	//SPI初始化
 	drv_spi_init( );
-	user_flash_write(CHANNLE_MESSAGE_ROM,1);
+	user_flash_write(CHANNLE_MESSAGE_ROM,0);
   channel=channle_read_data(CHANNLE_MESSAGE_ROM);  
   if(channel==0xff)   
   channel=0;		
@@ -253,7 +253,7 @@ int main( void )
 			}	
 			SI446x_Change_Status( 6 );
 			while( 6 != SI446x_Get_Device_Status( ));
-			SI446x_Start_Rx(channel, 0, PACKET_LENGTH,0,0,3 );
+			SI446x_Start_Rx(channel, 0, PACKET_LENGTH,0,0,3);
 		}
 //		else
 //		{
