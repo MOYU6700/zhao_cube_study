@@ -18,7 +18,7 @@
 #include "drv_delay.h"
 #include "misc.h"
 #include "drv_led.h"
-
+#include "user_config.h"
 /**
   * @brief :延时初始化
   * @param :无
@@ -139,7 +139,7 @@ void handle_cnt_init( void )
 	//使能用作延时的TIMER时钟
 	RCC_APB1PeriphClockCmd( HANDLE_TIME_BASE_CLK, ENABLE );
 	
-	TimerInitStructer.TIM_Period = 50000;
+	TimerInitStructer.TIM_Period = TIME_OVERTIME;
 	TimerInitStructer.TIM_Prescaler = 7199;	//初始化默认配置为10ms精度 
 	TimerInitStructer.TIM_ClockDivision = TIM_CKD_DIV1;
 	TimerInitStructer.TIM_CounterMode = TIM_CounterMode_Down;
@@ -154,7 +154,7 @@ void handle_cnt_init( void )
 	NVIC_Init(&NVIC_InitStructure);  //根据NVIC_InitStruct中指定的参数初始化外设NVIC寄存器
 
 	TIM_ClearITPendingBit(HANDLE_TIME_BASE, TIM_IT_Update ); //清除 TIM3 更新中断标志
-	TIM_SetCounter(TIM3, 50000);
+	TIM_SetCounter(TIM3, TIME_OVERTIME);
 	TIM_ITConfig(HANDLE_TIME_BASE,TIM_IT_Update,ENABLE );	
 	TIM_Cmd( HANDLE_TIME_BASE, ENABLE );
 }
@@ -167,7 +167,7 @@ void TIM3_IRQHandler(void) //TIM3 中断
 	{
 		timer3_update_flag=1;
 		led_green_flashing( );
-		TIM_SetCounter(TIM3, 50000);
+		TIM_SetCounter(TIM3, TIME_OVERTIME);
 		TIM_ClearITPendingBit(TIM3, TIM_IT_Update  );  //清除TIMx的中断待处理位:TIM 中断源 
 	}
 }

@@ -15,3 +15,4 @@
 ..\output\drv_delay.o: .\Source_Files\std_lib\inc\stm32f10x_tim.h
 ..\output\drv_delay.o: .\Source_Files\std_lib\inc\misc.h
 ..\output\drv_delay.o: .\Source_Files\drv_mcu\inc\drv_led.h
+..\output\drv_delay.o: .\Source_Files\app\src\user_config.h

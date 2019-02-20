@@ -378,7 +378,80 @@ void SI446x_Config_Init( void )
     SI446x_Set_Property_1( PKT_FIELD_2_CRC_CONFIG, 0x00 );
 	
 #endif 
-	
+	/*配置SI4463
+//   FREQ_CONTROL_INTE - Frac-N PLL Synthesizer integer divide number.
+//   FREQ_CONTROL_FRAC_2 - Frac-N PLL fraction number.
+//   FREQ_CONTROL_FRAC_1 - Frac-N PLL fraction number.
+//   FREQ_CONTROL_FRAC_0 - Frac-N PLL fraction number.
+	*/
+	switch(channel)
+	{
+		case 0:	SI446x_Set_Property_1( FREQ_CONTROL_INTE, 0x38 );      //433
+						SI446x_Set_Property_1( FREQ_CONTROL_FRAC_2, 0x0D );
+						SI446x_Set_Property_1( FREQ_CONTROL_FRAC_1, 0xDD );
+						SI446x_Set_Property_1( FREQ_CONTROL_FRAC_0, 0xDD );
+						break;
+		case 1:	SI446x_Set_Property_1( FREQ_CONTROL_INTE, 0x38 );      //433.5
+						SI446x_Set_Property_1( FREQ_CONTROL_FRAC_2, 0x0E );
+						SI446x_Set_Property_1( FREQ_CONTROL_FRAC_1, 0x66 );
+						SI446x_Set_Property_1( FREQ_CONTROL_FRAC_0, 0x66 );
+						break;
+		case 2:	SI446x_Set_Property_1( FREQ_CONTROL_INTE, 0x38 );      //434
+						SI446x_Set_Property_1( FREQ_CONTROL_FRAC_2, 0x0E );
+						SI446x_Set_Property_1( FREQ_CONTROL_FRAC_1, 0xEE );
+						SI446x_Set_Property_1( FREQ_CONTROL_FRAC_0, 0xEE );
+						break;
+		case 3:	SI446x_Set_Property_1( FREQ_CONTROL_INTE, 0x38 );      //433
+						SI446x_Set_Property_1( FREQ_CONTROL_FRAC_2, 0x0F );
+						SI446x_Set_Property_1( FREQ_CONTROL_FRAC_1, 0x77 );
+						SI446x_Set_Property_1( FREQ_CONTROL_FRAC_0, 0x77 );
+						break;	
+		case 4:	SI446x_Set_Property_1( FREQ_CONTROL_INTE, 0x39 );      //433
+						SI446x_Set_Property_1( FREQ_CONTROL_FRAC_2, 0x08 );
+						SI446x_Set_Property_1( FREQ_CONTROL_FRAC_1, 0x00 );
+						SI446x_Set_Property_1( FREQ_CONTROL_FRAC_0, 0x00 );
+						break;		
+		case 5:	SI446x_Set_Property_1( FREQ_CONTROL_INTE, 0x39 );      //433
+						SI446x_Set_Property_1( FREQ_CONTROL_FRAC_2, 0x08 );
+						SI446x_Set_Property_1( FREQ_CONTROL_FRAC_1, 0x88 );
+						SI446x_Set_Property_1( FREQ_CONTROL_FRAC_0, 0x88 );
+						break;		
+		case 6:	SI446x_Set_Property_1( FREQ_CONTROL_INTE, 0x39 );      //433
+						SI446x_Set_Property_1( FREQ_CONTROL_FRAC_2, 0x09 );
+						SI446x_Set_Property_1( FREQ_CONTROL_FRAC_1, 0x11 );
+						SI446x_Set_Property_1( FREQ_CONTROL_FRAC_0, 0x11 );
+						break;		
+		case 7:	SI446x_Set_Property_1( FREQ_CONTROL_INTE, 0x39 );      //433
+						SI446x_Set_Property_1( FREQ_CONTROL_FRAC_2, 0x09 );
+						SI446x_Set_Property_1( FREQ_CONTROL_FRAC_1, 0x99 );
+						SI446x_Set_Property_1( FREQ_CONTROL_FRAC_0, 0x99 );
+						break;		
+		case 8:	SI446x_Set_Property_1( FREQ_CONTROL_INTE, 0x39 );      //433
+						SI446x_Set_Property_1( FREQ_CONTROL_FRAC_2, 0x0A );
+						SI446x_Set_Property_1( FREQ_CONTROL_FRAC_1, 0x22 );
+						SI446x_Set_Property_1( FREQ_CONTROL_FRAC_0, 0x22 );
+						break;		
+		case 9:	SI446x_Set_Property_1( FREQ_CONTROL_INTE, 0x39 );      //433
+						SI446x_Set_Property_1( FREQ_CONTROL_FRAC_2, 0x0A );
+						SI446x_Set_Property_1( FREQ_CONTROL_FRAC_1, 0xAA );
+						SI446x_Set_Property_1( FREQ_CONTROL_FRAC_0, 0xAA );
+						break;		
+		case 10:	SI446x_Set_Property_1( FREQ_CONTROL_INTE, 0x39 );      //433
+						SI446x_Set_Property_1( FREQ_CONTROL_FRAC_2, 0x0B );
+						SI446x_Set_Property_1( FREQ_CONTROL_FRAC_1, 0x33 );
+						SI446x_Set_Property_1( FREQ_CONTROL_FRAC_0, 0x33 );
+						break;		
+		case 11:	SI446x_Set_Property_1( FREQ_CONTROL_INTE, 0x39 );      //433
+						SI446x_Set_Property_1( FREQ_CONTROL_FRAC_2, 0x0B );
+						SI446x_Set_Property_1( FREQ_CONTROL_FRAC_1, 0xBB );
+						SI446x_Set_Property_1( FREQ_CONTROL_FRAC_0, 0xBB );
+						break;		
+		case 12:	SI446x_Set_Property_1( FREQ_CONTROL_INTE, 0x39 );      //433
+						SI446x_Set_Property_1( FREQ_CONTROL_FRAC_2, 0x0C );
+						SI446x_Set_Property_1( FREQ_CONTROL_FRAC_1, 0x44 );
+						SI446x_Set_Property_1( FREQ_CONTROL_FRAC_0, 0x44 );
+						break;								
+	}	
 	//4463 的GDO2 GDO3控制射频开关 33 32
 	// 发射：GDO2 = 0, GDO3 = 1
 	// 接收：GDO2 = 1, GDO3 = 0
@@ -713,6 +786,6 @@ void SI446x_Init( void )
 	SI446x_Set_Power( 0x7F );	//功率设置
 	SI446x_Change_Status( 6 );	//切换到RX状态
 	while( 6 != SI446x_Get_Device_Status( ));
-	SI446x_Start_Rx( channel, 0, PACKET_LENGTH,0,0,3 ); 
+	SI446x_Start_Rx( 0, 0, PACKET_LENGTH,0,0,3 ); 
 
 }

@@ -40,6 +40,7 @@ uint8_t g_SI4463RxBuffer[ 64 ] = { 0 };
 uint8_t channel=0;
 uint8_t si4463_tx_buff[64]={0};
 uint8_t pre_channel=0;
+static uint16_t timer_cnt_ms=0;
 struct PacketTxData PacketTxData;
 struct LongPacketData LongPacketData;
 void set_packages(uint8_t *address,uint16_t len);
@@ -57,7 +58,7 @@ int main( void )
 	drv_uart_init( 250000 );	
 	//SPI初始化
 	drv_spi_init( );	
-        user_write_flash(CHANNLE_MESSAGE_ROM,0);
+        user_write_flash(CHANNLE_MESSAGE_ROM,11);
         channel=flash_channel();
 	//SI4463初始化
 	SI446x_Init();
@@ -72,11 +73,15 @@ int main( void )
 	while( 1 )	
 	{          
  
-                      /*检测当前的信号是否空闲*/
-                     SI446x_Change_Status( 6 );
-                     while( 6 != SI446x_Get_Device_Status( ));
-		     SI446x_Start_Rx(  channel, 0, PACKET_LENGTH,0,0,3 );
-                     check_for_route(0x50);   
+                      /*检测当前的信号是否空闲*/                  
+                     if(timer_cnt_ms++>=60000)
+                     {
+                       timer_cnt_ms=0;
+                       SI446x_Change_Status( 6 );
+                       while( 6 != SI446x_Get_Device_Status( ));
+                       SI446x_Start_Rx(  channel, 0, PACKET_LENGTH,0,0,3 );
+                       check_for_route(0x7F);   
+                     }
                      if(PacketTxData.DMXSignalFlag)
                      {
                        PacketTxData.DMXSignalFlag=0;                 
@@ -86,7 +91,7 @@ int main( void )
 			#else	   
                            set_packages(PacketTxData.buf,512);                                
 			#endif 
-                     }      
+                     }   	
 			//外部通过串口发送数据到单片机，单片机通过SI4463将数据发送出去            
 	}
 	
@@ -102,6 +107,7 @@ int main( void )
 
 void set_packages(uint8_t *address,uint16_t len)
 {
+  uint16_t timeout_mark=0;
   uint8_t loop_counter=0;
   uint8_t remain_byte=0; 
   uint16_t temp_value=0;
@@ -145,7 +151,11 @@ void set_packages(uint8_t *address,uint16_t len)
       si4463_tx_buff[63]=crc_msb;      
     } 
     SI446x_Send_Packet( (uint8_t *)si4463_tx_buff, PACKET_LENGTH, channel, 0 ); 
-    while(!LongPacketData.TxlengthGet);
+    while((!LongPacketData.TxlengthGet)||timeout_mark>=1000)
+    {     
+      drv_delay_ms( 1 );
+      timeout_mark++;  
+    } 
     LongPacketData.TxlengthGet =0;
    }  
   
@@ -153,6 +163,7 @@ void set_packages(uint8_t *address,uint16_t len)
 
 void set_channel_ifo(uint8_t chain)
 {
+  uint16_t timeout_mark=0;
   uint16_t temp_value=0;
   uint8_t crc_lsb=0;
   uint8_t crc_msb=0;
@@ -166,7 +177,11 @@ void set_channel_ifo(uint8_t chain)
   si4463_tx_buff[62]=crc_lsb;
   si4463_tx_buff[63]=crc_msb;        
   SI446x_Send_Packet( (uint8_t *)si4463_tx_buff, PACKET_LENGTH, channel, 0 ); 
-  while(!LongPacketData.TxlengthGet);
+  while((!LongPacketData.TxlengthGet)||timeout_mark>=1000)
+  {
+    drv_delay_ms( 1 );
+    timeout_mark++;  
+  }
   LongPacketData.TxlengthGet =0;   
 }
 
@@ -193,7 +208,7 @@ void check_for_route(uint8_t rssi_threshold)
     if(rssi_letch[20]>=rssi_threshold)
     {
        pre_channel++;
-     if(pre_channel >148)   //470MHZ
+     if(pre_channel >11)   //470MHZ
       {
         pre_channel=0;
       }

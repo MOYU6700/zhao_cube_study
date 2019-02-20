@@ -34,7 +34,7 @@ void drv_uart_init( uint32_t UartBaudRate )
 	RCC_APB2PeriphClockCmd( UART_TX_GPIO_CLK | UART_RX_GPIO_CLK, ENABLE );	//打开TX RX 端口时钟
 	
 	UartGpioInitStructer.GPIO_Mode = GPIO_Mode_AF_PP;
-	UartGpioInitStructer.GPIO_Speed = GPIO_Speed_2MHz;
+	UartGpioInitStructer.GPIO_Speed = GPIO_Speed_50MHz;
 	//TX
 	UartGpioInitStructer.GPIO_Pin = UART_TX_GPIO_PIN;
 	GPIO_Init( UART_TX_GPIO_PORT, &UartGpioInitStructer );		//初始化TX引脚  配置为复用功能
@@ -60,8 +60,11 @@ void drv_uart_init( uint32_t UartBaudRate )
 	UartinitStructer.USART_Mode = USART_Mode_Tx | USART_Mode_Rx;		//发送和接收	
 	UartinitStructer.USART_Parity = USART_Parity_No;					//不带校验
 	UartinitStructer.USART_StopBits = USART_StopBits_1;					//一个停止位
+	#ifdef DEBUG_MODE
 	UartinitStructer.USART_WordLength = USART_WordLength_8b;			//8个数据位
-	
+	#else
+	UartinitStructer.USART_WordLength = USART_WordLength_9b;			//9个数据位
+	#endif
 	USART_Cmd( UART_PORT, DISABLE );									//失能外设
 	USART_Init( UART_PORT, &UartinitStructer );							//初始化外设
 	USART_Cmd( UART_PORT, ENABLE );										//使能外设	
