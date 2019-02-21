@@ -23,7 +23,8 @@
   *			@UartBaudRate:串口波特率
   * @note  :无
   * @retval:无
-  */
+  */	
+	
 void drv_uart_init( uint32_t UartBaudRate )
 {
 	GPIO_InitTypeDef	UartGpioInitStructer;
@@ -173,7 +174,7 @@ FILE __stdout;
 /// </summary>  
 /// <param name="x"></param>  
 /// <returns></returns>  
-_sys_exit(int x)  
+_sys_exit(int x)   
 {  
 x = x;  
 }  

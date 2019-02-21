@@ -38,6 +38,7 @@ void drv_delay_free( uint32_t Delay_Time );
 extern void handle_cnt_init( void );
 extern uint8_t  get_timer3_flag(void);
 extern void clr_timer3_flag(void);
-
+extern void TIME4_init( void );
+extern void delay_us(uint16_t us);
 #endif
 

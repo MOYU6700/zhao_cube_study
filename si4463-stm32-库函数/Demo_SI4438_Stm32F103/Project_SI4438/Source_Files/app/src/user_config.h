@@ -6,7 +6,7 @@
 #define RADIO_ADD_PACKET_LENGTH 32
 #define RADIO_MIN_PACKET_THRESHOLD 10
 #define RADIO_PACKET_SEND 512
-#define TIME_OVERTIME 30000    //1S
+#define TIME_OVERTIME 499    //0.1mSPER/uint
 //#define DEBUG_MODE
 struct PacketrxData
 {
