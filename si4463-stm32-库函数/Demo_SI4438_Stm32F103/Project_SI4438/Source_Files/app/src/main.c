@@ -23,19 +23,17 @@
 #include  "user_config.h"   
 #include  "modbus_crc.h"  
 #include "user_flash.h"
+
 uint8_t g_TxMode = 0, g_UartRxFlag = 0;
-uint8_t g_SI4463ItStatus[ 9 ] = { 0 };
-uint8_t g_SI4463RxBuffer[ 600 ] = { 0 };  
-uint8_t a_SI4463RxBuffer[ 64 ] = { 0 };
 struct PacketrxData PacketrxData; 
 struct LongPacketData LongPacketData;
-uint8_t error_cnt=0;
 uint8_t channel=0;
-
+uint16_t count=0;
 void SystemTimeSet(unsigned char value);
-void invailid_preamble(uint8_t invailid_cnt,uint16_t change_time,uint8_t *buff);
+void invailid_preamble(void);
 void dmx_sendpacket(void);
 void dmx_init(void); //DMX512初始化
+
 /**
   * @brief :主函数 
   * @param :无
@@ -45,8 +43,6 @@ void dmx_init(void); //DMX512初始化
 int main( void )
 {	
 	uint16_t i = 0;
-	uint8_t temp=0;
-	uint8_t dm512_cnt=0;
 	//串口初始化波特率 9600
 	#ifdef DEBUG_MODE
 	drv_uart_init( 115200 );
@@ -57,14 +53,14 @@ int main( void )
 	//延时初始化
 	drv_delay_init( );
 	TIME4_init( ); 
-//	EXTIX_Init(); 
+	EXTIX_Init(); 
 	
 	//LED初始化
 	drv_led_init( );
 	
 	//SPI初始化
 	drv_spi_init( );
-//	user_flash_write(CHANNLE_MESSAGE_ROM,0);
+	user_flash_write(CHANNLE_MESSAGE_ROM,0);
   channel=channle_read_data(CHANNLE_MESSAGE_ROM);  
   if(channel==0xff)   
   channel=0;		
@@ -98,197 +94,28 @@ int main( void )
 		if(get_timer3_flag())
 		{			
 			clr_timer3_flag();	
-			dmx_sendpacket();		
-			dm512_cnt++;	
-			if(dm512_cnt>=20)
+			PacketrxData.dm512_cnt++;	
+			if(PacketrxData.dm512_cnt>=20)
 			{
-				dm512_cnt=0;
-//				invailid_preamble(10,1,g_SI4463ItStatus);	
-				led_red_flashing( );
+				PacketrxData.dm512_cnt=0;
+				invailid_preamble();	
+				led_green_flashing( );
 			}	
-		}			
-		SI446x_Interrupt_Status( g_SI4463ItStatus );		//查询中断状态	
-		if( g_SI4463ItStatus[ 3 ] & ( 0x01 << 4 ))   
-    {			
-			i = SI446x_Read_Packet( a_SI4463RxBuffer );		//读接收到的数据
-			if( a_SI4463RxBuffer[0]==1 )
-			{
-				PacketrxData.flag=1;					
-			}	
-			if(a_SI4463RxBuffer[0]==0x55)
-			{
-				PacketrxData.flag=1;	
-				temp=0x55;
-			}	
-			if(PacketrxData.flag)
-			{				
-				switch(temp)
-				{
-					case 0:temp++;
-					       #ifdef DEBUG_MODE
-								 memcpy(g_SI4463RxBuffer,a_SI4463RxBuffer,64);
-					       #else
-					       memcpy(g_SI4463RxBuffer+1,&a_SI4463RxBuffer[2],60);
-								 #endif
-					       if(check_crc(a_SI4463RxBuffer, 64)==0)
-								 {
-									error_cnt++;
-									temp=0;
-									PacketrxData.flag=0;									 
-									memset(g_SI4463RxBuffer,0,512);
-								 } 
-								 break;
-					case 1:temp++;
-								 #ifdef DEBUG_MODE
-								 memcpy(g_SI4463RxBuffer+64,a_SI4463RxBuffer,64);
-					       #else
-					       memcpy(g_SI4463RxBuffer+61,&a_SI4463RxBuffer[2],60);
-								 #endif								 
-					       if(check_crc(a_SI4463RxBuffer, 64)==0)
-								 {
-									error_cnt++;
-									temp=0;
-									PacketrxData.flag=0;									 
-									memset(g_SI4463RxBuffer,0,512);
-								 } 								 
-								 break;
-					case 2:temp++;
-								 #ifdef DEBUG_MODE
-								 memcpy(g_SI4463RxBuffer+128,a_SI4463RxBuffer,64);
-					       #else
-					       memcpy(g_SI4463RxBuffer+121,&a_SI4463RxBuffer[2],60);
-								 #endif								 
-					       if(check_crc(a_SI4463RxBuffer, 64)==0)
-								 {
-									error_cnt++;
-									temp=0;
-									PacketrxData.flag=0;									 
-									memset(g_SI4463RxBuffer,0,512); 
-								 } 								 
-								 break;
-					case 3:temp++;
-								 #ifdef DEBUG_MODE
-								 memcpy(g_SI4463RxBuffer+192,a_SI4463RxBuffer,64);
-					       #else
-					       memcpy(g_SI4463RxBuffer+181,&a_SI4463RxBuffer[2],60);
-								 #endif									 
-					       if(check_crc(a_SI4463RxBuffer, 64)==0)
-								 {
-									error_cnt++;
-									temp=0;
-									PacketrxData.flag=0;								 
-									memset(g_SI4463RxBuffer,0,512); 
-								 } 								 
-								 break;		
-					case 4:temp++;
-								 #ifdef DEBUG_MODE
-								 memcpy(g_SI4463RxBuffer+256,a_SI4463RxBuffer,64);
-					       #else
-					       memcpy(g_SI4463RxBuffer+241,&a_SI4463RxBuffer[2],60);
-								 #endif									 
-					       if(check_crc(a_SI4463RxBuffer, 64)==0)
-								 {
-									error_cnt++;
-									temp=0;
-									PacketrxData.flag=0;									 
-									memset(g_SI4463RxBuffer,0,512); 
-								 } 								 
-								 break;
-					case 5:temp++;
-								 #ifdef DEBUG_MODE
-								 memcpy(g_SI4463RxBuffer+320,a_SI4463RxBuffer,64);
-					       #else
-					       memcpy(g_SI4463RxBuffer+301,&a_SI4463RxBuffer[2],60);
-								 #endif									 
-					       if(check_crc(a_SI4463RxBuffer, 64)==0)
-								 {
-									error_cnt++;
-									temp=0;
-									PacketrxData.flag=0;									 
-									memset(g_SI4463RxBuffer,0,512); 
-								 } 								 
-								 break;
-					case 6:temp++;
-								 #ifdef DEBUG_MODE
-								 memcpy(g_SI4463RxBuffer+384,a_SI4463RxBuffer,64);
-					       #else
-					       memcpy(g_SI4463RxBuffer+361,&a_SI4463RxBuffer[2],60);
-								 #endif									 
-					       if(check_crc(a_SI4463RxBuffer, 64)==0)
-								 {
-									error_cnt++;
-									temp=0;
-									PacketrxData.flag=0;									 
-									memset(g_SI4463RxBuffer,0,512); 
-								 } 								 
-								 break;
-					case 7:temp++;
-								 #ifdef DEBUG_MODE
-								 memcpy(g_SI4463RxBuffer+448,a_SI4463RxBuffer,64);
-					       #else
-					       memcpy(g_SI4463RxBuffer+421,&a_SI4463RxBuffer[2],60);
-								 #endif										 
-					       if(check_crc(a_SI4463RxBuffer, 64)==0)
-								 {
-									error_cnt++;
-									temp=0;
-									PacketrxData.flag=0;									 
-									memset(g_SI4463RxBuffer,0,512); 
-								 } 								 
-								 break;	
-					case 8:temp=0;
-								 dm512_cnt=0;	
-								 #ifdef DEBUG_MODE								 
-								 memcpy(g_SI4463RxBuffer+512,a_SI4463RxBuffer,64);
-					       #else
-					       memcpy(g_SI4463RxBuffer+481,&a_SI4463RxBuffer[2],32);
-								 #endif								 
-								 g_SI4463RxBuffer[514]=channel;
-					       if(check_crc(a_SI4463RxBuffer, 64)==0)
-								 {
-									error_cnt++;
-									temp=0;
-									PacketrxData.flag=0;									 
-									memset(g_SI4463RxBuffer,0,512); 
-								 } 								 
-								 PacketrxData.flag=0;
-								 error_cnt=0;
-								 #ifdef DEBUG_MODE	
-								 drv_uart_tx_bytes( g_SI4463RxBuffer,576 );	//串口输出SI4463接收到的数据							
-								 #endif								 
-								 break;	
-					case 0x55:
-					       if(check_crc(a_SI4463RxBuffer, 64)==1)						
-								 {
-									  temp=0;		
-										PacketrxData.flag=0;
-									  if(a_SI4463RxBuffer[1]==a_SI4463RxBuffer[2])
-									  {
-											channel=a_SI4463RxBuffer[1];
-											user_flash_write(CHANNLE_MESSAGE_ROM,channel);
-											SI446x_Init( );
-										}
-								 }
-								    break;
-					default:temp=0;
-									PacketrxData.flag=0;
-									break;
-				}				
-			}	
-			SI446x_Change_Status( 6 );
-			while( 6 != SI446x_Get_Device_Status( ));
-			SI446x_Start_Rx(0, 0, PACKET_LENGTH,0,0,3);
-		}
-		else
-		{
-			if( 3000 == i++ )
-			{
-				i = 0;
-				SI446x_Init( );
-			}
-			drv_delay_ms( 1 );
 		}		
-//		TIM3->CR1|=0x0001;
+   if(PacketrxData.protection_flag)
+	 {
+		 SAFE(dmx_sendpacket());	
+		 PacketrxData.protection_flag=0;
+	 } 
+//		else
+//		{
+//			if( 3000 == count++ )
+//			{
+//				count = 0;
+//				SI446x_Init( );
+//			}
+//			drv_delay_ms( 1 );
+//		}				
 	}	
 #endif 
 }
@@ -301,14 +128,13 @@ void dmx_init(void) //DMX512初始化
   {
      g_SI4463RxBuffer[i] = 0;
   }
-	g_SI4463RxBuffer[10]=0xff;    //步进电机粗调
-	g_SI4463RxBuffer[11]=0xff;    //步进电机细调
-	g_SI4463RxBuffer[14]=0xff;    //R色调节
-	g_SI4463RxBuffer[15]=0xff;    //G色调节
-	g_SI4463RxBuffer[16]=0xff;    //B色调节	
-	g_SI4463RxBuffer[17]=0xff;
+//	g_SI4463RxBuffer[10]=0xff;    //步进电机粗调
+//	g_SI4463RxBuffer[11]=0xff;    //步进电机细调
+//	g_SI4463RxBuffer[14]=0xff;    //R色调节
+//	g_SI4463RxBuffer[15]=0xff;    //G色调节
+//	g_SI4463RxBuffer[16]=0xff;    //B色调节	
+//	g_SI4463RxBuffer[17]=0xff;
 }
-
 
 /**
   * @brief :检测无效的前导码
@@ -318,7 +144,7 @@ void dmx_init(void) //DMX512初始化
   * @note  :无
   * @retval:无
   */
-void invailid_preamble(uint8_t invailid_cnt,uint16_t change_time,uint8_t *buff)
+void invailid_preamble(void)
 {
 			channel++;
 			if(channel>11)

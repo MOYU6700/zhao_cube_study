@@ -8,11 +8,20 @@
 #define RADIO_PACKET_SEND 512
 #define TIME_OVERTIME 499    //0.1mSPER/uint
 //#define DEBUG_MODE
+
+#define SAFE(x) do{ \
+	__set_PRIMASK(1); \
+	x; \
+	__set_PRIMASK(0); \
+}while(0)	//Ô­×Ó²Ù×÷
+
 struct PacketrxData
 {
   uint16_t length;
   uint8_t buf[512];
 	uint8_t flag;
+	uint8_t dm512_cnt;
+	uint8_t protection_flag;
 };
 
 struct LongPacketData

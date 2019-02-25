@@ -156,7 +156,7 @@ void handle_cnt_init(void)
 		);
 	NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn;  //TIM3中断
 	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2;  //先占优先级0级
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 3;  //从优先级3级
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;  //从优先级3级
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; //IRQ通道被使能
 	NVIC_Init(&NVIC_InitStructure);  //根据NVIC_InitStruct中指定的参数初始化外设NVIC寄存器
 
@@ -171,7 +171,6 @@ void TIM3_IRQHandler(void) //TIM3 中断
 	if (TIM_GetITStatus(TIM3, TIM_IT_Update) != RESET) //检查 TIM3 更新中断发生与否
 	{
 		timer3_update_flag=1;
-		led_green_flashing( );
 		TIM_ClearITPendingBit(TIM3, TIM_IT_Update  );  //清除TIMx的中断待处理位:TIM 中断源 
 	}
 }
@@ -204,9 +203,7 @@ void TIME4_init( void )
 	TIM_Cmd( TIM4, ENABLE );
 }
 
-
 void delay_us(uint16_t us)
-
 {
 
 	uint16_t differ=0xffff-us-5;					//设定定时器计数器起始值

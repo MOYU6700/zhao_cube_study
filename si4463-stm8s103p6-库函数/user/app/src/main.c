@@ -58,12 +58,18 @@ int main( void )
 	drv_uart_init( 250000 );	
 	//SPI初始化
 	drv_spi_init( );	
-        user_write_flash(CHANNLE_MESSAGE_ROM,11);
+        user_write_flash(CHANNLE_MESSAGE_ROM,0);
         channel=flash_channel();
 	//SI4463初始化
 	SI446x_Init();
         GPIO_Config();	 
         pre_channel=channel;
+//	PacketTxData.buf[9]=0xff;    //步进电机粗调
+//	PacketTxData.buf[10]=0xff;    //步进电机细调
+//	PacketTxData.buf[13]=0xff;    //R色调节
+//	PacketTxData.buf[14]=0xff;    //G色调节
+//	PacketTxData.buf[15]=0xff;    //B色调节	
+//	PacketTxData.buf[16]=0xff;    
 #ifdef	__SI4438_TX_TEST__		
 //=========================================================================================//	
 //*****************************************************************************************//
@@ -82,14 +88,14 @@ int main( void )
                        SI446x_Start_Rx(  channel, 0, PACKET_LENGTH,0,0,3 );
                        check_for_route(0x7F);   
                      }
-                     if(PacketTxData.DMXSignalFlag)
+                     if(PacketTxData.DMXSignalFlag==1)
                      {
                        PacketTxData.DMXSignalFlag=0;                 
 		       #if PACKET_LENGTH == 0                     
                      SI446x_Send_Packet( (uint8_t *)tx_packet, PACKET_LENGTH, channel, 0 ); 
                      drv_delay_ms( 2000 );   
 			#else	   
-                           set_packages(PacketTxData.buf,512);                                
+                           set_packages(PacketTxData.buf,512);
 			#endif 
                      }   	
 			//外部通过串口发送数据到单片机，单片机通过SI4463将数据发送出去            

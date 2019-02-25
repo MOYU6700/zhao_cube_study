@@ -197,17 +197,17 @@
         <Ww>
           <count>3</count>
           <WinNumber>1</WinNumber>
-          <ItemText>g_SI4463RxBuffer</ItemText>
+          <ItemText>channel</ItemText>
         </Ww>
         <Ww>
           <count>4</count>
           <WinNumber>1</WinNumber>
-          <ItemText>channel</ItemText>
+          <ItemText>g_SI4463RxBuffer</ItemText>
         </Ww>
         <Ww>
           <count>5</count>
           <WinNumber>1</WinNumber>
-          <ItemText>g_SI4463RxBuffer</ItemText>
+          <ItemText>a_SI4463RxBuffer</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>

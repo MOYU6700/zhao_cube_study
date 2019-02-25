@@ -27,3 +27,6 @@
 ..\output\drv_io.o: .\Source_Files\drv_periph\inc\drv_Si4438_Config_26M.h
 ..\output\drv_io.o: .\Source_Files\app\src\user_config.h
 ..\output\drv_io.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+..\output\drv_io.o: .\Source_Files\app\inc\modbus_crc.h
+..\output\drv_io.o: .\Source_Files\app\inc\user_flash.h
+..\output\drv_io.o: .\Source_Files\std_lib\inc\stm32f10x_flash.h
