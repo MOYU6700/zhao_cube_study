@@ -71,7 +71,6 @@ void drv_uart_init( uint32_t UartBaudRate )
 	USART_Cmd( UART_PORT, ENABLE );										//使能外设	
 }
 
-
 void UART1_SendData8(uint8_t Data)
 {
     /* Transmit Data */

@@ -781,7 +781,9 @@ void SI446x_Init( void )
 {
 	SI446x_Gpio_Init( );		//SI4463引脚初始化
 	SI446x_Reset( );			//SI4463复位
+	drv_delay_500Ms(1);
 	SI446x_Power_Up( 30000000 );//reset 后需要Power up设备 晶振30MHz
+	drv_delay_500Ms(1);
 	SI446x_Config_Init( );		//SI4463模块初始化
 	SI446x_Set_Power( 0x7F );	//功率设置
 	SI446x_Change_Status( 6 );	//切换到RX状态

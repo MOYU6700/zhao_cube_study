@@ -1632,6 +1632,9 @@
       <name>$PROJ_DIR$\..\lib\src\stm8s_it.c</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\lib\src\stm8s_iwdg.c</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\lib\src\stm8s_spi.c</name>
     </file>
     <file>
@@ -1640,6 +1643,9 @@
   </group>
   <group>
     <name>user</name>
+    <file>
+      <name>$PROJ_DIR$\..\drive\drv_mcu\src\iwdg.c</name>
+    </file>
     <file>
       <name>$PROJ_DIR$\app\src\main.c</name>
     </file>

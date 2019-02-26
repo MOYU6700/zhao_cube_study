@@ -7,3 +7,13 @@ void GPIO_Config(void)
   EXTI_SetTLISensitivity(EXTI_TLISENSITIVITY_FALL_ONLY);
   enableInterrupts();
 }
+
+void LED_Init(void)
+{
+   GPIO_Init(LED1_PORT,LED1_PIN,GPIO_MODE_OUT_PP_HIGH_FAST );//定义LED的管脚的模式
+}
+
+void LED1_Toggle(void)
+{
+GPIO_WriteReverse(LED1_PORT,LED1_PIN);
+}

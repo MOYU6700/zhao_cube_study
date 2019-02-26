@@ -50,6 +50,7 @@ int main( void )
 	drv_uart_init( 250000 );
 	#endif
 	
+	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2); //设置中断分组
 	//延时初始化
 	drv_delay_init( );
 	TIME4_init( ); 
@@ -60,21 +61,21 @@ int main( void )
 	
 	//SPI初始化
 	drv_spi_init( );
-	user_flash_write(CHANNLE_MESSAGE_ROM,0);
+//	user_flash_write(CHANNLE_MESSAGE_ROM,0);
   channel=channle_read_data(CHANNLE_MESSAGE_ROM);  
-  if(channel==0xff)   
+  if(channel>11)   
   channel=0;		
 	//SI4463初始化	
 	SI446x_Init( );
 	led_red_off( );
 	led_green_off( );
-	dmx_init() ;//DMX512初始化
 	for( i = 0; i < 6; i++ )		//模块初始化完成，LED灯闪烁3个周期
 	{
 		led_red_flashing( );
 		led_green_flashing( );
 		drv_delay_500Ms( 1 );
 	}	
+		dmx_init() ;//DMX512初始化
 		handle_cnt_init();
 #ifdef	__SI4438_TX_TEST__		
 //=========================================================================================//	

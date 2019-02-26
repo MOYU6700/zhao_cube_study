@@ -22,6 +22,7 @@
 #include "string.h"
 #include "user_config.h"
 #include "modbus_crc.h"
+#include "iwdg.h"
 
 uint8_t tx_packet[128] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
@@ -58,12 +59,14 @@ int main( void )
 	drv_uart_init( 250000 );	
 	//SPI初始化
 	drv_spi_init( );	
-        user_write_flash(CHANNLE_MESSAGE_ROM,0);
+//        user_write_flash(CHANNLE_MESSAGE_ROM,0);
         channel=flash_channel();
 	//SI4463初始化
 	SI446x_Init();
-        GPIO_Config();	 
+        GPIO_Config();	
+        LED_Init();       
         pre_channel=channel;
+        IWDG_Configuration();
 //	PacketTxData.buf[9]=0xff;    //步进电机粗调
 //	PacketTxData.buf[10]=0xff;    //步进电机细调
 //	PacketTxData.buf[13]=0xff;    //R色调节
@@ -80,7 +83,7 @@ int main( void )
 	{          
  
                       /*检测当前的信号是否空闲*/                  
-                     if(timer_cnt_ms++>=60000)
+                     if(timer_cnt_ms++>=30000)
                      {
                        timer_cnt_ms=0;
                        SI446x_Change_Status( 6 );
@@ -90,14 +93,16 @@ int main( void )
                      }
                      if(PacketTxData.DMXSignalFlag==1)
                      {
-                       PacketTxData.DMXSignalFlag=0;                 
+                       PacketTxData.DMXSignalFlag=0;    
+                       LED1_Toggle(); 
 		       #if PACKET_LENGTH == 0                     
                      SI446x_Send_Packet( (uint8_t *)tx_packet, PACKET_LENGTH, channel, 0 ); 
                      drv_delay_ms( 2000 );   
 			#else	   
                            set_packages(PacketTxData.buf,512);
 			#endif 
-                     }   	
+                     }
+                     IWDG_ReloadCounter();
 			//外部通过串口发送数据到单片机，单片机通过SI4463将数据发送出去            
 	}
 	
