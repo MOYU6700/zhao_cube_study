@@ -2,6 +2,8 @@
 #define __DRV_IO_H__
 #include "stm8s.h"
 #include "stm8s_exti.h"
+#include "drv_SI4438.h"
+
 
 #define LED1_PIN        GPIO_PIN_5 
 #define LED1_PORT       GPIOB

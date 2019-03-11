@@ -22,6 +22,10 @@
 
 
 void drv_delay_ms( uint16_t Ms );
-
+extern uint8_t  get_timer3_flag(void);
+extern void clr_timer3_flag(void);
+extern void delay_us(uint16_t us);
+extern void TIM1_Config(void);//定时器1初始化
+extern void TIM2_Config(void);//定时器2初始化
 
 #endif

@@ -1,10 +1,10 @@
-"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\stm8\bin\stm8proc.dll" 
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\stm8\bin\stm8proc.dll" 
 
-"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\stm8\bin\stm8stlink.dll" 
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\stm8\bin\stm8stlink.dll" 
 
-"C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\si4463-stm8s103p6-¿âº¯Êý\user\Debug\Exe\si4463-stm8s.out" 
+"C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\si4463-stm8s103p6-åº“å‡½æ•°\user\Debug\Exe\si4463-stm8s.out" 
 
---plugin "C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\stm8\bin\stm8bat.dll" 
+--plugin "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\stm8\bin\stm8bat.dll" 
 
 
 
