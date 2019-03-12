@@ -1,20 +1,3 @@
-/**
-  ******************************************************************************
-  * @author  泽耀科技 ASHINING
-  * @version V3.0
-  * @date    2016-10-08
-  * @brief   SPI配置C文件
-  ******************************************************************************
-  * @attention
-  *
-  * 官网	:	http://www.ashining.com
-  * 淘宝	:	https://shop105912646.taobao.com
-  * 阿里巴巴:	https://cdzeyao.1688.com
-  ******************************************************************************
-  */
-
-
-
 #include "drv_spi.h"
 
 
@@ -43,7 +26,7 @@ void drv_spi_init( void )
 	CLK_PeripheralClockConfig(CLK_PERIPHERAL_SPI, ENABLE);		//开SPI时钟
 	SPI_DeInit( );		//SPI复位
 	//SPI外设初始化
-	SPI_Init( SPI_FIRSTBIT_MSB, SPI_BAUDRATEPRESCALER_8, SPI_MODE_MASTER, SPI_CLOCKPOLARITY_LOW, SPI_CLOCKPHASE_1EDGE, SPI_DATADIRECTION_2LINES_FULLDUPLEX, SPI_NSS_SOFT ,SPI_CRC_RX);
+	SPI_Init( SPI_FIRSTBIT_MSB, SPI_BAUDRATEPRESCALER_2, SPI_MODE_MASTER, SPI_CLOCKPOLARITY_LOW, SPI_CLOCKPHASE_1EDGE, SPI_DATADIRECTION_2LINES_FULLDUPLEX, SPI_NSS_SOFT ,SPI_CRC_RX);
 	SPI_Cmd( ENABLE );	//SPI使能
 }
 

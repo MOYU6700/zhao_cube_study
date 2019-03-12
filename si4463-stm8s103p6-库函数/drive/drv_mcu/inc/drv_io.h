@@ -5,8 +5,8 @@
 #include "drv_SI4438.h"
 
 
-#define LED1_PIN        GPIO_PIN_5 
-#define LED1_PORT       GPIOB
+#define LED1_PIN        GPIO_PIN_3 
+#define LED1_PORT       GPIOA
 
 #define IRQ_EXTI_PORT  GPIOD
 #define IRQ_EXTI_PIN   GPIO_PIN_3

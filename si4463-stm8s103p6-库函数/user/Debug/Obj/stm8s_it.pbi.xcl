@@ -14,6 +14,8 @@ C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\si4463-stm8s103p6-库函数\user
 -I
 C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\si4463-stm8s103p6-库函数\user\app\src
 -I
+C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\si4463-stm8s103p6-库函数\drive\OLED_SRC
+-I
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\stm8\inc
 -I
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\stm8\inc\c
@@ -29,6 +31,8 @@ C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\si4463-stm8s103p6-库函数\user\ap
 C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\si4463-stm8s103p6-库函数\user
 -I
 C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\si4463-stm8s103p6-库函数\user\app\src
+-I
+C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\si4463-stm8s103p6-库函数\drive\OLED_SRC
 -D__CHAR_BITS__=8
 -D__CHAR_MAX__=0xff
 -D__CHAR_MIN__=0

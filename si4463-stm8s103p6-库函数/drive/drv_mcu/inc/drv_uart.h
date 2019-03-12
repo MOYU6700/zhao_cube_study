@@ -21,7 +21,7 @@
 #include "stm8s_clk.h"
 #include "stm8s_gpio.h"
 #include "stm8s_uart1.h"
-
+#include "user_config.h"
 
 //UART硬件接口IO定义
 #define UART_TX_GPIO_PORT			GPIOD
@@ -30,8 +30,11 @@
 #define UART_RX_GPIO_PORT			GPIOD
 #define UART_RX_GPIO_PIN			GPIO_PIN_6
 
-
+#ifndef max485  
 void drv_uart_init( uint32_t UartBaudRate );
+#else
+void drv_uart_init_485( uint32_t UartBaudRate );
+#endif
 void drv_uart_tx_bytes( uint8_t* TxBuffer, uint8_t Length );
 uint16_t drv_uart_rx_bytes( uint8_t* RxBuffer );
 

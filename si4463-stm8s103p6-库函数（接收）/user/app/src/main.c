@@ -5,11 +5,13 @@
 #include "user_config.h"
 #include "modbus_crc.h"
 #include "drv_delay.h"
+#include "oled.h"
 
 uint8_t g_TxMode = 0, g_UartRxFlag = 0;
 struct PacketrxData PacketrxData; 
 uint8_t channel=0;
 uint16_t count=0;
+uint32_t oled_for_count='0';
 void invailid_preamble(void);
 void dmx_sendpacket(void);
 void dmx_init(void); //DMX512初始化
@@ -22,8 +24,12 @@ void dmx_init(void); //DMX512初始化
 int main( void )
 {		
         CLK_HSIPrescalerConfig(CLK_PRESCALER_HSIDIV1);
+ #ifndef max485       
 	//串口初始化 波特率默认设置为250000
 	drv_uart_init( 250000 );
+#else
+        drv_uart_init_485( 9600 );
+#endif	
         GPIO_Config();	
         TIM1_Config();//定时器1初始化
         TIM2_Config();//定时器2初始化	
@@ -36,7 +42,17 @@ int main( void )
 	//SI4463初始化
 	SI446x_Init();
         LED_Init(); 
-        dmx_init() ;//DMX512初始化        
+        OLED_Init();	
+        dmx_init() ;//DMX512初始化  
+//        g_SI4463RxBuffer[2]=0xff;    //步进电机粗调
+//	g_SI4463RxBuffer[3]=0xc2;    //步进电机细调
+//	g_SI4463RxBuffer[4]=0x7f;    //R色调节
+//	g_SI4463RxBuffer[5]=0x7f;    //G色调节
+//	g_SI4463RxBuffer[6]=0x7f;    //B色调节	
+//	g_SI4463RxBuffer[7]=0x00;  
+//        g_SI4463RxBuffer[8]=0x01;
+//        g_SI4463RxBuffer[9]=0x02;
+//        g_SI4463RxBuffer[10]=0xee;
 #ifdef	__SI4438_TX_TEST__		
 //=========================================================================================//	
 //*****************************************************************************************//
@@ -64,10 +80,14 @@ while( 1 )
         }		
    if(PacketrxData.protection_flag)
        {
+        oled_for_count++;
+        if(oled_for_count>=0xffffff00)
+          oled_for_count=0;
          dmx_sendpacket();
          LED1_Toggle();
          PacketrxData.protection_flag=0;
-       } 			
+       } 
+       oled_test_handle();
       }	
 #endif 
 }
@@ -98,13 +118,13 @@ void invailid_preamble(void)
     SI446x_Init( );
     user_write_flash(CHANNLE_MESSAGE_ROM,channel);			
 }	
-
+ #ifndef max485  
 void gpio_tx_config(uint8_t Set)
 {
     if(0 == Set)
     {
           UART1_Cmd(DISABLE);	
-          UART1_DeInit();
+//          UART1_DeInit();
 //          GPIO_Init( UART_TX_GPIO_PORT, UART_TX_GPIO_PIN,GPIO_MODE_OUT_PP_HIGH_FAST  );
     }
     else
@@ -115,21 +135,17 @@ void gpio_tx_config(uint8_t Set)
         UART1_Cmd(ENABLE);	//使能串口
     }
 }
-
 uint16_t pDMX_buf = 0;
 void dmx_sendpacket(void) //发送DMX512数据
 {
 	//配置为普通IO
 	pDMX_buf = 0;
 	gpio_tx_config(0);					//设置发送的引脚为普通IO
-        GPIO_WriteLow(UART_TX_GPIO_PORT, UART_TX_GPIO_PIN);										//输出低电平
-	delay_us(120); 	
-        UART1_Cmd(ENABLE);//延时150us
-        UART1_Init( 250000, UART1_WORDLENGTH_9D, UART1_STOPBITS_1, UART1_PARITY_NO, UART1_SYNCMODE_CLOCK_DISABLE, UART1_MODE_TX_ENABLE );
-        delay_us(10); 	
-	GPIO_WriteHigh(UART_TX_GPIO_PORT, UART_TX_GPIO_PIN); 										//输出高电平
-//	delay_us(13); 							//延时13us
-//	gpio_tx_config(1);							
+        GPIO_WriteLow(UART_TX_GPIO_PORT, UART_TX_GPIO_PIN);										//输出低电平	
+        delay_us_base(150);
+        GPIO_WriteHigh(UART_TX_GPIO_PORT, UART_TX_GPIO_PIN);    
+        delay_us_base(13);
+	gpio_tx_config(1);							
   while(pDMX_buf <= 512) //1-512
   {
     while((UART1->SR&0X40)==0){};//循环发送,直到发送完毕
@@ -141,4 +157,19 @@ void dmx_sendpacket(void) //发送DMX512数据
      }  
   }
 }			
-
+#else
+void dmx_sendpacket(void) //发送485数据
+{
+  uint16_t pDMX_buf = 0;
+  while(pDMX_buf <= 8) 
+  {
+    while((UART1->SR&0X40)==0){};//循环发送,直到发送完毕
+    if(UART1->SR & (1<<6))
+    { 
+       /*发送起始码 00*/
+       UART1->DR = g_SI4463RxBuffer[pDMX_buf];
+       pDMX_buf++;
+     }  
+  }
+}
+#endif

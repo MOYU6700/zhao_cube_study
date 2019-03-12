@@ -1,20 +1,4 @@
-/**
-  ******************************************************************************
-  * @author  ‘Û“´ø∆ºº ASHINING
-  * @version V3.0
-  * @date    2016-10-08
-  * @brief   SI446x≈‰÷√CŒƒº˛
-  ******************************************************************************
-  * @attention
-  *
-  * πŸÕ¯	:	http://www.ashining.com
-  * Ã‘±¶	:	https://shop105912646.taobao.com
-  * ∞¢¿Ô∞Õ∞Õ:	https://cdzeyao.1688.com
-  ******************************************************************************
-  */
-  
-  
-#include "drv_SI4438.h"
+ #include "drv_SI4438.h"
 
 extern uint8_t channel;
 const static uint8_t config_table[ ] = RADIO_CONFIGURATION_DATA_ARRAY;

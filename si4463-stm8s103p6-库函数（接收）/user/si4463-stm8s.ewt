@@ -2117,6 +2117,9 @@
         <file>
             <name>$PROJ_DIR$\app\src\modbus_crc.c</name>
         </file>
+        <file>
+            <name>$PROJ_DIR$\..\drive\OLED_SRC\oled.c</name>
+        </file>
     </group>
     <group>
         <name>lib</name>

@@ -262,6 +262,7 @@
                     <state>C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\si4463-stm8s103p6-库函数（接收）\user\app\inc</state>
                     <state>C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\si4463-stm8s103p6-库函数（接收）\user</state>
                     <state>C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\si4463-stm8s103p6-库函数（接收）\user\app\src</state>
+                    <state>C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\si4463-stm8s103p6-库函数（接收）\drive\OLED_SRC</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -1627,6 +1628,9 @@
         </file>
         <file>
             <name>$PROJ_DIR$\app\src\modbus_crc.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\drive\OLED_SRC\oled.c</name>
         </file>
     </group>
     <group>

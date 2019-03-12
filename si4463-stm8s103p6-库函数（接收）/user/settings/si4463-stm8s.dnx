@@ -48,7 +48,7 @@
         <Freq>16000000</Freq>
     </Simulator>
     <DebugChecksum>
-        <Checksum>2648031644</Checksum>
+        <Checksum>3267774929</Checksum>
     </DebugChecksum>
     <CallStack>
         <ShowArgs>0</ShowArgs>
@@ -87,7 +87,11 @@
         <Count>0</Count>
     </Breakpoints>
     <Aliases>
-        <Count>0</Count>
+        <A0>_ "C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\si4463-stm8s103p6-库函数（接收）\lib\src\stm8s_exti.c" ""</A0>
+        <A1>_ "C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\si4463-stm8s103p6-库函数（接收）\lib\src\stm8s_gpio.c" ""</A1>
+        <A2>_ "C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\si4463-stm8s103p6-库函数（接收）\lib\src\stm8s_tim1.c" ""</A2>
+        <A3>_ "C:\Users\SHUQUEE8006\Desktop\zhao_cube_study\si4463-stm8s103p6-库函数（接收）\user\app\src\main.c" ""</A3>
+        <Count>4</Count>
         <SuppressDialog>0</SuppressDialog>
     </Aliases>
     <DebuggerSettings>

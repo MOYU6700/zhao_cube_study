@@ -152,6 +152,7 @@ INTERRUPT_HANDLER(EXTI_PORTC_IRQHandler, 5)
   * @param  None
   * @retval None
   */
+ #ifndef max485  
 uint8_t g_SI4463ItStatus[ 9 ] = { 0 };
 uint8_t g_SI4463RxBuffer[ 600 ] = { 0 };  
 uint8_t a_SI4463RxBuffer[ 64 ] = { 0 };
@@ -341,7 +342,84 @@ INTERRUPT_HANDLER(EXTI_PORTD_IRQHandler, 6)
       }	
   }
 }
-
+#else
+uint8_t g_SI4463ItStatus[ 9 ] = { 0 };
+uint8_t g_SI4463RxBuffer[ 600 ] = { 0 };  
+uint8_t a_SI4463RxBuffer[ 64 ] = { 0 };
+uint8_t error_cnt=0;
+static uint8_t temp=0;
+INTERRUPT_HANDLER(EXTI_PORTD_IRQHandler, 6)
+{
+  /* In order to detect unexpected events during development,
+     it is recommended to set a breakpoint on the following instruction.
+  */
+  /*PD3口检测IRQ 的中断入口*/
+  if ((GPIO_ReadInputData(IRQ_EXTI_PORT) & IRQ_EXTI_PIN) == 0x00)
+  {
+      /*要发送的字节长度 大于当前FIFO的空间（64字节）*/
+    SI446x_Interrupt_Status( g_SI4463ItStatus ); 
+      if( g_SI4463ItStatus[ 3 ] & ( 0x01 << 4 ))   
+      {			
+        SI446x_Read_Packet( a_SI4463RxBuffer );		//读接收到的数据
+        if( a_SI4463RxBuffer[0]==1 )
+        {
+                PacketrxData.flag=1;
+        }	
+        if(a_SI4463RxBuffer[0]==0x55)
+        {
+                PacketrxData.flag=1;	
+                temp=0x55;
+        }	
+        if(PacketrxData.flag)
+        {				
+        switch(temp)
+        {         
+                case 0:temp=0;
+                             PacketrxData.dm512_cnt=0;
+                             PacketrxData.protection_flag=1;											 
+                             #ifdef DEBUG_MODE								 
+                             memcpy(g_SI4463RxBuffer+512,a_SI4463RxBuffer,64);
+                             #else
+                             memcpy(g_SI4463RxBuffer,&a_SI4463RxBuffer[2],9);
+                             #endif								 
+                             if(check_crc(a_SI4463RxBuffer, 64)==0)
+                             {
+                              error_cnt++;
+                              temp=0;
+                              PacketrxData.flag=0;									 
+                              memset(g_SI4463RxBuffer,0,512); 
+                             } 								 
+                             PacketrxData.flag=0;
+                             error_cnt=0;
+                             #ifdef DEBUG_MODE	
+                             drv_uart_tx_bytes( g_SI4463RxBuffer,576 );	//串口输出SI4463接收到的数据							
+                             #endif								 
+                             break;	
+                case 0x55:
+                           if(check_crc(a_SI4463RxBuffer, 64)==1)						
+                           {
+                            temp=0;		
+                            PacketrxData.flag=0;
+                            if(a_SI4463RxBuffer[1]==a_SI4463RxBuffer[2])
+                            {
+                                    channel=a_SI4463RxBuffer[1];
+                                    user_write_flash(CHANNLE_MESSAGE_ROM,channel);
+                                    SI446x_Init( );
+                            }
+                           }
+                            break;
+                default:temp=0;
+                        PacketrxData.flag=0;
+                        break;
+                }				
+        }	
+        SI446x_Change_Status( 6 );
+        while( 6 != SI446x_Get_Device_Status( ));
+        SI446x_Start_Rx(0, 0, PACKET_LENGTH,0,0,3);
+      }	
+  }
+}
+#endif
 /**
   * @brief  External Interrupt PORTE Interrupt routine
   * @param  None

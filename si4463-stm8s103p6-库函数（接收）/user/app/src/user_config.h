@@ -8,6 +8,7 @@
 #define RADIO_PACKET_SEND 512
 #define TIME_OVERTIME 499    //0.1mSPER/uint
 //#define DEBUG_MODE
+#define max485
 
 //#define SAFE(x) do{ \
 //	__set_PRIMASK(1); \

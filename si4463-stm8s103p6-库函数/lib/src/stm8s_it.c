@@ -160,7 +160,6 @@ INTERRUPT_HANDLER(EXTI_PORTD_IRQHandler, 6)
   /*PD3口检测IRQ 的中断入口*/
   if ((GPIO_ReadInputData(IRQ_EXTI_PORT) & IRQ_EXTI_PIN) == 0x00)
   {
-      /*要发送的字节长度 大于当前FIFO的空间（64字节）*/
     SI446x_Interrupt_Status( t_SI4463ItStatus ); 
    if((t_SI4463ItStatus[ 3 ] & ( 0x01 << 5))) 
    {
@@ -352,6 +351,8 @@ INTERRUPT_HANDLER(TIM1_CAP_COM_IRQHandler, 12)
   * @param  None
   * @retval None
   */
+
+ #ifndef max485  
 static uint16_t UDR=0;
 static uint16_t RXB8=0;
 static uint16_t pDMX_buf = 0;  //数据指针
@@ -359,7 +360,6 @@ static uint8_t fDMX_buf_right = 0;
 /**********************DMX512****************************************/
 uint8_t uart3_recok=0;				 //校验成功与否标志
 uint8_t DMXSignalFlag = 0; 
-uint8_t RXDData[530]; //接收缓冲区200个数据
  INTERRUPT_HANDLER(UART1_RX_IRQHandler, 18)
 {
   /* In order to detect unexpected events during development,
@@ -395,6 +395,7 @@ uint8_t RXDData[530]; //接收缓冲区200个数据
                        if(pDMX_buf > 510)
                        {
                                       fDMX_buf_right = 0;   //标志清零
+//                                      LED1_Toggle(); 
                                       PacketTxData.DMXSignalFlag = 1; 		//更新调光数据	
                        }
                       
@@ -402,6 +403,69 @@ uint8_t RXDData[530]; //接收缓冲区200个数据
       }
   }
 }
+#else
+static uint8_t UDR=0;
+static uint8_t index=0;
+ INTERRUPT_HANDLER(UART1_RX_IRQHandler, 18)
+{
+  /* In order to detect unexpected events during development,
+     it is recommended to set a breakpoint on the following instruction.
+  */
+  if(UART1_GetITStatus(UART1_IT_RXNE) != RESET)
+  {
+      UART1_ClearITPendingBit(UART1_IT_RXNE);
+      if(UART1->SR & UART1_SR_OR)
+      {
+      UART1->SR &= ~UART2_SR_OR;
+      UART1->SR &= ~UART2_SR_RXNE;
+      UDR  = UART1_ReceiveData8(); 
+      }
+      else
+      {
+        UDR  = UART1_ReceiveData8();
+      }
+ 	if(index == 0 && UDR == 0xff)	//判定帧头0xff
+	{
+		index++;
+		return;
+	}
+	if(index == 1)	//判定帧头0xc2
+	{
+		switch (UDR)
+		{
+			case 0xc2:
+				index++;
+				break;
+			case 0xff:
+				break;
+			default :
+				index= 0;
+				break;
+		}
+		return;
+	}
+	if(index >= 8)	//判定帧尾0xee
+	{
+		switch (UDR)
+		{
+			case 0xee:
+                              PacketTxData.DMXSignalFlag = 1; 		//更新调光数据	
+				index = 0;
+				break;
+			default :
+				index = 0;
+				break;
+		}
+		return;
+	}
+	PacketTxData.buf[index] = UDR;
+	index++;
+    
+  }   
+}
+
+#endif
+
 #endif /*STM8S105 || STM8S001 */
 
 /**

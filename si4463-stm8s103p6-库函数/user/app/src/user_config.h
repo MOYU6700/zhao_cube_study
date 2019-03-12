@@ -5,6 +5,8 @@
 #define RADIO_MAX_PACKET_LENGTH 64
 #define RADIO_ADD_PACKET_LENGTH 48
 #define RADIO_MIN_PACKET_THRESHOLD 10
+#define IWDG_ON
+#define max485
 
 struct PacketTxData
 {

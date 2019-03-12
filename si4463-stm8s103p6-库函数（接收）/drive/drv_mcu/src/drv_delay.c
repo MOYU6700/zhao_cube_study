@@ -37,6 +37,12 @@ static void drv_delay_1ms( void )
 	}
 }
 
+void delay_us_base(uint16_t ncount)
+{
+  for(;ncount!=0;ncount--);
+}
+
+
 /**
   * @brief :MS延时函数
   * @param :
@@ -89,7 +95,7 @@ void TIM1_Config(void)//定时器1初始化
 {
   TIM1_DeInit();
   TIM1_TimeBaseInit(16, TIM1_COUNTERMODE_UP,60000,0);//定时器设置1M的计数频率，1US的分辨率 ,计时60ms
-  TIM1_ARRPreloadConfig(ENABLE );
+//  TIM1_ARRPreloadConfig(ENABLE );
   TIM1_Cmd(ENABLE);
 }
 
