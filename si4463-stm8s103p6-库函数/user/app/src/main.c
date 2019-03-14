@@ -79,6 +79,9 @@ int main( void )
                        set_packages(PacketTxData.buf,512);
 #else
                   /*485 signle*/ 
+                        PacketTxData.buf[0]=0xff;    //步进电机粗调
+                        PacketTxData.buf[1]=0xc2;    //步进电机细调
+                        PacketTxData.buf[8]=0xee;  
                        set_packages(PacketTxData.buf,64);   
 #endif                       
                      }

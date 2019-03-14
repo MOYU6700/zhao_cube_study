@@ -1470,7 +1470,7 @@
             <IarPane-34091>
                 <expressions>
                     <item>PacketTxData</item>
-                    <item></item>
+                    <item />
                 </expressions>
                 <col-names>
                     <item>Expression</item>
